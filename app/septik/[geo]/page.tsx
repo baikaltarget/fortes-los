@@ -18,7 +18,7 @@ export function generateMetadata({ params }: { params: { geo: string } }) {
   const g = getGeo(params.geo); if (!g) return {};
   return meta({
     title: `Септик под ключ ${g.prep} — установка, цена с монтажом | Фортес`,
-    description: `Септик без откачки и автономная канализация ${g.prep}: Novo Eko, Zörde, Kolo Vesi под ключ от ${rub(turnkeyFrom(topPicks[0]))}. Грунт: ${g.soil}. Выезд инженера бесплатно, монтаж 1–2 дня, рассрочка 0-0-24.`,
+    description: `Септик без откачки и автономная канализация ${g.prep}: Novo Eko, Zörde, Kolo Vesi под ключ от ${rub(turnkeyFrom(topPicks[0]))}. Грунт: ${g.soil}. Выезд инженера бесплатно, монтаж 1–2 дня, рассрочка и кредит через банки.`,
     path: `/septik/${g.slug}/`,
   });
 }

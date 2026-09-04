@@ -73,11 +73,17 @@ function ServicePage({ slug }: { slug: string }) {
               {priceFrom && <span className="text-[15px] text-muted">от {rub(priceFrom)}</span>}
             </div>
           </div>
-          <div className="grid gap-3">
-            {[["1–2 дня", "монтаж на участке"], ["25 лет", "гарантия на корпус"], ["0-0-24", "рассрочка без переплаты"], ["бесплатно", "выезд инженера"]].map(([a, b]) => (
-              <div key={a} className="card px-5 py-4 flex items-baseline gap-3"><span className="text-2xl font-extrabold tracking-tight">{a}</span><span className="text-muted text-[15px]">{b}</span></div>
-            ))}
-          </div>
+          {svc.heroImage ? (
+            <div className="card p-3 md:p-4">
+              <img src={svc.heroImage} alt={svc.heroImageAlt || s.h1} className="w-full h-auto rounded-card" width="1254" height="1254" fetchPriority="high" />
+            </div>
+          ) : (
+            <div className="grid gap-3">
+              {[["1–2 дня", "монтаж на участке"], ["25 лет", "гарантия на корпус"], ["банки РФ", "рассрочка и кредит"], ["бесплатно", "выезд инженера"]].map(([a, b]) => (
+                <div key={a} className="card px-5 py-4 flex items-baseline gap-3"><span className="text-2xl font-extrabold tracking-tight">{a}</span><span className="text-muted text-[15px]">{b}</span></div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -90,6 +96,7 @@ function ServicePage({ slug }: { slug: string }) {
             {svc.kessons.map((k) => (
               <div key={k.name} className="card p-6 relative shadow-card">
                 {k.hit && <span className="absolute top-4 right-4 rounded-btn bg-brand text-white text-[12px] font-bold px-2.5 py-1">Хит</span>}
+                {k.image && <img src={k.image} alt={k.name} className="w-full aspect-square object-contain rounded-card bg-page mb-4" width="800" height="800" loading="lazy" />}
                 <h3>{k.name}</h3>
                 <div className="text-muted text-[15px] mt-1">{k.d}</div>
                 <p className="mt-3 text-[15px] text-ink/80">{k.note}</p>
@@ -130,16 +137,6 @@ function ServicePage({ slug }: { slug: string }) {
           <div key={sec.h2}><h2>{sec.h2}</h2>{sec.p.map((t, i) => <p key={i}>{t}</p>)}</div>
         ))}
       </div></section>
-
-      {slug === "septik-v-rassrochku" && (
-        <section className="py-6"><div className="container-site">
-          <Draft note="пример платежа — согласовать с банком"><div className="card p-6 md:p-8 grid gap-4 sm:grid-cols-3">
-            {[["Novo Eko 3 под ключ", 204900], ["Zörde 4 под ключ", 219900], ["Novo Eko 5 под ключ", 233900]].map(([n, p]) => (
-              <div key={n as string}><div className="text-[14px] text-muted">{n}</div><div className="text-2xl font-extrabold tracking-tight">{rub(Math.round((p as number) / 24))} / мес</div><div className="text-[13px] text-muted">24 месяца, 0% переплаты</div></div>
-            ))}
-          </div></Draft>
-        </div></section>
-      )}
 
       {slug === "septik-dlya-chastnogo-doma" && (
         <section className="py-12 md:py-16"><div className="container-site"><h2 className="mb-6">Подберите станцию за минуту</h2><Calculator /></div></section>

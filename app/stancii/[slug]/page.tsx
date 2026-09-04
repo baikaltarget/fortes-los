@@ -52,13 +52,18 @@ export default function Page({ params }: { params: { slug: string } }) {
             </div>
             <div className="mt-6 flex flex-wrap gap-2">
               <a href="#lead" className="btn-primary">Рассчитать под ключ</a>
-              <Link href="/septik-v-rassrochku/" className="btn-outline">В рассрочку 0-0-24</Link>
+              <Link href="/septik-v-rassrochku/" className="btn-outline">В рассрочку или кредит</Link>
             </div>
           </div>
           <div className="card p-4 md:p-6">
-            <Draft note="заменить схему на фото станции с завода">
-              <StationScheme chambers={chambers} label={p.shortName} className="w-full h-auto" />
-            </Draft>
+            {p.image.endsWith(".webp") ? (
+              <img src={p.image} alt={`Станция ${p.name}`} className="w-full aspect-square object-contain rounded-card bg-page" width="800" height="800" fetchPriority="high" />
+            ) : (
+              <Draft note="заменить схему на фото станции с завода">
+                <StationScheme chambers={chambers} label={p.shortName} className="w-full h-auto" />
+              </Draft>
+            )}
+            {p.image.endsWith(".webp") && <details className="mt-3"><summary className="cursor-pointer text-[14px] text-brand underline">Схема работы станции</summary><StationScheme chambers={chambers} label={p.shortName} className="w-full h-auto mt-2" /></details>}
             <p className="text-[13px] text-muted mt-2">Схема работы: приёмная камера → аэротенк с биофильтром → отстойник → отвод чистой воды. Блок управления — снаружи.</p>
           </div>
         </div>

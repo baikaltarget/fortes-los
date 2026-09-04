@@ -3,7 +3,8 @@ import { company, services, geo, brands } from "@/lib/content";
 import Draft from "./Draft";
 
 export default function Footer() {
-  const svc = services.slice(0, 12);
+  const order = ["septik-dlya-chastnogo-doma", "septik-bez-otkachki", "kanalizaciya-v-chastnom-dome", "avtonomnaya-kanalizaciya", "septik-dlya-dachi", "kesson-dlya-skvazhiny", "septik-iz-betonnyh-kolec", "septik-dlya-zimy", "montazh-septika", "obsluzhivanie-septika", "zamena-vygrebnoj-yamy", "septik-v-rassrochku", "kanalizaciya-dlya-poselka"];
+  const svc = order.map((o) => services.find((x) => x.slug === o)!).filter(Boolean);
   return (
     <footer className="mt-16 md:mt-24 bg-ink text-white/85 pb-24 md:pb-0">
       <div className="container-site py-12 md:py-16 grid gap-10 md:grid-cols-4 text-[14px]">

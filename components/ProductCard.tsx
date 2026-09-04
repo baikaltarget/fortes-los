@@ -10,7 +10,11 @@ export default function ProductCard({ p, compact = false }: { p: Product; compac
         <span className="absolute top-4 right-4 rounded-btn bg-brand text-white text-[12px] font-bold px-2.5 py-1">{p.hitLabel || "Хит"}</span>
       )}
       <Link href={`/stancii/${p.slug}/`} className="block -mx-2 -mt-2">
-        <StationScheme chambers={chambers} compact label={p.shortName} className="w-full h-auto" />
+        {p.image.endsWith(".webp") ? (
+          <img src={p.image} alt={`Станция ${p.name}`} className="w-full aspect-square object-contain rounded-card bg-page" width="800" height="800" loading="lazy" />
+        ) : (
+          <StationScheme chambers={chambers} compact label={p.shortName} className="w-full h-auto" />
+        )}
       </Link>
       <h3 className="mt-2">
         <Link href={`/stancii/${p.slug}/`} className="hover:text-brand">{p.name}</Link>

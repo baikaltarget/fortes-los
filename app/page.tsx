@@ -55,6 +55,28 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ДРУГИЕ РЕШЕНИЯ: кессоны, ёмкости, Дача, посёлки */}
+      <section className="py-6">
+        <div className="container-site">
+          <h2 className="mb-2">Не только станции</h2>
+          <p className="text-muted max-w-[70ch] mb-6">Кессоны для скважин, очистные для посёлков и турбаз, сервис и замена старых выгребных ям — тоже наша работа.</p>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { h: "/kesson-dlya-skvazhiny/", t: "Кессон для скважины", p: "от 66 500 ₽", d: "Пластиковые СОЮЗ, СОЮЗ-М, СОЮЗ-ПРО. Герметичны, не выдавливаются грунтом." },
+              { h: "/obsluzhivanie-septika/", t: "Обслуживание станций", p: "от 6 000 ₽", d: "Откачка ила, промывка фильтров, проверка компрессора — раз в 1–2 года." },
+              { h: "/zamena-vygrebnoj-yamy/", t: "Замена выгребной ямы", p: "окупаемость 2,5 года", d: "Считаем на реальном объекте: 140 000 ₽ в год на откачку против станции." },
+              { h: "/kanalizaciya-dlya-poselka/", t: "ЛОС для посёлка и турбазы", p: "от 778 900 ₽", d: "Kolo Ilma 30/50/75 на 6–15 м³ в сутки, проект и монтаж." },
+            ].map((c) => (
+              <Link key={c.h} href={c.h} className="card p-5 md:p-6 block hover:shadow-card h-full">
+                <h3 className="text-[18px]">{c.t}</h3>
+                <div className="text-brand font-extrabold tracking-tight mt-1">{c.p}</div>
+                <p className="mt-2 text-[14px] text-ink/75 leading-relaxed">{c.d}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <Reasons />
 
       {/* ЗИМА — сибирский аргумент */}

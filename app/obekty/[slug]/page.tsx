@@ -41,7 +41,14 @@ export default function Page({ params }: { params: { slug: string } }) {
               </div>
             </div>
             <div className="grid gap-4">
-              <Draft note="заменить на живые фото объекта"><img src={o.images[0]} alt={`${o.title}, ${o.place}`} className="card w-full max-w-full aspect-[16/10] object-cover" width="800" height="500" /></Draft>
+              <Draft on={o.images[0].endsWith(".svg")} note="заменить на живые фото объекта">
+                <img src={o.images[0]} alt={`${o.title}, ${o.place}`} className="card w-full max-w-full aspect-[16/10] object-cover" width="960" height="600" />
+                {o.images.length > 1 && (
+                  <div className="grid grid-cols-2 gap-3 mt-3">
+                    {o.images.slice(1).map((src, i) => <img key={src} src={src} alt={`${o.title}, фото ${i + 2}`} className="card w-full aspect-[16/10] object-cover" width="960" height="600" loading="lazy" />)}
+                  </div>
+                )}
+              </Draft>
               <Draft on={o.estimateDraft} note="смета — проверить позиции"><div className="card p-6">
                 <h3>Смета</h3>
                 <table className="w-full mt-3 text-[15px]">
