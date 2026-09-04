@@ -13,7 +13,7 @@ export type Section = { h2: string; p: string[] };
 export type Extra = { name: string; d: string; price: number; priceLabel?: string; note: string; hit?: boolean; image?: string };
 export type Service = {
   slug: string; name: string; title: string; description: string; h1: string; lead: string; products: string[]; sections: Section[]; faq: Faq[];
-  heroImage?: string; heroImageAlt?: string; kessons?: Extra[]; servicePrices?: { name: string; price: string; draft?: boolean }[]; koloIlma?: { priceFrom: number; capacity: string; life: string; service: string };
+  heroImage?: string; heroImageAlt?: string; heroImageFit?: string; chips?: string[]; kessons?: Extra[]; servicePrices?: { name: string; price: string; draft?: boolean }[]; koloIlma?: { priceFrom: number; capacity: string; life: string; service: string };
 };
 export type Geo = { slug: string; name: string; prep: string; distance: string; soil: string; note: string };
 export type SiteObject = {

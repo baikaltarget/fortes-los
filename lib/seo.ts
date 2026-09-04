@@ -7,7 +7,7 @@ export function meta(o: { title: string; description: string; path: string; type
     title: o.title,
     description: o.description,
     alternates: { canonical: url },
-    openGraph: { title: o.title, description: o.description, url, siteName: company.name, locale: "ru_RU", type: o.type || "website" },
+    openGraph: { title: o.title, description: o.description, url, siteName: company.name, locale: "ru_RU", type: o.type || "website", images: [{ url: `${SITE_URL}/img/og.jpg`, width: 1200, height: 630 }] },
     robots: { index: true, follow: true },
   };
 }

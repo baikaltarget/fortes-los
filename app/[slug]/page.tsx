@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { brands, services, getBrand, getService, productsByBrand, getProduct, rub, objects, turnkeyFrom } from "@/lib/content";
+import { SITE, brands, services, getBrand, getService, productsByBrand, getProduct, rub, objects, turnkeyFrom } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProductCard from "@/components/ProductCard";
 import ProductGrid from "@/components/ProductGrid";
@@ -63,19 +63,24 @@ function ServicePage({ slug }: { slug: string }) {
       <JsonLd data={ldService({ name: s.name, description: s.description, path: `/${s.slug}/`, priceFrom })} />
       <div className="container-site">
         <Breadcrumbs items={[{ name: s.name, href: `/${s.slug}/` }]} />
-        <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-start">
-          <div className="card p-6 md:p-10 shadow-card">
+        <div className={`grid gap-5 lg:grid-cols-[1.2fr_1fr] ${svc.heroImage ? "items-stretch" : "items-start"}`}>
+          <div className="card p-6 md:p-10 shadow-card flex flex-col">
             <h1>{s.h1}</h1>
             <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[58ch]">{s.lead}</p>
-            <div className="mt-8 flex flex-wrap gap-3 items-center">
+            {svc.heroImage && (
+              <div className="mt-5 flex flex-wrap gap-2">
+                {(svc.chips || SITE.home.chips).map((c) => <span key={c} className="chip">{c}</span>)}
+              </div>
+            )}
+            <div className="mt-auto pt-8 flex flex-wrap gap-3 items-center">
               <a href="#lead" className="btn-primary">Записаться на замер</a>
               <Link href="/kalkulyator/" className="btn-outline">Подобрать станцию</Link>
               {priceFrom && <span className="text-[15px] text-muted">{svc.kessons || svc.koloIlma ? "от" : "под ключ от"} {rub(priceFrom)}</span>}
             </div>
           </div>
           {svc.heroImage ? (
-            <div className="card p-3 md:p-4">
-              <img src={svc.heroImage} alt={svc.heroImageAlt || s.h1} className="w-full h-auto rounded-card" width="1254" height="1254" fetchPriority="high" />
+            <div className="card p-3 md:p-4 flex">
+              <img src={svc.heroImage} alt={svc.heroImageAlt || s.h1} className={`w-full h-full rounded-card ${svc.heroImageFit === "contain" ? "object-contain bg-page" : "object-cover"}`} width="1254" height="1254" fetchPriority="high" />
             </div>
           ) : (
             <div className="grid gap-3">

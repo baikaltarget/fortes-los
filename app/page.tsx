@@ -22,11 +22,11 @@ export default function Home() {
         <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">
           <div className="card p-6 md:p-10 shadow-card">
             <h1>{SITE.home.h1}</h1>
-            <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[58ch]">{SITE.home.lead}</p>
-            <div className="mt-6 flex flex-wrap gap-2">
+            <p className="mt-4 text-[17px] leading-relaxed text-ink/85 max-w-[58ch]">{SITE.home.lead}</p>
+            <div className="mt-5 flex flex-wrap gap-2">
               {SITE.home.chips.map((c) => <span key={c} className="chip">{c}</span>)}
             </div>
-            <div className="mt-8 flex flex-wrap gap-3 items-center">
+            <div className="mt-6 flex flex-wrap gap-3 items-center">
               <a href="#lead" className="btn-primary">Записаться на замер</a>
               <Link href="/kalkulyator/" className="btn-outline">Подобрать станцию</Link>
               <span className="text-[15px] text-muted">Под ключ от {rub(SITE.home.heroPriceFrom)}</span>
