@@ -4,13 +4,13 @@ export type Faq = { q: string; a: string };
 export type Variant = { name: string; price: number; note: string };
 export type Product = {
   slug: string; brand: string; name: string; shortName: string; users: string; usersMin: number; usersMax: number;
-  capacity: string; salvo: string; price: number; priceMidi: number; priceLong: number; installFrom: number; installFromDraft?: boolean;
+  capacity: string; salvo: string; price: number; priceMidi: number; priceLong: number; installFrom: number; installFromDraft?: boolean; turnkeyFrom?: number; turnkeyDraft?: boolean;
   power: string; service: string; life: string; bestFor: string; hit: boolean; hitLabel?: string; summary: string; body: string[];
   specs: string[][]; variants: Variant[]; image: string; manufacturerUrl: string; manufacturerImg?: string; faq: Faq[];
 };
 export type Brand = { slug: string; name: string; title: string; description: string; h1: string; intro: string; points: string[] };
 export type Section = { h2: string; p: string[] };
-export type Extra = { name: string; d: string; price: number; note: string; hit?: boolean; image?: string };
+export type Extra = { name: string; d: string; price: number; priceLabel?: string; note: string; hit?: boolean; image?: string };
 export type Service = {
   slug: string; name: string; title: string; description: string; h1: string; lead: string; products: string[]; sections: Section[]; faq: Faq[];
   heroImage?: string; heroImageAlt?: string; kessons?: Extra[]; servicePrices?: { name: string; price: string; draft?: boolean }[]; koloIlma?: { priceFrom: number; capacity: string; life: string; service: string };
@@ -45,4 +45,4 @@ export const productsByBrand = (brand: string) => products.filter((p) => p.brand
 export const rub = (n: number) => new Intl.NumberFormat("ru-RU").format(n) + " ₽";
 
 /** Минимальная цена «под ключ» = станция + монтаж */
-export const turnkeyFrom = (p: Product) => p.price + p.installFrom;
+export const turnkeyFrom = (p: Product) => p.turnkeyFrom ?? p.price + p.installFrom;

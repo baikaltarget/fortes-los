@@ -39,7 +39,7 @@ export const ldLocalBusiness = () => ({
   priceRange: "₽₽",
   address: { "@type": "PostalAddress", streetAddress: company.addresses[0].street, addressLocality: "Иркутск", addressRegion: "Иркутская область", postalCode: company.addresses[0].postal, addressCountry: "RU" },
   geo: { "@type": "GeoCoordinates", latitude: company.addresses[0].lat, longitude: company.addresses[0].lng },
-  openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], opens: "09:30", closes: "19:00" }],
+  openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" }],
   areaServed: company.serviceArea.map((a) => ({ "@type": "Place", name: a })),
 });
 
