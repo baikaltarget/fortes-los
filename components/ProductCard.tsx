@@ -26,9 +26,8 @@ export default function ProductCard({ p, compact = false }: { p: Product; compac
         <dt className="text-muted">Залповый сброс</dt><dd className="font-medium">{p.salvo}</dd>
       </dl>
       <div className="mt-auto pt-5">
-        <div className="text-[13px] text-muted">Станция</div>
-        <div className="text-2xl font-extrabold tracking-tight">{rub(p.price)}</div>
-        <div className="text-[13px] text-muted">под ключ от {rub(turnkeyFrom(p))}</div>
+        <div className="text-[13px] text-muted">Под ключ с монтажом</div>
+        <div className="text-2xl font-extrabold tracking-tight">от {rub(turnkeyFrom(p))}</div>
         <div className="mt-4 flex gap-2">
           <Link href={`/stancii/${p.slug}/`} className="btn-primary flex-1">Подробнее</Link>
           <a href="#lead" className="btn-outline">Расчёт</a>

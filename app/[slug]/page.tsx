@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { brands, services, getBrand, getService, productsByBrand, getProduct, rub, objects } from "@/lib/content";
+import { brands, services, getBrand, getService, productsByBrand, getProduct, rub, objects, turnkeyFrom } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProductCard from "@/components/ProductCard";
 import ProductGrid from "@/components/ProductGrid";
@@ -32,7 +32,7 @@ function BrandPage({ slug }: { slug: string }) {
   const list = productsByBrand(b.slug);
   return (
     <>
-      <JsonLd data={ldService({ name: `${b.name} в Иркутске`, description: b.description, path: `/${b.slug}/`, priceFrom: list[0]?.price })} />
+      <JsonLd data={ldService({ name: `${b.name} в Иркутске`, description: b.description, path: `/${b.slug}/`, priceFrom: list[0] ? turnkeyFrom(list[0]) : undefined })} />
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Станции", href: "/stancii/" }, { name: b.name, href: `/${b.slug}/` }]} />
         <h1>{b.h1}</h1>
@@ -56,7 +56,7 @@ function ServicePage({ slug }: { slug: string }) {
   const s = getService(slug)!;
   const svc = s;
   const first = s.products?.[0] ? getProduct(s.products[0]) : undefined;
-  const priceFrom = svc.kessons?.[0]?.price ?? svc.koloIlma?.priceFrom ?? (first ? first.price : undefined);
+  const priceFrom = svc.koloIlma ? undefined : svc.kessons?.[0]?.price ?? (first ? turnkeyFrom(first) : undefined);
   const relatedObjects = objects.filter((o) => s.products?.includes(o.product)).slice(0, 2);
   return (
     <>
@@ -70,7 +70,7 @@ function ServicePage({ slug }: { slug: string }) {
             <div className="mt-8 flex flex-wrap gap-3 items-center">
               <a href="#lead" className="btn-primary">Записаться на замер</a>
               <Link href="/kalkulyator/" className="btn-outline">Подобрать станцию</Link>
-              {priceFrom && <span className="text-[15px] text-muted">от {rub(priceFrom)}</span>}
+              {priceFrom && <span className="text-[15px] text-muted">{svc.kessons || svc.koloIlma ? "от" : "под ключ от"} {rub(priceFrom)}</span>}
             </div>
           </div>
           {svc.heroImage ? (
@@ -100,12 +100,12 @@ function ServicePage({ slug }: { slug: string }) {
                 <h3>{k.name}</h3>
                 <div className="text-muted text-[15px] mt-1">{k.d}</div>
                 <p className="mt-3 text-[15px] text-ink/80">{k.note}</p>
-                <div className="mt-4 text-2xl font-extrabold tracking-tight">{rub(k.price)}</div>
-                <a href="#lead" className="btn-primary mt-4 w-full">Рассчитать с монтажом</a>
+                <div className="mt-4 text-2xl font-extrabold tracking-tight">{k.priceLabel || rub(k.price)}</div>
+                <a href="#lead" className="btn-primary mt-4 w-full">{k.priceLabel ? "Запросить цену" : "Рассчитать с монтажом"}</a>
               </div>
             ))}
           </div>
-          <p className="text-[14px] text-muted mt-4">Рекомендованные розничные цены завода «Экомир». Монтаж — по смете.</p>
+          {!svc.koloIlma && <p className="text-[14px] text-muted mt-4">Рекомендованные розничные цены завода «Экомир». Монтаж — по смете.</p>}
         </div></section>
       )}
 
@@ -113,7 +113,7 @@ function ServicePage({ slug }: { slug: string }) {
         <section className="py-12 md:py-16"><div className="container-site card p-6 md:p-8">
           <h2>Kolo Ilma 75–500</h2>
           <dl className="mt-4 grid gap-4 sm:grid-cols-4 text-[15px]">
-            <div><dt className="text-muted">Цена станции</dt><dd className="text-xl font-extrabold">от {rub(svc.koloIlma.priceFrom)}</dd></div>
+            <div><dt className="text-muted">Цена</dt><dd className="text-xl font-extrabold">по запросу</dd></div>
             <div><dt className="text-muted">Производительность</dt><dd className="text-xl font-extrabold">{svc.koloIlma.capacity}</dd></div>
             <div><dt className="text-muted">Срок службы</dt><dd className="text-xl font-extrabold">{svc.koloIlma.life}</dd></div>
             <div><dt className="text-muted">Сервис</dt><dd className="text-xl font-extrabold">{svc.koloIlma.service}</dd></div>

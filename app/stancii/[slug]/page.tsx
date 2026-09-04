@@ -18,8 +18,8 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   const p = getProduct(params.slug); if (!p) return {};
   const b = getBrand(p.brand)!;
   return meta({
-    title: `${p.name} — купить в Иркутске, цена ${rub(p.price)}, установка под ключ`,
-    description: `${p.name}: станция биологической очистки на ${p.users}, ${p.capacity}, залповый сброс ${p.salvo}. Цена завода ${rub(p.price)}, под ключ от ${rub(turnkeyFrom(p))}. Официальный дилер ${b.name} в Иркутске, монтаж 1–2 дня.`,
+    title: `${p.name} — купить в Иркутске, под ключ от ${rub(turnkeyFrom(p))}`,
+    description: `${p.name}: станция биологической очистки на ${p.users}, ${p.capacity}, залповый сброс ${p.salvo}. Под ключ с доставкой и монтажом от ${rub(turnkeyFrom(p))}. Официальный дилер ${b.name} в Иркутске, монтаж 1–2 дня.`,
     path: `/stancii/${p.slug}/`,
   });
 }
@@ -32,7 +32,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   const chambers = p.brand === "kolo-vesi" ? 5 : 3;
   return (
     <>
-      <JsonLd data={ldProduct({ name: p.name, description: p.summary, path: `/stancii/${p.slug}/`, price: p.price, brand: b.name, image: p.image })} />
+      <JsonLd data={ldProduct({ name: `${p.name} под ключ`, description: p.summary, path: `/stancii/${p.slug}/`, price: turnkeyFrom(p), brand: b.name, image: p.image })} />
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Станции", href: "/stancii/" }, { name: b.name, href: `/${b.slug}/` }, { name: p.name, href: `/stancii/${p.slug}/` }]} />
         <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
@@ -47,8 +47,7 @@ export default function Page({ params }: { params: { slug: string } }) {
               <dt className="text-muted">Обслуживание</dt><dd className="font-bold">{p.service}</dd>
             </dl>
             <div className="mt-6 flex flex-wrap items-end gap-x-6 gap-y-2">
-              <div><div className="text-[13px] text-muted">Станция, цена завода</div><div className="text-3xl font-extrabold tracking-tight">{rub(p.price)}</div></div>
-              <Draft on={p.installFromDraft} note="монтаж от — уточнить" className="mt-3"><div><div className="text-[13px] text-muted">Под ключ</div><div className="text-2xl font-bold tracking-tight">от {rub(turnkeyFrom(p))}</div></div></Draft>
+              <Draft on={p.turnkeyDraft} note="цена под ключ — уточнить" className="mt-3"><div><div className="text-[13px] text-muted">Под ключ с доставкой и монтажом</div><div className="text-3xl font-extrabold tracking-tight">от {rub(turnkeyFrom(p))}</div></div></Draft>
             </div>
             <div className="mt-6 flex flex-wrap gap-2">
               <a href="#lead" className="btn-primary">Рассчитать под ключ</a>
@@ -73,12 +72,12 @@ export default function Page({ params }: { params: { slug: string } }) {
         <div className="prose-site">
           <h2>Что это за станция</h2>
           {p.body.map((t, i) => <p key={i}>{t}</p>)}
-          <h2>Комплектации и цены</h2>
+          <h2>Комплектации</h2>
           <table>
-            <thead><tr><th>Модель</th><th>Цена завода</th><th>Когда нужна</th></tr></thead>
-            <tbody>{p.variants.map((v) => <tr key={v.name}><td className="font-medium">{v.name}</td><td className="whitespace-nowrap">{rub(v.price)}</td><td>{v.note}</td></tr>)}</tbody>
+            <thead><tr><th>Модель</th><th>Когда нужна</th></tr></thead>
+            <tbody>{p.variants.map((v) => <tr key={v.name}><td className="font-medium">{v.name}</td><td>{v.note || "—"}</td></tr>)}</tbody>
           </table>
-          <p className="text-[14px] text-muted">Цены рекомендованные заводом-производителем, действуют у официального дилера. Монтаж — по смете после бесплатного замера.</p>
+          <p className="text-[14px] text-muted">Под ключ — от {rub(turnkeyFrom(p))}: станция, доставка в Иркутск, котлован, монтаж, засыпка, труба от дома, электрика и отвод воды. Midi и Long дороже базовой комплектации; точную смету считаем после бесплатного замера.</p>
         </div>
         <aside>
           <div className="card p-6">

@@ -57,16 +57,18 @@ export default function Calculator() {
     if (depth === "long") { station = p.priceLong; variant = p.name + " Long"; }
     else if (depth === "midi") { station = p.priceMidi; variant = p.name + " Midi"; }
     lines.push([`Станция ${variant}`, station]);
-    let install = p.installFrom;
+    const base = (p.turnkeyFrom ?? p.price + p.installFrom) - p.price;
+    let install = base - 32000 - 15000 - 30000; // доставка, труба до 10 м и дренаж выделены отдельными строками
     if (soil === "clay") install += X.clay;
     if (soil === "rock") install += X.clay * 2;
     if (depth === "long") install += X.long;
     if (depth === "midi") install += X.midi;
-    lines.push(["Монтаж, котлован, засыпка", install]);
-    const pipe = Math.max(5, dist) * X.distanceStep + 3000;
+    lines.push(["Доставка до участка", 32000]);
+    lines.push(["Монтаж: котлован, подушка, засыпка", install]);
+    const pipe = 15000 + Math.max(0, dist - 10) * X.distanceStep;
     lines.push([`Труба от дома ~${dist} м, кабель`, pipe]);
     const prinud = soil === "clay" || soil === "rock";
-    lines.push([prinud ? "Принудительный отвод (насос)" : "Дренажный колодец", prinud ? X.prinud : 14000]);
+    lines.push([prinud ? "Принудительный отвод (насос)" : "Дренажный колодец", prinud ? X.prinud : 30000]);
     const total = lines.reduce((s, l) => s + l[1], 0);
     return { p, variant, lines, total, prinud };
   }, [people, mode, soil, depth, dist, service]);

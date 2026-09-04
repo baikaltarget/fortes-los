@@ -23,7 +23,7 @@ export default function Page() {
             <p>{company.legalName}<br />ИНН {company.inn}, ОГРН {company.ogrn}<br />{company.addresses.map((a) => `${a.city}, ${a.street}`).join(" · ")}</p>
           </div>
           <div className="grid gap-4 content-start">
-            {[[String(company.foundedYear), "год основания"], [company.objectsDone, "выполненных объектов"], ["6", "способов оплаты"], ["2", "офиса в Иркутске"]].map(([a, b]) => (
+            {[[String(company.foundedYear), "год основания"], [company.objectsDone, "выполненных объектов"], ["6", "способов оплаты"], ["1", "офис в Иркутске"]].map(([a, b]) => (
               <div key={b} className="card p-6"><div className="text-4xl font-extrabold tracking-tight">{a}</div><div className="text-muted">{b}</div></div>
             ))}
             <Draft note="сертификаты дилера — загрузить сканы в public/img/certs"><div className="card p-6"><h3>Сертификаты дилера</h3><p className="mt-2 text-[15px] text-muted">Сертификаты Kolo Vesi и Экомир, дипломы обучения монтажников.</p></div></Draft>

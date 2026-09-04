@@ -29,7 +29,7 @@ export default function Home() {
             <div className="mt-8 flex flex-wrap gap-3 items-center">
               <a href="#lead" className="btn-primary">Записаться на замер</a>
               <Link href="/kalkulyator/" className="btn-outline">Подобрать станцию</Link>
-              <span className="text-[15px] text-muted">Станции от {rub(SITE.home.heroPriceFrom)}</span>
+              <span className="text-[15px] text-muted">Под ключ от {rub(SITE.home.heroPriceFrom)}</span>
             </div>
           </div>
           <div className="card p-4 md:p-6 flex flex-col">
@@ -63,9 +63,9 @@ export default function Home() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { h: "/kesson-dlya-skvazhiny/", t: "Кессон для скважины", p: "от 66 500 ₽", d: "Пластиковые СОЮЗ, СОЮЗ-М, СОЮЗ-ПРО. Герметичны, не выдавливаются грунтом." },
-              { h: "/obsluzhivanie-septika/", t: "Обслуживание станций", p: "от 6 000 ₽", d: "Откачка ила, промывка фильтров, проверка компрессора — раз в 1–2 года." },
-              { h: "/zamena-vygrebnoj-yamy/", t: "Замена выгребной ямы", p: "окупаемость 2,5 года", d: "Считаем на реальном объекте: 140 000 ₽ в год на откачку против станции." },
-              { h: "/kanalizaciya-dlya-poselka/", t: "ЛОС для посёлка и турбазы", p: "от 778 900 ₽", d: "Kolo Ilma 30/50/75 на 6–15 м³ в сутки, проект и монтаж." },
+              { h: "/obsluzhivanie-septika/", t: "Обслуживание станций", p: "от 10 000 ₽", d: "Откачка ила, промывка фильтров, проверка компрессора — раз в 1–2 года." },
+              { h: "/zamena-vygrebnoj-yamy/", t: "Замена выгребной ямы", p: "окупаемость 3 года", d: "Считаем на реальном объекте: 140 000 ₽ в год на откачку против станции." },
+              { h: "/kanalizaciya-dlya-poselka/", t: "ЛОС для посёлка и турбазы", p: "цена по запросу", d: "Kolo Ilma 30/50/75 на 6–15 м³ в сутки, проект и монтаж." },
             ].map((c) => (
               <Link key={c.h} href={c.h} className="card p-5 md:p-6 block hover:shadow-card h-full">
                 <h3 className="text-[18px]">{c.t}</h3>
