@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { meta } from "@/lib/seo";
 import { SITE, company, topPicks, objects, rub } from "@/lib/content";
-import StationScheme from "@/components/StationScheme";
 import ProductCard from "@/components/ProductCard";
 import Reasons from "@/components/Reasons";
 import Steps from "@/components/Steps";
@@ -34,7 +33,7 @@ export default function Home() {
             </div>
           </div>
           <div className="card p-4 md:p-6 flex flex-col">
-            <StationScheme chambers={3} className="w-full h-auto" />
+            <img src="/img/hero.webp" alt="Станция Kolo Vesi в котловане перед засыпкой на участке в Иркутском районе" className="w-full h-auto rounded-card" width="1254" height="1254" fetchPriority="high" />
             <div className="grid grid-cols-3 gap-2 mt-2 text-center">
               <div className="rounded-btn bg-page p-3"><div className="text-2xl font-extrabold tracking-tight">98%</div><div className="text-[12px] text-muted">очистка стоков</div></div>
               <div className="rounded-btn bg-page p-3"><div className="text-2xl font-extrabold tracking-tight">1–2</div><div className="text-[12px] text-muted">дня монтаж</div></div>
