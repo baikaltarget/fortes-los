@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ДИЗАЙН-ТОКЕНЫ. Контент здесь не живёт. */
+@font-face { font-family: "Inter Tight"; font-weight: 400; font-display: swap; src: url("/fonts/inter-tight-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family: "Inter Tight"; font-weight: 500; font-display: swap; src: url("/fonts/inter-tight-cyrillic-500-normal.woff2") format("woff2"); unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family: "Inter Tight"; font-weight: 700; font-display: swap; src: url("/fonts/inter-tight-cyrillic-700-normal.woff2") format("woff2"); unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family: "Inter Tight"; font-weight: 800; font-display: swap; src: url("/fonts/inter-tight-cyrillic-800-normal.woff2") format("woff2"); unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family: "Inter Tight"; font-weight: 400; font-display: swap; src: url("/fonts/inter-tight-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter Tight"; font-weight: 500; font-display: swap; src: url("/fonts/inter-tight-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter Tight"; font-weight: 700; font-display: swap; src: url("/fonts/inter-tight-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter Tight"; font-weight: 800; font-display: swap; src: url("/fonts/inter-tight-latin-800-normal.woff2") format("woff2"); }
+
+:root {
+  --ink: #24262f;
+  --brand: #d90406;
+  --page: #f8f8f8;
+  --r-card: 20px;
+  --r-btn: 10px;
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+
+body { @apply bg-page text-ink font-sans antialiased; font-size: 17px; line-height: 1.5; }
+
+/* типографика */
+h1 { @apply font-extrabold tracking-tight; font-size: clamp(2rem, 4.2vw, 3.25rem); line-height: 1.05; letter-spacing: -0.025em; }
+h2 { @apply font-bold tracking-tight; font-size: clamp(1.6rem, 2.8vw, 2.4rem); line-height: 1.12; letter-spacing: -0.02em; }
+h3 { @apply font-bold; font-size: 1.25rem; line-height: 1.25; }
+.prose-site p { @apply text-[17px] leading-relaxed text-ink/90 mb-4 max-w-[72ch]; }
+.prose-site h2 { @apply mt-10 mb-4; }
+.prose-site h3 { @apply mt-8 mb-3; }
+.prose-site ul, .prose-site ol { @apply mb-4 pl-5 max-w-[72ch]; }
+.prose-site ul { list-style: disc; } .prose-site ol { list-style: decimal; }
+.prose-site li { @apply mb-1.5 leading-relaxed; }
+.prose-site a { @apply text-brand underline underline-offset-2; }
+.prose-site strong { @apply font-bold; }
+.prose-site table { @apply w-full text-[15px] my-6 border-collapse; }
+.prose-site th, .prose-site td { @apply text-left py-2 pr-4 border-b border-line align-top; }
+.prose-site blockquote { @apply border-l-4 border-brand pl-4 my-6 text-ink/80; }
+
+/* компоненты */
+@layer components {
+.container-site { @apply mx-auto max-w-site px-4 md:px-6; }
+.card { @apply bg-card rounded-card; }
+.btn { @apply inline-flex items-center justify-center gap-2 rounded-btn px-5 h-12 text-[15px] font-bold transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand/30; }
+.btn-primary { @apply btn bg-brand text-white hover:bg-brandDark; }
+.btn-outline { @apply btn border-2 border-ink text-ink hover:bg-ink hover:text-white; }
+.btn-ghost { @apply btn text-ink hover:bg-ink/5; }
+.chip { @apply inline-flex items-center gap-2 rounded-btn bg-card border border-line px-3 py-2 text-[14px] font-medium; }
+.chip::before { content: ""; @apply w-2 h-2 rounded-sm bg-brand shrink-0; }
+.input { @apply w-full h-12 rounded-btn border border-line bg-white px-4 text-[16px] focus:outline-none focus:border-ink focus:ring-4 focus:ring-ink/10; }
+
+}
+
+/* красная рамка для мест, где нужны данные заказчика (выключается в site.json → showDraftFrames) */
+.draft { position: relative; outline: 2px dashed var(--brand); outline-offset: 4px; border-radius: 6px; }
+.draft::after { content: attr(data-note); position: absolute; top: -12px; left: 8px; background: var(--brand); color: #fff; font-size: 11px; font-weight: 700; line-height: 1; padding: 4px 6px; border-radius: 4px; z-index: 5; }
+
+details.faq > summary { list-style: none; cursor: pointer; }
+details.faq > summary::-webkit-details-marker { display: none; }
+details.faq[open] .faq-icon { transform: rotate(45deg); }
