@@ -1,3 +1,5 @@
+"use client";
+import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { company, sections, companyLinks } from "@/lib/content";
@@ -5,8 +7,16 @@ import { company, sections, companyLinks } from "@/lib/content";
 /**
  * Шапка по макету header-footer.html: направления с раскрывашками (на hover/focus, без JS),
  * общие ссылки, телефон, кнопка. Мобильное меню — <details> с аккордеонами по направлениям.
+ * Клик по любой ссылке внутри мобильного меню закрывает его через ref (иначе <details>
+ * остаётся открытым поверх страницы после клиентского перехода Next.js — переход
+ * происходит без перезагрузки, и открытое состояние DOM-элемента не сбрасывается само).
  */
 export default function Header({ current }: { current?: string }) {
+  const menuRef = useRef<HTMLDetailsElement>(null);
+  const closeMenu = () => {
+    if (menuRef.current) menuRef.current.open = false;
+  };
+
   return (
     <header className="sticky top-0 z-40 bg-page/95 backdrop-blur border-b border-line">
       <div className="container-site h-16 md:h-[72px] flex items-center gap-1">
@@ -59,7 +69,7 @@ export default function Header({ current }: { current?: string }) {
           <a href={`tel:${company.phoneRaw}`} className="md:hidden btn-primary h-10 px-4">Позвонить</a>
 
           {/* мобильное / планшетное меню */}
-          <details className="xl:hidden relative">
+          <details ref={menuRef} className="xl:hidden relative">
             <summary className="list-none cursor-pointer w-10 h-10 rounded-btn border border-line flex items-center justify-center bg-white" aria-label="Открыть меню">
               <span className="block w-4 border-t-2 border-ink relative before:absolute before:-top-1.5 before:left-0 before:w-4 before:border-t-2 before:border-ink after:absolute after:top-1 after:left-0 after:w-4 after:border-t-2 after:border-ink" />
             </summary>
@@ -70,14 +80,14 @@ export default function Header({ current }: { current?: string }) {
                     {s.name}<span className="w-2 h-2 border-r-2 border-b-2 border-ink/50 rotate-45" aria-hidden />
                   </summary>
                   <div className="grid grid-cols-2 gap-x-3 px-3 pb-3">
-                    {s.menu.flatMap((c) => c.links).map(([t, h]) => <Link key={t + h} href={h} className="py-1.5 text-[14px]">{t}</Link>)}
-                    {!s.live && s.external && <a href={s.external} rel="noopener" className="py-1.5 text-[13px] text-brand underline col-span-2">Сайт направления →</a>}
+                    {s.menu.flatMap((c) => c.links).map(([t, h]) => <Link key={t + h} href={h} onClick={closeMenu} className="py-1.5 text-[14px]">{t}</Link>)}
+                    {!s.live && s.external && <a href={s.external} rel="noopener" onClick={closeMenu} className="py-1.5 text-[13px] text-brand underline col-span-2">Сайт направления →</a>}
                   </div>
                 </details>
               ))}
               <div className="flex flex-wrap gap-x-4 px-3 pt-3 pb-2 text-[14px] font-medium">
-                {companyLinks.slice(0, 4).map(([t, h]) => <Link key={h} href={h}>{t}</Link>)}
-                <Link href="/kontakty/">Контакты</Link>
+                {companyLinks.slice(0, 4).map(([t, h]) => <Link key={h} href={h} onClick={closeMenu}>{t}</Link>)}
+                <Link href="/kontakty/" onClick={closeMenu}>Контакты</Link>
               </div>
               <div className="px-3 pb-2 text-[13px] text-muted">{company.hours}</div>
             </nav>

@@ -2,7 +2,6 @@ import { meta } from "@/lib/seo";
 import { company } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import LeadForm from "@/components/LeadForm";
-import Draft from "@/components/Draft";
 
 export const metadata = meta({ title: "Контакты Фортес — септики в Иркутске: телефон, адреса офисов, часы работы", description: `Фортес, Иркутск: ${company.phone}, ${company.hours}. Офисы: ${company.addresses.map((a) => a.street).join("; ")}. Выезд инженера по Иркутскому району бесплатно.`, path: "/kontakty/" });
 
@@ -37,7 +36,21 @@ export default function Page() {
               <a href={company.yandexMapsUrl} target="_blank" rel="noopener" className="btn-outline h-10 px-4">Отзывы на Я.Картах</a>
             </div>
           </div>
-          <Draft note="вставить iframe Яндекс.Карт с обоими офисами"><div className="card aspect-[16/9] flex items-center justify-center text-muted">Карта</div></Draft>
+          <div className="card overflow-hidden">
+            <iframe
+              src={`https://yandex.ru/map-widget/v1/?ll=104.270139%2C52.312492&z=11&l=map&pt=104.356757,52.276723,pm2rdm~104.183521,52.348261,pm2bdm`}
+              width="100%"
+              height="320"
+              frameBorder="0"
+              loading="lazy"
+              title="Офисы Фортес на карте Иркутска"
+              className="block"
+            />
+            <div className="p-3 text-[13px] text-muted flex flex-wrap gap-x-4 gap-y-1">
+              <span><span className="inline-block w-2.5 h-2.5 rounded-full bg-brand mr-1.5 align-middle" />Офис 1 — ул. Ширямова, 7</span>
+              <span><span className="inline-block w-2.5 h-2.5 rounded-full bg-[#3d7bf5] mr-1.5 align-middle" />Офис 2 — ул. Розы Люксембург, 164/1</span>
+            </div>
+          </div>
           <div className="card p-6 text-[15px] text-ink/80">
             <div className="font-bold text-ink">Зона выезда</div>
             <p className="mt-1">{company.serviceArea.join(", ")}. Инженер приезжает бесплатно.</p>
