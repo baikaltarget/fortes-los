@@ -1,4 +1,5 @@
 import site from "@/content/site.json";
+import sectionsJson from "@/content/sections.json";
 
 export type Faq = { q: string; a: string };
 export type Variant = { name: string; price: number; note: string };
@@ -9,10 +10,10 @@ export type Product = {
   specs: string[][]; variants: Variant[]; image: string; manufacturerUrl: string; manufacturerImg?: string; faq: Faq[];
 };
 export type Brand = { slug: string; name: string; title: string; description: string; h1: string; intro: string; points: string[] };
-export type Section = { h2: string; p: string[] };
+export type TextSection = { h2: string; p: string[] };
 export type Extra = { name: string; d: string; price: number; priceLabel?: string; note: string; hit?: boolean; image?: string };
 export type Service = {
-  slug: string; name: string; title: string; description: string; h1: string; lead: string; products: string[]; sections: Section[]; faq: Faq[];
+  slug: string; name: string; title: string; description: string; h1: string; lead: string; products: string[]; sections: TextSection[]; faq: Faq[];
   heroImage?: string; heroImageAlt?: string; heroImageFit?: string; chips?: string[]; kessons?: Extra[]; servicePrices?: { name: string; price: string; draft?: boolean }[]; koloIlma?: { priceFrom: number; capacity: string; life: string; service: string };
 };
 export type Geo = { slug: string; name: string; prep: string; distance: string; soil: string; note: string };
@@ -46,3 +47,26 @@ export const rub = (n: number) => new Intl.NumberFormat("ru-RU").format(n) + " �
 
 /** Минимальная цена «под ключ» = станция + монтаж */
 export const turnkeyFrom = (p: Product) => p.turnkeyFrom ?? p.price + p.installFrom;
+
+/** Разделы сайта (шапка/подвал). Текущий живой раздел — канализация. */
+export type Section = {
+  slug: string; name: string; short: string; live: boolean; external?: string;
+  menu: { title: string; links: string[][] }[]; footer: string[][];
+  hit?: { label: string; name: string; sub: string; price: string; note: string; href: string };
+  subnav?: string[][]; title?: string; description?: string; h1?: string; lead?: string;
+};
+export const sections = sectionsJson.sections as unknown as Section[];
+export const companyLinks = sectionsJson.companyLinks as string[][];
+export const getSection = (slug: string) => sections.find((s) => s.slug === slug);
+
+/** Префикс раздела и построители ссылок — менять пути только здесь */
+export const SEC = "/kanalizaciya";
+export const P = {
+  hub: `${SEC}/`,
+  stancii: `${SEC}/stancii/`,
+  product: (slug: string) => `${SEC}/stancii/${slug}/`,
+  page: (slug: string) => `${SEC}/${slug}/`,   // услуги и бренды
+  geo: (slug: string) => `${SEC}/${slug}/`,    // гео — тот же уровень
+  object: (slug: string) => `/obekty/${slug}/`,
+  post: (slug: string) => `/blog/${slug}/`,
+};

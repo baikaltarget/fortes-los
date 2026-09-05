@@ -1,0 +1,114 @@
+{
+  "_readme": "Направления бренда для шапки и подвала. kanalizaciya — живой раздел (контент в site.json). Остальные — визитки со ссылкой на старый поддомен, пока не сделаны. Добавить направление = блок здесь + content/<slug>.json + фото.",
+  "sections": [
+    {
+      "slug": "kanalizaciya",
+      "name": "Канализация",
+      "short": "Септики и станции",
+      "live": true,
+      "menu": [
+        { "title": "Решения", "links": [
+          ["Септик под ключ", "/kanalizaciya/"],
+          ["Септик без откачки", "/kanalizaciya/septik-bez-otkachki/"],
+          ["Септик для частного дома", "/kanalizaciya/septik-dlya-chastnogo-doma/"],
+          ["Септик для дачи", "/kanalizaciya/septik-dlya-dachi/"],
+          ["Канализация в частном доме", "/kanalizaciya/kanalizaciya-v-chastnom-dome/"],
+          ["Замена выгребной ямы", "/kanalizaciya/zamena-vygrebnoj-yamy/"]
+        ]},
+        { "title": "Оборудование и сервис", "links": [
+          ["Все станции", "/kanalizaciya/stancii/"],
+          ["Станции Novo Eko", "/kanalizaciya/novo-eko/"],
+          ["Биореакторы Zörde", "/kanalizaciya/zorde/"],
+          ["Kolo Vesi", "/kanalizaciya/kolo-vesi/"],
+          ["Кессон для скважины", "/kanalizaciya/kesson-dlya-skvazhiny/"],
+          ["Обслуживание", "/kanalizaciya/obsluzhivanie-septika/"],
+          ["Калькулятор подбора", "/kalkulyator/"]
+        ]}
+      ],
+      "hit": { "label": "Хит заказов", "name": "Novo Eko 3", "sub": "дача или дом на 2–4 человека", "price": "от 350 000 ₽", "note": "под ключ с монтажом", "href": "/kanalizaciya/stancii/novo-eko-3/" },
+      "subnav": [
+        ["Станции", "/kanalizaciya/stancii/"],
+        ["Для дома", "/kanalizaciya/septik-dlya-chastnogo-doma/"],
+        ["Без откачки", "/kanalizaciya/septik-bez-otkachki/"],
+        ["Для дачи", "/kanalizaciya/septik-dlya-dachi/"],
+        ["Цены", "/ceny/"],
+        ["Калькулятор", "/kalkulyator/"],
+        ["Обслуживание", "/kanalizaciya/obsluzhivanie-septika/"],
+        ["Объекты", "/obekty/"],
+        ["Посёлки", "/kanalizaciya/#geo"]
+      ],
+      "footer": [
+        ["Септик под ключ", "/kanalizaciya/"],
+        ["Без откачки", "/kanalizaciya/septik-bez-otkachki/"],
+        ["Для частного дома", "/kanalizaciya/septik-dlya-chastnogo-doma/"],
+        ["Для дачи", "/kanalizaciya/septik-dlya-dachi/"],
+        ["Станции Novo Eko", "/kanalizaciya/novo-eko/"],
+        ["Кессон для скважины", "/kanalizaciya/kesson-dlya-skvazhiny/"],
+        ["Обслуживание", "/kanalizaciya/obsluzhivanie-septika/"],
+        ["Для посёлков и турбаз", "/kanalizaciya/kanalizaciya-dlya-poselka/"]
+      ]
+    },
+    {
+      "slug": "otoplenie",
+      "name": "Отопление",
+      "short": "Котельные, тёплый пол, радиаторы",
+      "live": false,
+      "external": "https://teplo.fortes-dom.ru",
+      "title": "Монтаж отопления под ключ в Иркутске — Фортес",
+      "description": "Проектирование и монтаж систем отопления для частных домов и коммерческих объектов в Иркутске: котельные, тёплые полы, радиаторное отопление. Оборудование Zota, Stout, RoyalThermo, Wilo.",
+      "h1": "Монтаж отопления под ключ в Иркутске",
+      "lead": "Котельные, тёплые полы, радиаторное отопление для частных домов и коммерческих объектов. Проверенные бренды, смета и проект, рассрочка. Пока подробности — на нашем сайте по отоплению.",
+      "menu": [{ "title": "Услуги", "links": [["Монтаж тёплого пола", "/otoplenie/"], ["Радиаторное отопление", "/otoplenie/"], ["Котельная под ключ", "/otoplenie/"], ["Проектирование", "/otoplenie/"]] }],
+      "footer": [["Монтаж под ключ", "/otoplenie/"], ["Тёплый пол", "/otoplenie/"], ["Радиаторное", "/otoplenie/"], ["Котельная", "/otoplenie/"], ["Проектирование", "/otoplenie/"]]
+    },
+    {
+      "slug": "burenie",
+      "name": "Бурение",
+      "short": "Скважины на воду",
+      "live": false,
+      "external": "https://bur.fortes-dom.ru",
+      "title": "Бурение скважин на воду в Иркутске — Фортес",
+      "description": "Бурение скважин на воду в Иркутске и районе: разведка, бурение, обустройство с кессоном, обвязка. Гарантия на скважину, работаем с 2014 года.",
+      "h1": "Бурение скважин на воду в Иркутске",
+      "lead": "Бурим, обустраиваем кессоном и обвязкой, подключаем воду в дом. Пока подробности — на нашем сайте по бурению.",
+      "menu": [{ "title": "Услуги", "links": [["Скважина на воду", "/burenie/"], ["Обустройство скважины", "/burenie/"], ["Кессон для скважины", "/kanalizaciya/kesson-dlya-skvazhiny/"], ["Ремонт скважин", "/burenie/"]] }],
+      "footer": [["Скважина на воду", "/burenie/"], ["Обустройство", "/burenie/"], ["Кессон", "/kanalizaciya/kesson-dlya-skvazhiny/"], ["Ремонт скважин", "/burenie/"]]
+    },
+    {
+      "slug": "vodosnabzhenie",
+      "name": "Водоснабжение",
+      "short": "Вода в дом под ключ",
+      "live": false,
+      "external": "https://voda.fortes-dom.ru",
+      "title": "Водоснабжение частного дома под ключ в Иркутске — Фортес",
+      "description": "Водоснабжение частного дома в Иркутске: от скважины до крана — насосное оборудование, автоматика, водоочистка, разводка. Гарантия и сервис.",
+      "h1": "Водоснабжение частного дома под ключ",
+      "lead": "От скважины до крана: насосы, автоматика, водоочистка, разводка по дому. Пока подробности — на нашем сайте по водоснабжению.",
+      "menu": [{ "title": "Услуги", "links": [["Водоснабжение под ключ", "/vodosnabzhenie/"], ["Автоматика и насосы", "/vodosnabzhenie/"], ["Водоочистка", "/vodosnabzhenie/"], ["Летний водопровод", "/vodosnabzhenie/"]] }],
+      "footer": [["Под ключ", "/vodosnabzhenie/"], ["Автоматика", "/vodosnabzhenie/"], ["Водоочистка", "/vodosnabzhenie/"], ["Летний водопровод", "/vodosnabzhenie/"]]
+    },
+    {
+      "slug": "elektrika",
+      "name": "Электрика",
+      "short": "Электромонтаж",
+      "live": false,
+      "external": "https://electro.fortes-dom.ru",
+      "title": "Электромонтаж в частном доме в Иркутске — Фортес",
+      "description": "Электромонтажные работы в частных домах Иркутска и района: ввод, щит, разводка, освещение, заземление. Проект и исполнительная документация.",
+      "h1": "Электромонтаж в частном доме",
+      "lead": "Ввод, щит, разводка, освещение, заземление — с проектом и документацией. Пока подробности — на нашем сайте по электрике.",
+      "menu": [{ "title": "Услуги", "links": [["Электромонтаж под ключ", "/elektrika/"], ["Щит и ввод", "/elektrika/"], ["Освещение", "/elektrika/"], ["Заземление", "/elektrika/"]] }],
+      "footer": [["Электромонтаж", "/elektrika/"], ["Щит и ввод", "/elektrika/"], ["Освещение", "/elektrika/"]]
+    }
+  ],
+  "companyLinks": [
+    ["Объекты со сметой", "/obekty/"],
+    ["Цены", "/ceny/"],
+    ["Статьи", "/blog/"],
+    ["О компании", "/o-kompanii/"],
+    ["Отзывы", "/otzyvy/"],
+    ["Рассрочка и кредит", "/kanalizaciya/septik-v-rassrochku/"],
+    ["Контакты", "/kontakty/"],
+    ["Политика", "/politika/"]
+  ]
+}

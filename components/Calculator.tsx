@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import site from "@/content/site.json";
 import LeadForm from "./LeadForm";
+import { P } from "@/lib/content";
 
 type P = (typeof site.products)[number];
 const products = site.products as P[];
@@ -120,7 +121,7 @@ export default function Calculator() {
             </table>
             <p className="text-[13px] text-muted mt-2">Расчёт ориентировочный: цены станций — рекомендованные заводом, работы зависят от участка. Точную смету инженер составит бесплатно.</p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <Link href={`/stancii/${result.p.slug}/`} className="btn-outline">Про {result.p.shortName}</Link>
+              <Link href={P.product(result.p.slug)} className="btn-outline">Про {result.p.shortName}</Link>
               <button type="button" className="btn-ghost" onClick={() => setStep(0)}>Пересчитать</button>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { meta } from "@/lib/seo";
-import { SITE, company, topPicks, objects, rub } from "@/lib/content";
+import { SITE, company, topPicks, objects, rub, P } from "@/lib/content";
 import ProductCard from "@/components/ProductCard";
 import Reasons from "@/components/Reasons";
 import Steps from "@/components/Steps";
@@ -10,6 +10,7 @@ import LeadSection from "@/components/LeadSection";
 import GeoLinks from "@/components/GeoLinks";
 import ServiceLinks from "@/components/ServiceLinks";
 import { getPosts } from "@/lib/blog";
+import SubNav from "@/components/SubNav";
 
 export const metadata = meta({ title: SITE.home.title, description: SITE.home.description, path: "/" });
 
@@ -17,6 +18,7 @@ export default function Home() {
   const posts = getPosts().slice(0, 3);
   return (
     <>
+      <SubNav section="kanalizaciya" />
       {/* HERO — как на teplo.fortes-dom.ru: белая карточка слева, визуал справа */}
       <section className="container-site pt-6 md:pt-10">
         <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">
@@ -51,7 +53,7 @@ export default function Home() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {topPicks.map((p) => <ProductCard key={p.slug} p={p} />)}
           </div>
-          <div className="mt-6"><Link href="/stancii/" className="btn-ghost -ml-4">Вся линейка: Kolo Vesi, Zörde, Novo Eko ›</Link></div>
+          <div className="mt-6"><Link href={P.stancii} className="btn-ghost -ml-4">Вся линейка: Kolo Vesi, Zörde, Novo Eko ›</Link></div>
         </div>
       </section>
 
@@ -62,10 +64,10 @@ export default function Home() {
           <p className="text-muted max-w-[70ch] mb-6">Кессоны для скважин, очистные для посёлков и турбаз, сервис и замена старых выгребных ям — тоже наша работа.</p>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { h: "/kesson-dlya-skvazhiny/", t: "Кессон для скважины", p: "от 66 500 ₽", d: "Пластиковые СОЮЗ, СОЮЗ-М, СОЮЗ-ПРО. Герметичны, не выдавливаются грунтом." },
-              { h: "/obsluzhivanie-septika/", t: "Обслуживание станций", p: "от 10 000 ₽", d: "Откачка ила, промывка фильтров, проверка компрессора — раз в 1–2 года." },
-              { h: "/zamena-vygrebnoj-yamy/", t: "Замена выгребной ямы", p: "окупаемость 3 года", d: "Считаем на реальном объекте: 140 000 ₽ в год на откачку против станции." },
-              { h: "/kanalizaciya-dlya-poselka/", t: "ЛОС для посёлка и турбазы", p: "цена по запросу", d: "Kolo Ilma 30/50/75 на 6–15 м³ в сутки, проект и монтаж." },
+              { h: "/kanalizaciya/kesson-dlya-skvazhiny/", t: "Кессон для скважины", p: "от 66 500 ₽", d: "Пластиковые СОЮЗ, СОЮЗ-М, СОЮЗ-ПРО. Герметичны, не выдавливаются грунтом." },
+              { h: "/kanalizaciya/obsluzhivanie-septika/", t: "Обслуживание станций", p: "от 10 000 ₽", d: "Откачка ила, промывка фильтров, проверка компрессора — раз в 1–2 года." },
+              { h: "/kanalizaciya/zamena-vygrebnoj-yamy/", t: "Замена выгребной ямы", p: "окупаемость 3 года", d: "Считаем на реальном объекте: 140 000 ₽ в год на откачку против станции." },
+              { h: "/kanalizaciya/kanalizaciya-dlya-poselka/", t: "ЛОС для посёлка и турбазы", p: "цена по запросу", d: "Kolo Ilma 30/50/75 на 6–15 м³ в сутки, проект и монтаж." },
             ].map((c) => (
               <Link key={c.h} href={c.h} className="card p-5 md:p-6 block hover:shadow-card h-full">
                 <h3 className="text-[18px]">{c.t}</h3>
@@ -86,7 +88,7 @@ export default function Home() {
             <div>
               <h2>Работает при −40 °C</h2>
               <p className="mt-4 text-ink/85 max-w-[56ch]">Рабочая часть станции — ниже глубины промерзания, стоки из дома тёплые, горловину утепляем. Ставим и обслуживаем круглый год, дачные станции Novo Eko зимуют без консервации.</p>
-              <Link href="/septik-dlya-zimy/" className="btn-outline mt-6 bg-white">Как станция зимует в Иркутске</Link>
+              <Link href="/kanalizaciya/septik-dlya-zimy/" className="btn-outline mt-6 bg-white">Как станция зимует в Иркутске</Link>
             </div>
             <ul className="grid gap-3 text-[15px]">
               {["Заглубление ниже 2,2 м — нормативная глубина промерзания в Иркутске", "Труба от дома с уклоном 2 см/м — сухая, замерзать нечему", "Утеплённая крышка и пеноплекс по периметру горловины", "Отключение света на сутки-двое станция переживает без последствий"].map((t) => (

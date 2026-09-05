@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { meta, ldProduct } from "@/lib/seo";
-import { objects, getObject, getProduct, getGeo, rub } from "@/lib/content";
+import { objects, getObject, getProduct, getGeo, rub, P } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import LeadSection from "@/components/LeadSection";
@@ -36,8 +36,8 @@ export default function Page({ params }: { params: { slug: string } }) {
                 <div><h3>Результат</h3><p>{o.result}</p></div>
               </div>
               <div className="mt-4 flex flex-wrap gap-2">
-                {p && <Link href={`/stancii/${p.slug}/`} className="chip hover:border-ink">{p.name}</Link>}
-                {g && <Link href={`/septik/${g.slug}/`} className="chip hover:border-ink">Септик {g.prep}</Link>}
+                {p && <Link href={P.product(p.slug)} className="chip hover:border-ink">{p.name}</Link>}
+                {g && <Link href={P.geo(g.slug)} className="chip hover:border-ink">Септик {g.prep}</Link>}
               </div>
             </div>
             <div className="grid gap-4">

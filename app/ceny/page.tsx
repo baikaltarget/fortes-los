@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { meta } from "@/lib/seo";
-import { products, objects, rub, turnkeyFrom, SITE } from "@/lib/content";
+import { products, objects, rub, turnkeyFrom, SITE, P } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import LeadSection from "@/components/LeadSection";
 import FAQ from "@/components/FAQ";
@@ -33,7 +33,7 @@ export default function Page() {
             <tbody>
               {products.map((p) => (
                 <tr key={p.slug} className="border-t border-line">
-                  <td className="p-4 font-bold"><Link href={`/stancii/${p.slug}/`} className="hover:text-brand">{p.name}</Link>{p.hit && <span className="ml-2 text-[11px] text-brand font-bold">хит</span>}</td>
+                  <td className="p-4 font-bold"><Link href={P.product(p.slug)} className="hover:text-brand">{p.name}</Link>{p.hit && <span className="ml-2 text-[11px] text-brand font-bold">хит</span>}</td>
                   <td className="p-4">{p.users}</td>
                   <td className="p-4">{p.service}</td>
                   <td className="p-4 whitespace-nowrap font-bold"><Draft on={p.turnkeyDraft} note="уточнить">от {rub(turnkeyFrom(p))}</Draft></td>
@@ -47,10 +47,10 @@ export default function Page() {
         <h2 className="mt-12 mb-4">Другие решения</h2>
         <div className="grid gap-4 md:grid-cols-3">
           {[
-            { n: "Кессоны СОЮЗ для скважины", p: "66 500 – 160 900 ₽", h: "/kesson-dlya-skvazhiny/" },
-            { n: "Kolo Ilma 30/50/75 для посёлка", p: "по запросу", h: "/kanalizaciya-dlya-poselka/" },
-            { n: "Станция под ключ", p: "от 350 000 ₽", h: "/montazh-septika/" },
-            { n: "Плановое обслуживание", p: "от 10 000 ₽", h: "/obsluzhivanie-septika/" },
+            { n: "Кессоны СОЮЗ для скважины", p: "66 500 – 160 900 ₽", h: "/kanalizaciya/kesson-dlya-skvazhiny/" },
+            { n: "Kolo Ilma 30/50/75 для посёлка", p: "по запросу", h: "/kanalizaciya/kanalizaciya-dlya-poselka/" },
+            { n: "Станция под ключ", p: "от 350 000 ₽", h: "/kanalizaciya/montazh-septika/" },
+            { n: "Плановое обслуживание", p: "от 10 000 ₽", h: "/kanalizaciya/obsluzhivanie-septika/" },
           ].map((r) => (
             <Link key={r.n} href={r.h} className="card p-5 block hover:shadow-card h-full"><div className="font-bold">{r.n}</div><div className="text-xl font-extrabold tracking-tight mt-1">{r.p}</div></Link>
           ))}
