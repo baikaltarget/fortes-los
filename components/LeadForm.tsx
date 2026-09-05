@@ -104,8 +104,12 @@ export default function LeadForm({ source = "site", compact = false, presetMessa
         <button type="button" onClick={submit} disabled={status === "sending" || !phoneReady || !agree} className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed">
           {status === "sending" ? "Отправляем…" : "Получить расчёт"}
         </button>
-        <a href={company.telegramUrl} target="_blank" rel="noopener" className="btn-outline">Telegram</a>
-        <a href={company.maxUrl} target="_blank" rel="noopener" className="btn-outline">MAX</a>
+        <a href={company.telegramUrl} target="_blank" rel="noopener" className="btn-outline">
+          <img src="/img/icons/telegram.webp" width={18} height={18} alt="" className="rounded-[4px]" />Telegram
+        </a>
+        <a href={company.maxUrl} target="_blank" rel="noopener" className="btn-outline">
+          <img src="/img/icons/max.webp" width={18} height={18} alt="" className="rounded-[4px]" />MAX
+        </a>
       </div>
       {status === "fallback" && (
         <p className="mt-3 text-[14px] text-ink/80" role="status">Отправка заявок через сайт ещё не настроена. Позвоните {company.phone} или напишите в Telegram/MAX выше.</p>

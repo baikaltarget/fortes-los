@@ -28,8 +28,12 @@ export default function Page() {
           <div className="card p-6">
             <div className="font-bold text-ink mb-3">Написать</div>
             <div className="flex flex-wrap gap-2">
-              <a href={company.telegramUrl} target="_blank" rel="noopener" className="btn-outline h-10 px-4">Telegram</a>
-              <a href={company.maxUrl} target="_blank" rel="noopener" className="btn-outline h-10 px-4">MAX</a>
+              <a href={company.telegramUrl} target="_blank" rel="noopener" className="btn-outline h-10 px-4">
+                <img src="/img/icons/telegram.webp" width={16} height={16} alt="" className="rounded-[3px]" />Telegram
+              </a>
+              <a href={company.maxUrl} target="_blank" rel="noopener" className="btn-outline h-10 px-4">
+                <img src="/img/icons/max.webp" width={16} height={16} alt="" className="rounded-[3px]" />MAX
+              </a>
               <a href={company.yandexMapsUrl} target="_blank" rel="noopener" className="btn-outline h-10 px-4">Отзывы на Я.Картах</a>
             </div>
           </div>
