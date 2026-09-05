@@ -99,7 +99,7 @@ function ServicePage({ slug }: { slug: string }) {
         </div>
       </div>
 
-      {s.products?.length > 0 && <ProductGrid slugs={s.products} title="Что ставим" sub="Модели, которые подходят под эту задачу. Первые — самые заказываемые." />}
+      {s.products?.length > 0 && <ProductGrid slugs={s.products} title={svc.productsTitle || "Что ставим"} sub={svc.productsSub || "Модели, которые подходят под эту задачу. Первые — самые заказываемые."} />}
 
       {svc.kessons && (
         <section className="py-12 md:py-16"><div className="container-site">
