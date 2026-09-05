@@ -1,5 +1,5 @@
 import { meta } from "@/lib/seo";
-import { SITE } from "@/lib/content";
+import { SITE, company } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Draft from "@/components/Draft";
 import LeadSection from "@/components/LeadSection";
@@ -18,7 +18,18 @@ export default function Page() {
             <Draft key={r.name} on={r.draft} note="отзыв-пример — заменить на реальный"><blockquote className="card p-6 h-full"><p className="text-[16px] leading-relaxed">«{r.text}»</p><footer className="mt-4 text-[14px] text-muted">{r.name}</footer></blockquote></Draft>
           ))}
         </div>
-        <Draft note="вставить виджет отзывов Яндекс.Карт / 2ГИС" className="mt-6"><div className="card p-6 text-muted">Виджет отзывов</div></Draft>
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          <a href={company.yandexMapsUrl} target="_blank" rel="noopener" className="card p-5 hover:shadow-card transition-shadow">
+            <div className="font-bold text-ink">Яндекс.Карты</div>
+            <div className="text-muted text-[14px] mt-1">Смотреть отзывы и оставить свой</div>
+          </a>
+          {company.addresses.filter((a) => a.gis2Url).map((a) => (
+            <a key={a.street} href={a.gis2Url} target="_blank" rel="noopener" className="card p-5 hover:shadow-card transition-shadow">
+              <div className="font-bold text-ink">2ГИС — {a.label}</div>
+              <div className="text-muted text-[14px] mt-1">{a.city}, {a.street}</div>
+            </a>
+          ))}
+        </div>
       </div>
       <LeadSection source="отзывы" />
     </>

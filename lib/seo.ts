@@ -27,21 +27,28 @@ export const ldOrganization = () => ({
   foundingDate: String(company.foundedYear),
 });
 
-export const ldLocalBusiness = () => ({
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "@id": `${SITE_URL}/#business`,
-  name: `${company.name} — септики и автономная канализация`,
-  image: `${SITE_URL}/img/logo.webp`,
-  url: SITE_URL,
-  telephone: company.phoneRaw,
-  email: company.email,
-  priceRange: "₽₽",
-  address: { "@type": "PostalAddress", streetAddress: company.addresses[0].street, addressLocality: "Иркутск", addressRegion: "Иркутская область", postalCode: company.addresses[0].postal, addressCountry: "RU" },
-  geo: { "@type": "GeoCoordinates", latitude: company.addresses[0].lat, longitude: company.addresses[0].lng },
-  openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" }],
-  areaServed: company.serviceArea.map((a) => ({ "@type": "Place", name: a })),
-});
+export const ldLocalBusiness = (addressIndex: number = 0) => {
+  const a = company.addresses[addressIndex];
+  const multi = company.addresses.length > 1;
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${SITE_URL}/#business${multi ? `-${addressIndex + 1}` : ""}`,
+    name: `${company.name} — септики и автономная канализация${multi ? ` (${a.label})` : ""}`,
+    image: `${SITE_URL}/img/logo.webp`,
+    url: SITE_URL,
+    telephone: company.phoneRaw,
+    email: company.email,
+    priceRange: "₽₽",
+    address: { "@type": "PostalAddress", streetAddress: a.street, addressLocality: a.city, addressRegion: "Иркутская область", postalCode: a.postal, addressCountry: "RU" },
+    geo: { "@type": "GeoCoordinates", latitude: a.lat, longitude: a.lng },
+    openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" }],
+    areaServed: company.serviceArea.map((ar) => ({ "@type": "Place", name: ar })),
+  };
+};
+
+/** JSON-LD для всех офисов компании — использовать в layout вместо одиночного ldLocalBusiness() */
+export const ldLocalBusinessAll = () => company.addresses.map((_, i) => ldLocalBusiness(i));
 
 export const ldBreadcrumbs = (crumbs: Crumb[]) => ({
   "@context": "https://schema.org",

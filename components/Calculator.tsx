@@ -1,9 +1,10 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import site from "@/content/site.json";
 import LeadForm from "./LeadForm";
 import { P } from "@/lib/content";
+import { reachGoal } from "@/components/Analytics";
 
 type P = (typeof site.products)[number];
 const products = site.products as P[];
@@ -75,6 +76,10 @@ export default function Calculator() {
   }, [people, mode, soil, depth, dist, service]);
 
   const done = step >= steps.length;
+
+  useEffect(() => {
+    if (done) reachGoal("calculator_complete");
+  }, [done]);
   const summary = `Калькулятор: ${people} чел., ${Q.mode.find((m) => m.v === mode)?.l}, грунт: ${Q.soil.find((s) => s.v === soil)?.l}, глубина: ${Q.depth.find((d) => d.v === depth)?.l}, трасса ~${dist} м, сервис: ${Q.service.find((s) => s.v === service)?.l}. Рекомендация: ${result.variant}, ~${rub(result.total)} под ключ.`;
 
   return (

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { company } from "@/lib/content";
 import { extractLocalDigits, maskPhone, fullPhone, isPhoneComplete } from "@/lib/phone";
+import { reachGoal } from "@/components/Analytics";
 
 type Status = "idle" | "sending" | "ok" | "fallback" | "error";
 
@@ -16,8 +17,6 @@ export default function LeadForm({ source = "site", compact = false, presetMessa
 
   const phoneReady = isPhoneComplete(phoneDigits);
   const phoneValue = phoneDigits ? fullPhone(phoneDigits) : "";
-  const tgText = encodeURIComponent(`Заявка с сайта (${source})\nИмя: ${name}\nТелефон: ${phoneValue}\n${msg}`);
-  const tgLink = `https://t.me/${company.telegramUser}?text=${tgText}`;
 
   function onPhoneChange(e: React.ChangeEvent<HTMLInputElement>) {
     setPhoneDigits(extractLocalDigits(e.target.value));
@@ -46,6 +45,7 @@ export default function LeadForm({ source = "site", compact = false, presetMessa
       });
       const j = await r.json();
       setStatus(j.ok ? "ok" : j.fallback ? "fallback" : "error");
+      if (j.ok || j.fallback) reachGoal("lead_form_success");
     } catch {
       setStatus("error");
     }
@@ -100,17 +100,18 @@ export default function LeadForm({ source = "site", compact = false, presetMessa
         <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} className="mt-0.5 accent-brand" />
         <span>Соглашаюсь с <a href="/politika/" className="underline">политикой конфиденциальности</a></span>
       </label>
-      <div className="mt-4 flex flex-col sm:flex-row gap-2">
+      <div className="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-2">
         <button type="button" onClick={submit} disabled={status === "sending" || !phoneReady || !agree} className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed">
           {status === "sending" ? "Отправляем…" : "Получить расчёт"}
         </button>
-        <a href={tgLink} target="_blank" rel="noopener" className="btn-outline">Написать в Telegram</a>
+        <a href={company.telegramUrl} target="_blank" rel="noopener" className="btn-outline">Telegram</a>
+        <a href={company.maxUrl} target="_blank" rel="noopener" className="btn-outline">MAX</a>
       </div>
       {status === "fallback" && (
-        <p className="mt-3 text-[14px] text-ink/80" role="status">Отправка заявок через сайт ещё не настроена. Позвоните {company.phone} или нажмите «Написать в Telegram» — сообщение уже заполнено.</p>
+        <p className="mt-3 text-[14px] text-ink/80" role="status">Отправка заявок через сайт ещё не настроена. Позвоните {company.phone} или напишите в Telegram/MAX выше.</p>
       )}
       {status === "error" && (
-        <p className="mt-3 text-[14px] text-brand" role="alert">Не удалось отправить. Позвоните {company.phone} или напишите в Telegram.</p>
+        <p className="mt-3 text-[14px] text-brand" role="alert">Не удалось отправить. Позвоните {company.phone} или напишите в Telegram/MAX выше.</p>
       )}
     </div>
   );

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { company, sections, companyLinks } from "@/lib/content";
-import Draft from "./Draft";
 
 export default function Footer() {
   return (
@@ -12,6 +11,10 @@ export default function Footer() {
           <a href={`tel:${company.phoneRaw}`} className="block mt-4 text-white text-lg font-bold whitespace-nowrap">{company.phone}</a>
           <div className="text-white/70">{company.hours}</div>
           <a href={`mailto:${company.email}`} className="block mt-1 text-white/85 hover:text-white">{company.email}</a>
+          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+            <a href={company.telegramUrl} target="_blank" rel="noopener" className="text-white/85 hover:text-white underline underline-offset-2">Telegram</a>
+            <a href={company.maxUrl} target="_blank" rel="noopener" className="text-white/85 hover:text-white underline underline-offset-2">MAX</a>
+          </div>
           <div className="mt-3 text-white/70">{company.addresses.map((a) => <div key={a.street}>{a.city}, {a.street}</div>)}</div>
         </div>
         {sections.map((s) => (
@@ -33,7 +36,6 @@ export default function Footer() {
             <a href="https://baikal-target.ru/" target="_blank" rel="noopener" className="hover:text-white/90">
               Разработка сайта — Байкал Таргет
             </a>
-            <Draft note="счётчики Метрики/GA"><span>Метрика: добавить в layout</span></Draft>
           </div>
         </div>
       </div>

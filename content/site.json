@@ -11,18 +11,27 @@
     "email": "inbox@fortes-group.ru",
     "hours": "Пн–Пт с 9:00 до 18:00",
     "hoursSchema": "Mo-Fr 09:00-18:00",
-    "telegramUser": "fortes_irk",
-    "telegramUserDraft": true,
     "whatsapp": "",
     "addresses": [
       {
-        "label": "Офис",
+        "label": "Офис 1",
         "street": "ул. Ширямова, 7",
         "city": "Иркутск",
         "postal": "664009",
         "lat": 52.3134,
         "lng": 104.3112,
-        "draftCoords": true
+        "draftCoords": true,
+        "gis2Url": "https://2gis.ru/irkutsk/branches/70000001019508803/firm/70000001112701560/104.356653%2C52.276873"
+      },
+      {
+        "label": "Офис 2",
+        "street": "ул. Розы Люксембург, 164/1, оф. 502",
+        "city": "Иркутск",
+        "postal": "664040",
+        "lat": 52.348261,
+        "lng": 104.183521,
+        "draftCoords": false,
+        "gis2Url": "https://2gis.ru/irkutsk/branches/70000001019508803/firm/70000001019508804/104.182223%2C52.349368"
       }
     ],
     "foundedYear": 2014,
@@ -56,7 +65,13 @@
         "label": "Электрика",
         "url": "https://electro.fortes-dom.ru"
       }
-    ]
+    ],
+    "telegramUrl": "https://t.me/+79501329627",
+    "telegramUrlNote": "ссылка по номеру телефона, не по @username — Telegram не поддерживает автоподстановку текста в такую ссылку",
+    "maxUrl": "https://max.ru/u/f9LHodD0cOKx73lKlwUIt-FHlltpMIFuh7KFH97FjiuGX-t4LZiLmgiH7Wg",
+    "yandexMapsUrl": "https://yandex.ru/profile/138516780381?lang=ru&utm_source=copy_link&utm_medium=social&utm_campaign=share",
+    "yandexMetrikaId": 46551369,
+    "yandexVerification": "1b4b7bb1b377ac46"
   },
   "home": {
     "title": "Септик под ключ в Иркутске — цены с установкой, гарантия 25 лет | Фортес",

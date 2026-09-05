@@ -19,8 +19,20 @@ export default function Page() {
             <a href={`mailto:${company.email}`} className="block mt-3 text-brand underline">{company.email}</a>
           </div>
           {company.addresses.map((a) => (
-            <div key={a.street} className="card p-6"><div className="text-muted text-[14px]">{a.label}</div><div className="font-bold text-lg">{a.city}, {a.street}</div></div>
+            <div key={a.street} className="card p-6">
+              <div className="text-muted text-[14px]">{a.label}</div>
+              <div className="font-bold text-lg">{a.city}, {a.street}</div>
+              {a.gis2Url && <a href={a.gis2Url} target="_blank" rel="noopener" className="mt-2 inline-block text-brand underline text-[14px]">Смотреть на 2ГИС →</a>}
+            </div>
           ))}
+          <div className="card p-6">
+            <div className="font-bold text-ink mb-3">Написать</div>
+            <div className="flex flex-wrap gap-2">
+              <a href={company.telegramUrl} target="_blank" rel="noopener" className="btn-outline h-10 px-4">Telegram</a>
+              <a href={company.maxUrl} target="_blank" rel="noopener" className="btn-outline h-10 px-4">MAX</a>
+              <a href={company.yandexMapsUrl} target="_blank" rel="noopener" className="btn-outline h-10 px-4">Отзывы на Я.Картах</a>
+            </div>
+          </div>
           <Draft note="вставить iframe Яндекс.Карт с обоими офисами"><div className="card aspect-[16/9] flex items-center justify-center text-muted">Карта</div></Draft>
           <div className="card p-6 text-[15px] text-ink/80">
             <div className="font-bold text-ink">Зона выезда</div>
