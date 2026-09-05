@@ -4,10 +4,19 @@ export const runtime = "nodejs";
 
 /** Заявки → Telegram. Нужны TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID в переменных окружения Vercel. */
 export async function POST(req: Request) {
-  let body: { name?: string; phone?: string; message?: string; source?: string; page?: string } = {};
+  let body: { name?: string; phone?: string; message?: string; source?: string; page?: string; website?: string } = {};
   try { body = await req.json(); } catch { return NextResponse.json({ ok: false, error: "bad json" }, { status: 400 }); }
+
+  // honeypot: скрытое поле "website" заполняют только боты. Отвечаем "успехом", ничего не отправляя и не подсказывая боту.
+  if ((body.website || "").toString().trim().length > 0) {
+    console.log("[LEAD — отклонено honeypot]", { ip: req.headers.get("x-forwarded-for") || "—" });
+    return NextResponse.json({ ok: true });
+  }
+
   const phone = (body.phone || "").toString().trim();
-  if (phone.replace(/\D/g, "").length < 10) return NextResponse.json({ ok: false, error: "phone" }, { status: 400 });
+  const digits = phone.replace(/\D/g, "");
+  // ожидаем 11 цифр целиком: код страны (7) + 10 цифр номера
+  if (digits.length !== 11) return NextResponse.json({ ok: false, error: "phone" }, { status: 400 });
 
   const text = [
     "🟥 Заявка с сайта",

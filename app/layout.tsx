@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
+import CookieBar from "@/components/CookieBar";
 import JsonLd from "@/components/JsonLd";
 import { ldOrganization, ldLocalBusiness } from "@/lib/seo";
 import { SITE_URL } from "@/lib/content";
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
         <MobileCallBar />
+        <CookieBar />
         {/* Яндекс.Метрика и Google Analytics: вставить код счётчиков здесь, перед закрытием body */}
       </body>
     </html>

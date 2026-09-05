@@ -5,7 +5,7 @@ import Draft from "./Draft";
 export default function Footer() {
   return (
     <footer className="mt-16 md:mt-24 bg-ink text-white/85 pb-24 md:pb-0">
-      <div className="container-site py-12 md:py-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 text-[14px]">
+      <div className="container-site py-12 md:py-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 text-[14px]">
         <div className="sm:col-span-2 lg:col-span-3 xl:col-span-1">
           <div className="text-white text-xl font-extrabold tracking-tight">ФОРТЕС</div>
           <p className="mt-2 text-white/70 leading-relaxed">Инженерные системы для дома в Иркутске и области с {company.foundedYear} года.</p>
@@ -29,7 +29,12 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="container-site py-6 text-[13px] text-white/60 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
           <div>© {new Date().getFullYear()} {company.legalName} · ИНН {company.inn} · ОГРН {company.ogrn}</div>
-          <Draft note="счётчики Метрики/GA"><span>Метрика: добавить в layout</span></Draft>
+          <div className="flex flex-col md:flex-row gap-3 md:items-center md:gap-6">
+            <a href="https://baikal-target.ru/" target="_blank" rel="noopener" className="hover:text-white/90">
+              Разработка сайта — Байкал Таргет
+            </a>
+            <Draft note="счётчики Метрики/GA"><span>Метрика: добавить в layout</span></Draft>
+          </div>
         </div>
       </div>
     </footer>
