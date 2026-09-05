@@ -8,7 +8,7 @@
       "live": true,
       "menu": [
         { "title": "Решения", "links": [
-          ["Септик под ключ", "/kanalizaciya/"],
+          ["Септик под ключ", "/"],
           ["Септик без откачки", "/kanalizaciya/septik-bez-otkachki/"],
           ["Септик для частного дома", "/kanalizaciya/septik-dlya-chastnogo-doma/"],
           ["Септик для дачи", "/kanalizaciya/septik-dlya-dachi/"],
@@ -38,7 +38,7 @@
         ["Посёлки", "/kanalizaciya/#geo"]
       ],
       "footer": [
-        ["Септик под ключ", "/kanalizaciya/"],
+        ["Септик под ключ", "/"],
         ["Без откачки", "/kanalizaciya/septik-bez-otkachki/"],
         ["Для частного дома", "/kanalizaciya/septik-dlya-chastnogo-doma/"],
         ["Для дачи", "/kanalizaciya/septik-dlya-dachi/"],
