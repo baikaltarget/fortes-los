@@ -24,7 +24,9 @@ export default function Page() {
         <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">
           <div className="card p-6 md:p-10 shadow-card flex flex-col">
             <h1>{H.h1}</h1>
-            <p className="mt-4 text-[17px] leading-relaxed text-ink/85 max-w-[58ch]">{H.lead}</p>
+            <p className="mt-4 text-[17px] leading-relaxed text-ink/85 max-w-[58ch]">
+              {H.lead}
+            </p>
             <div className="mt-5 flex flex-wrap gap-2">{H.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
             <div className="mt-auto pt-6 flex flex-wrap gap-3 items-center">
               <a href="#lead" className="btn-primary">Записаться на замер</a>
