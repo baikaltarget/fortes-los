@@ -27,6 +27,12 @@ export default function Page() {
         <Breadcrumbs items={[{ name: "Отопление", href: HP.hub }, { name: "Цены", href: HP.ceny }]} />
         <h1>Цены на отопление в Иркутске</h1>
         <p className="mt-4 text-[18px] text-ink/85 max-w-[62ch]">Главная цифра — под ключ с оборудованием. Дом 120 м² с тёплым полом и котельной — 470 680 ₽, около 3 900 ₽ за м². Ниже ориентиры по видам работ и шесть реальных смет, чтобы было с чем сравнить.</p>
+        <div className="mt-5 flex flex-wrap gap-2">{HEAT.hub.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <span className="chip"><strong className="text-brand">{HEAT.hub.offerNote}</strong></span>
+          <span className="chip">Скидка 10% за наличные</span>
+          <span className="chip">Работаем с НДС</span>
+        </div>
 
         <h2 className="mt-12 mb-4">Ориентиры по видам работ</h2>
         <div className="card overflow-x-auto">
