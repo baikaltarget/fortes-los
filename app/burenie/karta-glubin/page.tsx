@@ -25,11 +25,8 @@ export default function Page() {
         <Breadcrumbs items={[{ name: "Бурение", href: BP.hub }, { name: "Карта глубин", href: BP.map }]} />
         <h1>{BUR.depthMap.title}</h1>
         <p className="mt-4 text-[18px] text-ink/85 max-w-[62ch]">{BUR.depthMap.lead}</p>
-        <div className="card overflow-hidden mt-8">
-          <iframe src={BUR.depthMap.iframe} title="Карта глубин скважин Фортес" width="100%" height="520" frameBorder="0" loading="lazy" allowFullScreen className="block w-full" />
-        </div>
 
-        <h2 className="mt-12 mb-4">Глубина воды по посёлкам</h2>
+        <h2 className="mt-10 mb-4">Глубина воды по посёлкам</h2>
         <Draft on={BUR.geoNote.depthDraft} note="посёлки со звёздочкой — расчётный ориентир, уточнить у клиента">
           <div className="card overflow-x-auto">
             <table className="w-full text-[15px] min-w-[760px]">
@@ -49,6 +46,11 @@ export default function Page() {
           </div>
         </Draft>
         <p className="text-[14px] text-muted mt-3">{BUR.geoNote.text} Звёздочкой отмечены посёлки, где пока стоит расчётный ориентир. Посчитать по своей глубине — в <Link href={BP.calc} className="text-brand underline">калькуляторе</Link>.</p>
+
+        <h2 className="mt-12 mb-4">Карта наших скважин</h2>
+        <div className="card overflow-hidden">
+          <iframe src={BUR.depthMap.iframe} title="Карта глубин скважин Фортес" width="100%" height="520" frameBorder="0" loading="lazy" allowFullScreen className="block w-full" />
+        </div>
       </div>
       <FAQ items={faq} title="Вопросы про карту глубин" />
       <DrillLead source="карта глубин" title="Скажем глубину по вашей улице" text="Оставьте телефон и посёлок — инженер посмотрит соседние скважины по базе, назовёт ориентир по глубине и цене метра и запишет на бесплатный выезд." />

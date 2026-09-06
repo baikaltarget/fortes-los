@@ -14,7 +14,7 @@ Next.js 14 (App Router) + Tailwind, статическая генерация, �
 
 Изменённые: `lib/content.ts` (BUR/BP/burServices/burGeo/burObjects), `lib/seo.ts`, `content/sections.json` (бурение `live: true`, меню, subnav, подвал), `app/sitemap.ts`, `app/obekty/*`, `next.config.mjs` (301 с `/vodosnabzhenie/burenie-skvazhin`).
 
-**Удалять ничего не нужно** — визитка `/burenie/` из `app/[section]/` отключилась сама. **Все цены раздела — заглушки (`draft: true`), кроме 2 300 ₽/м, кессона из колец 90 000 ₽ и бесплатного выезда** — править в `content/burenie.json`: `services[].priceFrom`, `prices[]`, `calculator.rates`, `geo[].depth/depthMax`.
+**Перед заливкой этой дельты удалите в репозитории 6 старых файлов** (SVG-заглушки объектов, заменены на реальные фото): `public/img/objects/burenie/patrony-park-skvazhina-52-cover.svg`, `patrony-park-skvazhina-52-1.svg`, `markova-zapadnyj-obustrojstvo-80-cover.svg`, `markova-zapadnyj-obustrojstvo-80-1.svg`, `hajryuzovka-vodosnabzhenie-iz-skvazhiny-cover.svg`, `hajryuzovka-vodosnabzhenie-iz-skvazhiny-1.svg`. Остальное — залить с заменой, визитка `/burenie/` из `app/[section]/` отключилась сама. **Все цены раздела — заглушки (`draft: true`), кроме 2 300 ₽/м, кессона из колец 90 000 ₽ и бесплатного выезда** — править в `content/burenie.json`: `services[].priceFrom`, `prices[]`, `calculator.rates`, `geo[].depth/depthMax`.
 
 ## 0б. Что изменилось в v15 — раздел «Отопление» стал живым
 

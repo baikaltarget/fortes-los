@@ -12,8 +12,8 @@
       "Инженер приезжает бесплатно"
     ],
     "priceNote": "Скважина 52 м металл + пластик с кессоном, разводкой по участку и двумя септиками в Патронах — 615 246 ₽ под ключ (реальный объект)",
-    "heroImage": "",
-    "heroImageAlt": "Разрез скважины на воду: стальная обсадная труба Ø159 до 28 м, пластиковая Ø125 до третьего водоносного горизонта на 52 м",
+    "heroImage": "/img/burenie/hero-burovaya.webp",
+    "heroImageAlt": "Бурение скважины на воду малогабаритной буровой установкой в Иркутском районе",
     "stats": [
       [
         "30 000+",
@@ -532,7 +532,9 @@
       "objects": [
         "hajryuzovka-vodosnabzhenie-iz-skvazhiny",
         "markova-zapadnyj-obustrojstvo-80"
-      ]
+      ],
+      "heroImage": "/img/burenie/hero-obustrojstvo-kesson.webp",
+      "heroImageAlt": "Пластиковый кессон СОЮЗ, установленный в котлован при обустройстве скважины"
     },
     {
       "slug": "obustrojstvo-skvazhiny-s-kessonom",
@@ -576,7 +578,9 @@
       "objects": [
         "hajryuzovka-vodosnabzhenie-iz-skvazhiny",
         "patrony-park-skvazhina-52"
-      ]
+      ],
+      "heroImage": "/img/burenie/hero-obustrojstvo-kesson.webp",
+      "heroImageAlt": "Монтаж пластикового кессона СОЮЗ на скважину"
     },
     {
       "slug": "skvazhinnyj-adapter",
@@ -744,7 +748,9 @@
       "objects": [
         "hajryuzovka-vodosnabzhenie-iz-skvazhiny",
         "patrony-park-skvazhina-52"
-      ]
+      ],
+      "heroImage": "/img/burenie/hero-vvod-v-dom.webp",
+      "heroImageAlt": "Разрез траншеи: ввод воды в дом с греющим кабелем, насос и гидроаккумулятор"
     },
     {
       "slug": "vodosnabzhenie-doma-iz-skvazhiny",
@@ -788,7 +794,9 @@
       "objects": [
         "patrony-park-skvazhina-52",
         "markova-zapadnyj-obustrojstvo-80"
-      ]
+      ],
+      "heroImage": "/img/burenie/hero-vvod-v-dom.webp",
+      "heroImageAlt": "Ввод водоснабжения в дом от скважины с греющим кабелем и автоматикой"
     },
     {
       "slug": "ochistka-vody-iz-skvazhiny",
@@ -1447,9 +1455,13 @@
       ],
       "estimateDraft": false,
       "draft": false,
-      "cover": "/img/objects/burenie/patrony-park-skvazhina-52-cover.svg",
+      "cover": "/img/objects/burenie/patrony-park-skvazhina-52-cover.webp",
       "images": [
-        "/img/objects/burenie/patrony-park-skvazhina-52-1.svg"
+        "/img/objects/burenie/patrony-park-skvazhina-52-1.webp",
+        "/img/objects/burenie/patrony-park-skvazhina-52-2.webp",
+        "/img/objects/burenie/patrony-park-skvazhina-52-3.webp",
+        "/img/objects/burenie/patrony-park-skvazhina-52-4.webp",
+        "/img/objects/burenie/patrony-park-skvazhina-52-5.webp"
       ]
     },
     {
@@ -1488,9 +1500,11 @@
       ],
       "estimateDraft": false,
       "draft": false,
-      "cover": "/img/objects/burenie/markova-zapadnyj-obustrojstvo-80-cover.svg",
+      "cover": "/img/objects/burenie/markova-zapadnyj-obustrojstvo-80-cover.webp",
       "images": [
-        "/img/objects/burenie/markova-zapadnyj-obustrojstvo-80-1.svg"
+        "/img/objects/burenie/markova-zapadnyj-obustrojstvo-80-1.webp",
+        "/img/objects/burenie/markova-zapadnyj-obustrojstvo-80-2.webp",
+        "/img/objects/burenie/markova-zapadnyj-obustrojstvo-80-3.webp"
       ]
     },
     {
@@ -1529,9 +1543,13 @@
       ],
       "estimateDraft": false,
       "draft": false,
-      "cover": "/img/objects/burenie/hajryuzovka-vodosnabzhenie-iz-skvazhiny-cover.svg",
+      "cover": "/img/objects/burenie/hajryuzovka-vodosnabzhenie-iz-skvazhiny-cover.webp",
       "images": [
-        "/img/objects/burenie/hajryuzovka-vodosnabzhenie-iz-skvazhiny-1.svg"
+        "/img/objects/burenie/hajryuzovka-vodosnabzhenie-iz-skvazhiny-1.webp",
+        "/img/objects/burenie/hajryuzovka-vodosnabzhenie-iz-skvazhiny-2.webp",
+        "/img/objects/burenie/hajryuzovka-vodosnabzhenie-iz-skvazhiny-3.webp",
+        "/img/objects/burenie/hajryuzovka-vodosnabzhenie-iz-skvazhiny-4.webp",
+        "/img/objects/burenie/hajryuzovka-vodosnabzhenie-iz-skvazhiny-5.webp"
       ]
     }
   ],
