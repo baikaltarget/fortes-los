@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { meta, ldProduct } from "@/lib/seo";
-import { allObjects, getAnyObject, getProduct, getGeo, getHeatGeo, rub, objectCover, P, HP } from "@/lib/content";
+import { allObjects, getAnyObject, getProduct, getGeo, getHeatGeo, getBurGeo, rub, objectCover, P, HP, BP } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import LeadSection from "@/components/LeadSection";
@@ -13,7 +13,7 @@ export const dynamicParams = false;
 export function generateStaticParams() { return allObjects.map((o) => ({ slug: o.slug })); }
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const o = getAnyObject(params.slug); if (!o) return {};
-  const heat = o.section === "otoplenie";
+  const heat = o.section === "otoplenie" || o.section === "burenie";
   const did = heat ? `Смонтировали: ${o.system}.` : `Поставили ${o.productName}.`;
   const title = heat ? `${o.title} — ${rub(o.price)} под ключ, ${o.place}` : `${o.title}, ${o.place} — смета и цена под ключ ${rub(o.price)}`;
   return meta({ title, description: `${o.type}, ${o.place}. ${o.task.slice(0, 110).replace(/\s\S*$/, "")}… ${did} Итого под ключ ${rub(o.price)}.`.slice(0, 300), path: `/obekty/${o.slug}/`, type: "article" });
@@ -21,12 +21,14 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
 
 export default function Page({ params }: { params: { slug: string } }) {
   const o = getAnyObject(params.slug); if (!o) notFound();
-  const heat = o.section === "otoplenie";
+  const heat = o.section === "otoplenie" || o.section === "burenie";
+  const bur = o.section === "burenie";
   const p = !heat && o.product ? getProduct(o.product) : undefined;
   const g = !heat ? getGeo(o.geo) : undefined;
-  const hg = heat ? getHeatGeo(o.geo) : undefined;
+  const hg = heat && !bur ? getHeatGeo(o.geo) : undefined;
+  const bg = bur ? getBurGeo(o.geo) : undefined;
   const others = allObjects.filter((x) => x.slug !== o.slug && (x.section === o.section)).slice(0, 2);
-  const sectionCrumb = heat ? { name: "Отопление", href: HP.hub } : { name: "Канализация", href: P.hub };
+  const sectionCrumb = bur ? { name: "Бурение", href: BP.hub } : heat ? { name: "Отопление", href: HP.hub } : { name: "Канализация", href: P.hub };
   return (
     <>
       <JsonLd data={ldProduct({ name: `${o.title} под ключ, ${o.place}`, description: o.solution, path: `/obekty/${o.slug}/`, price: o.price, brand: "Фортес", image: objectCover(o) })} />
@@ -47,7 +49,9 @@ export default function Page({ params }: { params: { slug: string } }) {
                 {p && <Link href={P.product(p.slug)} className="chip hover:border-ink">{p.name}</Link>}
                 {g && <Link href={P.geo(g.slug)} className="chip hover:border-ink">Септик {g.prep}</Link>}
                 {hg && <Link href={HP.geo(hg.slug)} className="chip hover:border-ink">Отопление {hg.prep}</Link>}
-                {heat && <Link href={HP.hub} className="chip hover:border-ink">Все услуги по отоплению</Link>}
+                {bg && <Link href={BP.geo(bg.slug)} className="chip hover:border-ink">Скважины {bg.prep}</Link>}
+                {heat && !bur && <Link href={HP.hub} className="chip hover:border-ink">Все услуги по отоплению</Link>}
+                {bur && <Link href={BP.hub} className="chip hover:border-ink">Все услуги по бурению</Link>}
               </div>
               <Draft on={o.estimateDraft} note="смета — проверить позиции" className="mt-6"><div className="card p-6">
                 <h3>{heat ? "Что вошло в стоимость" : "Смета"}</h3>
@@ -69,7 +73,7 @@ export default function Page({ params }: { params: { slug: string } }) {
           </div>
         </Draft>
       </div>
-      <LeadSection source={`объект ${o.slug}`} title={heat ? "Похожий дом? Посчитаем так же подробно" : "Похожий участок? Посчитаем так же подробно"} text={heat ? "Инженер приедет бесплатно, посмотрит дом или проект, посчитает теплопотери и составит смету с теми же строками. Проект и смета — до договора." : undefined} />
+      <LeadSection source={`объект ${o.slug}`} title={bur ? "Похожий участок? Посчитаем так же подробно" : heat ? "Похожий дом? Посчитаем так же подробно" : "Похожий участок? Посчитаем так же подробно"} text={bur ? "Инженер приедет бесплатно, посмотрит участок и дом, сверит глубину по соседним скважинам и составит смету с теми же строками. Смета фиксируется в договоре." : heat ? "Инженер приедет бесплатно, посмотрит дом или проект, посчитает теплопотери и составит смету с теми же строками. Проект и смета — до договора." : undefined} />
       {p && <ProductGrid slugs={[p.slug]} title="Станция с этого объекта" />}
       {others.length > 0 && <section className="py-6"><div className="container-site"><h2 className="mb-6">Другие объекты</h2><div className="grid gap-5 md:grid-cols-2">{others.map((x) => <ObjectCard key={x.slug} o={x} />)}</div></div></section>}
     </>

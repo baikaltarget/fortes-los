@@ -13,6 +13,8 @@ const redirects = [
   { source: "/septik/:geo", destination: "/kanalizaciya/:geo/", permanent: true },
   { source: "/otoplenie/vozdushnoe-otoplenie-volcano", destination: "/otoplenie/otoplenie-sklada-angara/", permanent: true },
   { source: "/otoplenie/vozdushnoe-otoplenie-volcano/", destination: "/otoplenie/otoplenie-sklada-angara/", permanent: true },
+  { source: "/vodosnabzhenie/burenie-skvazhin", destination: "/burenie/", permanent: true },
+  { source: "/vodosnabzhenie/burenie-skvazhin/", destination: "/burenie/", permanent: true },
   ...old.map((slug) => ({ source: `/${slug}`, destination: `/kanalizaciya/${slug}/`, permanent: true })),
 ];
 

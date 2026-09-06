@@ -1,6 +1,7 @@
 import site from "@/content/site.json";
 import sectionsJson from "@/content/sections.json";
 import otoplenieJson from "@/content/otoplenie.json";
+import burenieJson from "@/content/burenie.json";
 
 export type Faq = { q: string; a: string };
 export type Variant = { name: string; price: number; note: string };
@@ -22,7 +23,7 @@ export type Geo = { slug: string; name: string; prep: string; distance: string; 
 export type SiteObject = {
   slug: string; title: string; place: string; geo: string; type: string; product?: string; productName?: string; price: number;
   task: string; solution: string; result: string; estimate: string[][]; estimateDraft?: boolean; draft: boolean; images: string[];
-  /** раздел: undefined = канализация (site.json), "otoplenie" = отопление (otoplenie.json) */
+  /** раздел: undefined = канализация (site.json), "otoplenie" = отопление (otoplenie.json), "burenie" = бурение (burenie.json) */
   section?: string; cover?: string; system?: string;
 };
 
@@ -100,7 +101,7 @@ export const getHeatGeo = (slug: string) => heatGeo.find((g) => g.slug === slug)
 export const heatServicesByCluster = (cluster: string) => heatServices.filter((s) => s.cluster === cluster);
 
 /** Все объекты бренда для общих страниц /obekty/ — канализация + отопление */
-export const allObjects: SiteObject[] = [...objects, ...heatObjects];
+export const allObjects: SiteObject[] = [...objects, ...heatObjects, ...burObjectsList()];
 export const getAnyObject = (slug: string) => allObjects.find((o) => o.slug === slug);
 export const objectCover = (o: SiteObject) => o.cover || o.images[0];
 
@@ -112,5 +113,40 @@ export const HP = {
   geo: (slug: string) => `${HSEC}/${slug}/`,    // гео — тот же уровень
   ceny: `${HSEC}/ceny/`,
   calc: `${HSEC}/kalkulyator/`,
+  object: (slug: string) => `/obekty/${slug}/`,
+};
+
+/* ======================= РАЗДЕЛ «БУРЕНИЕ» (content/burenie.json) ======================= */
+export type BurService = {
+  slug: string; name: string; title: string; description: string; h1: string; lead: string; cluster: string;
+  heroImage?: string; heroImageAlt?: string; priceFrom?: string; priceDraft?: boolean; confirmWithClient?: string; sections: TextSection[]; faq: Faq[]; chips?: string[]; objects?: string[];
+};
+export type BurGeo = {
+  slug: string; name: string; prep: string; distance: string; tract: string;
+  depth: string; depthMax: number; steelDepth: number; water: string; soil: string; construction: string; about: string[]; objects?: string[];
+};
+export const BUR = burenieJson as unknown as {
+  hub: { title: string; description: string; h1: string; lead: string; chips: string[]; priceNote: string; heroImage: string; heroImageAlt: string; stats: string[][]; ogImage: string };
+  clusters: HeatCluster[]; services: BurService[]; geo: BurGeo[]; geoNote: { depthDraft: boolean; text: string }; objects: SiteObject[]; steps: HeatStep[]; reasons: HeatReason[]; brands: HeatBrand[]; brandsDraft: boolean; faq: Faq[]; prices: HeatPrice[];
+  calculator: { title: string; lead: string; rates: Record<string, number>; ratesDraft: boolean };
+  depthMap: { title: string; iframe: string; lead: string };
+};
+export const burServices: BurService[] = BUR.services;
+export const burGeo: BurGeo[] = BUR.geo;
+function burObjectsList(): SiteObject[] { return (burenieJson as unknown as { objects: SiteObject[] }).objects.map((o) => ({ ...o, section: "burenie" })); }
+export const burObjects: SiteObject[] = burObjectsList();
+export const getBurService = (slug: string) => burServices.find((s) => s.slug === slug);
+export const getBurGeo = (slug: string) => burGeo.find((g) => g.slug === slug);
+export const burServicesByCluster = (cluster: string) => burServices.filter((s) => s.cluster === cluster);
+
+/** Ссылки раздела «Бурение» */
+export const BSEC = "/burenie";
+export const BP = {
+  hub: `${BSEC}/`,
+  page: (slug: string) => `${BSEC}/${slug}/`,   // услуги
+  geo: (slug: string) => `${BSEC}/${slug}/`,    // гео — тот же уровень
+  ceny: `${BSEC}/ceny/`,
+  calc: `${BSEC}/kalkulyator/`,
+  map: `${BSEC}/karta-glubin/`,
   object: (slug: string) => `/obekty/${slug}/`,
 };

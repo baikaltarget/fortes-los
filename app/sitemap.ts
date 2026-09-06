@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL, products, brands, services, geo, objects, sections, P, heatServices, heatGeo, heatObjects, HP } from "@/lib/content";
+import { SITE_URL, products, brands, services, geo, objects, sections, P, heatServices, heatGeo, heatObjects, HP, burServices, burGeo, burObjects, BP } from "@/lib/content";
 import { getPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -23,5 +23,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...heatServices.map((s) => u(HP.page(s.slug), 0.8)),
     ...heatGeo.map((g) => u(HP.geo(g.slug), 0.7)),
     ...heatObjects.map((o) => u(HP.object(o.slug), 0.7)),
+    // бурение
+    u(BP.hub, 0.9, "weekly"), u(BP.ceny, 0.9, "weekly"), u(BP.calc, 0.8), u(BP.map, 0.8),
+    ...burServices.map((s) => u(BP.page(s.slug), 0.8)),
+    ...burGeo.map((g) => u(BP.geo(g.slug), 0.7)),
+    ...burObjects.map((o) => u(BP.object(o.slug), 0.7)),
   ];
 }

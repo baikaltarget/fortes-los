@@ -2,6 +2,20 @@
 
 Next.js 14 (App Router) + Tailwind, статическая генерация, формы → Telegram. 155 страниц. Домен: `fortes-group.ru`.
 
+## 0а. Что изменилось в v23 — раздел «Бурение» стал живым
+
+Новый раздел `/burenie/` по той же схеме, что отопление: хаб, 23 страницы услуг, 26 гео-страниц, `/burenie/ceny/`, `/burenie/kalkulyator/`, `/burenie/karta-glubin/` и 3 объекта со старого лендинга в общем `/obekty/#burenie`. Всего на сайте 209 адресов в sitemap.
+
+Новые файлы/папки:
+- `content/burenie.json` — весь контент раздела (хаб, услуги, гео с глубинами, объекты, этапы, причины, FAQ, бренды, цены, ставки калькулятора, карта глубин)
+- `app/burenie/` — роуты (`layout.tsx`, `page.tsx`, `[slug]/page.tsx`, `ceny/`, `kalkulyator/`, `karta-glubin/`)
+- `components/WellScheme.tsx` (SVG-разрез скважины — временно вместо фото), `DrillLead.tsx`, `DrillBrands.tsx`, `DrillingCalculator.tsx`
+- `public/img/objects/burenie/` — SVG-заглушки 3 объектов (заменить на фото, см. `public/img/PHOTOS-TODO.md`)
+
+Изменённые: `lib/content.ts` (BUR/BP/burServices/burGeo/burObjects), `lib/seo.ts`, `content/sections.json` (бурение `live: true`, меню, subnav, подвал), `app/sitemap.ts`, `app/obekty/*`, `next.config.mjs` (301 с `/vodosnabzhenie/burenie-skvazhin`).
+
+**Удалять ничего не нужно** — визитка `/burenie/` из `app/[section]/` отключилась сама. **Все цены раздела — заглушки (`draft: true`), кроме 2 300 ₽/м, кессона из колец 90 000 ₽ и бесплатного выезда** — править в `content/burenie.json`: `services[].priceFrom`, `prices[]`, `calculator.rates`, `geo[].depth/depthMax`.
+
 ## 0б. Что изменилось в v15 — раздел «Отопление» стал живым
 
 Новый раздел `/otoplenie/` по той же схеме, что канализация: хаб, 30 страниц услуг, 26 гео-страниц, `/otoplenie/ceny/`, `/otoplenie/kalkulyator/` и 6 реальных объектов с фото в общем `/obekty/`. Всего на сайте 155 адресов в sitemap.

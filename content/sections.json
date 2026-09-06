@@ -1,5 +1,5 @@
 {
-  "_readme": "Направления бренда для шапки и подвала. kanalizaciya (site.json) и otoplenie (otoplenie.json) — живые разделы. Остальные — визитки со ссылкой на старый поддомен. Добавить направление = блок здесь + content/<slug>.json + app/<slug>/ + фото.",
+  "_readme": "Направления бренда для шапки и подвала. kanalizaciya (site.json), otoplenie (otoplenie.json) и burenie (burenie.json) — живые разделы. Остальные — визитки со ссылкой на старый поддомен. Добавить направление = блок здесь + content/<slug>.json + app/<slug>/ + фото.",
   "sections": [
     {
       "slug": "kanalizaciya",
@@ -304,52 +304,154 @@
     {
       "slug": "burenie",
       "name": "Бурение",
-      "short": "Скважины на воду",
-      "live": false,
-      "external": "https://bur.fortes-dom.ru",
-      "title": "Бурение скважин на воду в Иркутске — Фортес",
-      "description": "Бурение скважин на воду в Иркутске и районе: разведка, бурение, обустройство с кессоном, обвязка. Гарантия на скважину, работаем с 2014 года.",
-      "h1": "Бурение скважин на воду в Иркутске",
-      "lead": "Бурим, обустраиваем кессоном и обвязкой, подключаем воду в дом. Пока подробности — на нашем сайте по бурению.",
+      "short": "Скважины на воду, обустройство, ремонт",
+      "live": true,
       "menu": [
         {
-          "title": "Услуги",
+          "title": "Бурение",
           "links": [
             [
-              "Скважина на воду",
-              "/burenie/"
+              "Скважина под ключ",
+              "/burenie/skvazhina-pod-klyuch/"
             ],
+            [
+              "Бурение скважин на воду",
+              "/burenie/burenie-skvazhin-na-vodu/"
+            ],
+            [
+              "Скважина для частного дома",
+              "/burenie/skvazhina-dlya-chastnogo-doma/"
+            ],
+            [
+              "Скважина для дачи",
+              "/burenie/skvazhina-dlya-dachi/"
+            ],
+            [
+              "Артезианская (глубокая) скважина",
+              "/burenie/artezianskaya-skvazhina/"
+            ],
+            [
+              "Конструкция скважины",
+              "/burenie/konstrukciya-skvazhiny/"
+            ],
+            [
+              "Бурение для СНТ и предприятий",
+              "/burenie/burenie-dlya-snt-i-predpriyatij/"
+            ]
+          ]
+        },
+        {
+          "title": "Обустройство и сервис",
+          "links": [
             [
               "Обустройство скважины",
-              "/burenie/"
+              "/burenie/obustrojstvo-skvazhiny/"
             ],
             [
-              "Кессон для скважины",
-              "/kanalizaciya/kesson-dlya-skvazhiny/"
+              "Обустройство с кессоном",
+              "/burenie/obustrojstvo-skvazhiny-s-kessonom/"
             ],
             [
-              "Ремонт скважин",
-              "/burenie/"
+              "Скважинный адаптер",
+              "/burenie/skvazhinnyj-adapter/"
+            ],
+            [
+              "Ввод воды в дом",
+              "/burenie/vvod-vody-v-dom/"
+            ],
+            [
+              "Водоочистка из скважины",
+              "/burenie/ochistka-vody-iz-skvazhiny/"
+            ],
+            [
+              "Ремонт и промывка скважин",
+              "/burenie/remont-skvazhin/"
+            ],
+            [
+              "Карта глубин",
+              "/burenie/karta-glubin/"
+            ],
+            [
+              "Калькулятор стоимости",
+              "/burenie/kalkulyator/"
             ]
           ]
         }
       ],
       "footer": [
         [
-          "Скважина на воду",
-          "/burenie/"
+          "Скважина под ключ",
+          "/burenie/skvazhina-pod-klyuch/"
         ],
         [
-          "Обустройство",
-          "/burenie/"
+          "Бурение скважин на воду",
+          "/burenie/burenie-skvazhin-na-vodu/"
         ],
         [
-          "Кессон",
-          "/kanalizaciya/kesson-dlya-skvazhiny/"
+          "Обустройство скважины",
+          "/burenie/obustrojstvo-skvazhiny/"
+        ],
+        [
+          "Обустройство с кессоном",
+          "/burenie/obustrojstvo-skvazhiny-s-kessonom/"
+        ],
+        [
+          "Ввод воды в дом",
+          "/burenie/vvod-vody-v-dom/"
         ],
         [
           "Ремонт скважин",
-          "/burenie/"
+          "/burenie/remont-skvazhin/"
+        ],
+        [
+          "Цены на бурение",
+          "/burenie/ceny/"
+        ],
+        [
+          "Карта глубин",
+          "/burenie/karta-glubin/"
+        ]
+      ],
+      "hit": {
+        "label": "Реальный объект",
+        "name": "Скважина 52 м + вода в дом",
+        "sub": "Патроны Парк, кессон, 4 точки водоразбора",
+        "price": "615 246 ₽",
+        "note": "под ключ с оборудованием",
+        "href": "/obekty/patrony-park-skvazhina-52/"
+      },
+      "subnav": [
+        [
+          "Скважина под ключ",
+          "/burenie/skvazhina-pod-klyuch/"
+        ],
+        [
+          "Обустройство",
+          "/burenie/obustrojstvo-skvazhiny/"
+        ],
+        [
+          "Ремонт",
+          "/burenie/remont-skvazhin/"
+        ],
+        [
+          "Цены",
+          "/burenie/ceny/"
+        ],
+        [
+          "Калькулятор",
+          "/burenie/kalkulyator/"
+        ],
+        [
+          "Карта глубин",
+          "/burenie/karta-glubin/"
+        ],
+        [
+          "Объекты",
+          "/obekty/#burenie"
+        ],
+        [
+          "Посёлки",
+          "/burenie/#geo"
         ]
       ]
     },
