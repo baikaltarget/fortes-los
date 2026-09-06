@@ -304,7 +304,7 @@
     {
       "slug": "burenie",
       "name": "Бурение",
-      "short": "Скважины на воду, обустройство, ремонт",
+      "short": "Скважины на воду и обустройство",
       "live": true,
       "menu": [
         {
@@ -364,10 +364,6 @@
               "/burenie/ochistka-vody-iz-skvazhiny/"
             ],
             [
-              "Ремонт и промывка скважин",
-              "/burenie/remont-skvazhin/"
-            ],
-            [
               "Карта глубин",
               "/burenie/karta-glubin/"
             ],
@@ -400,8 +396,8 @@
           "/burenie/vvod-vody-v-dom/"
         ],
         [
-          "Ремонт скважин",
-          "/burenie/remont-skvazhin/"
+          "Водоочистка из скважины",
+          "/burenie/ochistka-vody-iz-skvazhiny/"
         ],
         [
           "Цены на бурение",
@@ -430,8 +426,8 @@
           "/burenie/obustrojstvo-skvazhiny/"
         ],
         [
-          "Ремонт",
-          "/burenie/remont-skvazhin/"
+          "Ввод воды в дом",
+          "/burenie/vvod-vody-v-dom/"
         ],
         [
           "Цены",

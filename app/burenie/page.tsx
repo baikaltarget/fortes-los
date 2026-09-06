@@ -48,7 +48,7 @@ export default function Page() {
       {/* УСЛУГИ ПО КЛАСТЕРАМ */}
       <section className="py-12 md:py-16"><div className="container-site">
         <h2 className="mb-2">Что делаем</h2>
-        <p className="text-muted max-w-[70ch] mb-8">Бурение под задачу, обустройство до крана в доме, ремонт старых скважин. У каждой страницы — цена, что входит и ответы на вопросы.</p>
+        <p className="text-muted max-w-[70ch] mb-8">Бурение под задачу, обустройство до крана в доме, добуривание старых скважин. У каждой страницы — цена, что входит и ответы на вопросы.</p>
         <div className="grid gap-8">
           {BUR.clusters.map((c) => {
             const list = burServicesByCluster(c.slug);

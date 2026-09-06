@@ -15,6 +15,14 @@ const redirects = [
   { source: "/otoplenie/vozdushnoe-otoplenie-volcano/", destination: "/otoplenie/otoplenie-sklada-angara/", permanent: true },
   { source: "/vodosnabzhenie/burenie-skvazhin", destination: "/burenie/", permanent: true },
   { source: "/vodosnabzhenie/burenie-skvazhin/", destination: "/burenie/", permanent: true },
+  { source: "/burenie/remont-skvazhin", destination: "/burenie/doburivanie-skvazhiny/", permanent: true },
+  { source: "/burenie/remont-skvazhin/", destination: "/burenie/doburivanie-skvazhiny/", permanent: true },
+  { source: "/burenie/promyvka-skvazhiny", destination: "/burenie/doburivanie-skvazhiny/", permanent: true },
+  { source: "/burenie/promyvka-skvazhiny/", destination: "/burenie/doburivanie-skvazhiny/", permanent: true },
+  { source: "/burenie/zamena-nasosa-v-skvazhine", destination: "/burenie/montazh-nasosa-v-skvazhinu/", permanent: true },
+  { source: "/burenie/zamena-nasosa-v-skvazhine/", destination: "/burenie/montazh-nasosa-v-skvazhinu/", permanent: true },
+  { source: "/burenie/pasport-skvazhiny", destination: "/burenie/burenie-skvazhin-na-vodu/", permanent: true },
+  { source: "/burenie/pasport-skvazhiny/", destination: "/burenie/burenie-skvazhin-na-vodu/", permanent: true },
   ...old.map((slug) => ({ source: `/${slug}`, destination: `/kanalizaciya/${slug}/`, permanent: true })),
 ];
 
