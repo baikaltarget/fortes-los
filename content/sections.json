@@ -1,5 +1,5 @@
 {
-  "_readme": "Направления бренда для шапки и подвала. kanalizaciya (site.json), otoplenie (otoplenie.json) и burenie (burenie.json) — живые разделы. Остальные — визитки со ссылкой на старый поддомен. Добавить направление = блок здесь + content/<slug>.json + app/<slug>/ + фото.",
+  "_readme": "Направления бренда для шапки и подвала. kanalizaciya (site.json), otoplenie (otoplenie.json), burenie (burenie.json) и vodosnabzhenie (vodosnabzhenie.json) — живые разделы. Остальные — визитки со ссылкой на старый поддомен. Добавить направление = блок здесь + content/<slug>.json + app/<slug>/ + фото.",
   "sections": [
     {
       "slug": "kanalizaciya",
@@ -356,8 +356,8 @@
               "/burenie/skvazhinnyj-adapter/"
             ],
             [
-              "Ввод воды в дом",
-              "/burenie/vvod-vody-v-dom/"
+              "Ввод воды в дом →",
+              "/vodosnabzhenie/vvod-vody-v-dom/"
             ],
             [
               "Водоочистка из скважины",
@@ -392,8 +392,8 @@
           "/burenie/obustrojstvo-skvazhiny-s-kessonom/"
         ],
         [
-          "Ввод воды в дом",
-          "/burenie/vvod-vody-v-dom/"
+          "Водоснабжение из скважины",
+          "/burenie/vodosnabzhenie-doma-iz-skvazhiny/"
         ],
         [
           "Водоочистка из скважины",
@@ -426,8 +426,8 @@
           "/burenie/obustrojstvo-skvazhiny/"
         ],
         [
-          "Ввод воды в дом",
-          "/burenie/vvod-vody-v-dom/"
+          "Водоснабжение из скважины",
+          "/burenie/vodosnabzhenie-doma-iz-skvazhiny/"
         ],
         [
           "Цены",
@@ -454,52 +454,154 @@
     {
       "slug": "vodosnabzhenie",
       "name": "Водоснабжение",
-      "short": "Вода в дом под ключ",
-      "live": false,
-      "external": "https://voda.fortes-dom.ru",
-      "title": "Водоснабжение частного дома под ключ в Иркутске — Фортес",
-      "description": "Водоснабжение частного дома в Иркутске: от скважины до крана — насосное оборудование, автоматика, водоочистка, разводка. Гарантия и сервис.",
-      "h1": "Водоснабжение частного дома под ключ",
-      "lead": "От скважины до крана: насосы, автоматика, водоочистка, разводка по дому. Пока подробности — на нашем сайте по водоснабжению.",
+      "short": "Вода и канализация в доме",
+      "live": true,
       "menu": [
         {
-          "title": "Услуги",
+          "title": "Вода в доме",
           "links": [
             [
-              "Водоснабжение под ключ",
-              "/vodosnabzhenie/"
+              "Вода и канализация под ключ",
+              "/vodosnabzhenie/vodosnabzhenie-i-kanalizaciya-pod-klyuch/"
             ],
             [
-              "Автоматика и насосы",
-              "/vodosnabzhenie/"
+              "Ввод воды в дом",
+              "/vodosnabzhenie/vvod-vody-v-dom/"
             ],
             [
-              "Водоочистка",
-              "/vodosnabzhenie/"
+              "Разводка водоснабжения",
+              "/vodosnabzhenie/razvodka-vodosnabzheniya/"
             ],
             [
-              "Летний водопровод",
-              "/vodosnabzhenie/"
+              "Коллекторная разводка",
+              "/vodosnabzhenie/kollektornaya-razvodka/"
+            ],
+            [
+              "Горячая вода с рециркуляцией",
+              "/vodosnabzhenie/goryachee-vodosnabzhenie-recirkulyaciya/"
+            ],
+            [
+              "Подключение к Водоканалу",
+              "/vodosnabzhenie/podklyuchenie-k-vodokanalu/"
+            ],
+            [
+              "Водоснабжение из колодца",
+              "/vodosnabzhenie/vvod-vody-iz-kolodca/"
+            ]
+          ]
+        },
+        {
+          "title": "Канализация и оборудование",
+          "links": [
+            [
+              "Монтаж канализации в доме",
+              "/vodosnabzhenie/montazh-kanalizacii-v-dome/"
+            ],
+            [
+              "Наружная канализация к септику",
+              "/vodosnabzhenie/naruzhnaya-kanalizaciya-k-septiku/"
+            ],
+            [
+              "Фановый стояк",
+              "/vodosnabzhenie/fanovyj-stoyak/"
+            ],
+            [
+              "Бойлер косвенного нагрева",
+              "/vodosnabzhenie/bojler-kosvennogo-nagreva/"
+            ],
+            [
+              "Гидроаккумулятор и автоматика",
+              "/vodosnabzhenie/gidroakkumulyator-i-rele-davleniya/"
+            ],
+            [
+              "Установка сантехники",
+              "/vodosnabzhenie/ustanovka-santehniki/"
+            ],
+            [
+              "Калькулятор стоимости",
+              "/vodosnabzhenie/kalkulyator/"
             ]
           ]
         }
       ],
-      "footer": [
+      "hit": {
+        "label": "Реальный объект",
+        "name": "Баня 60 м²: вода, канализация, тёплый пол",
+        "sub": "«Ангарский Берег», бойлер, коллектор, септик",
+        "price": "473 030 ₽",
+        "note": "под ключ с оборудованием",
+        "href": "/obekty/angarskij-bereg-banya-60/"
+      },
+      "subnav": [
         [
           "Под ключ",
-          "/vodosnabzhenie/"
+          "/vodosnabzhenie/vodosnabzhenie-i-kanalizaciya-pod-klyuch/"
         ],
         [
-          "Автоматика",
-          "/vodosnabzhenie/"
+          "Ввод воды",
+          "/vodosnabzhenie/vvod-vody-v-dom/"
         ],
         [
-          "Водоочистка",
-          "/vodosnabzhenie/"
+          "Разводка",
+          "/vodosnabzhenie/razvodka-vodosnabzheniya/"
         ],
         [
-          "Летний водопровод",
-          "/vodosnabzhenie/"
+          "Канализация",
+          "/vodosnabzhenie/montazh-kanalizacii-v-dome/"
+        ],
+        [
+          "Водоканал",
+          "/vodosnabzhenie/podklyuchenie-k-vodokanalu/"
+        ],
+        [
+          "Цены",
+          "/vodosnabzhenie/ceny/"
+        ],
+        [
+          "Калькулятор",
+          "/vodosnabzhenie/kalkulyator/"
+        ],
+        [
+          "Объекты",
+          "/obekty/#vodosnabzhenie"
+        ],
+        [
+          "Посёлки",
+          "/vodosnabzhenie/#geo"
+        ]
+      ],
+      "footer": [
+        [
+          "Вода и канализация под ключ",
+          "/vodosnabzhenie/vodosnabzhenie-i-kanalizaciya-pod-klyuch/"
+        ],
+        [
+          "Ввод воды в дом",
+          "/vodosnabzhenie/vvod-vody-v-dom/"
+        ],
+        [
+          "Разводка водоснабжения",
+          "/vodosnabzhenie/razvodka-vodosnabzheniya/"
+        ],
+        [
+          "Монтаж канализации",
+          "/vodosnabzhenie/montazh-kanalizacii-v-dome/"
+        ],
+        [
+          "Бойлер косвенного нагрева",
+          "/vodosnabzhenie/bojler-kosvennogo-nagreva/"
+        ],
+        [
+          "Подключение к Водоканалу",
+          "/vodosnabzhenie/podklyuchenie-k-vodokanalu/"
+        ],
+        [
+          "Цены за точку",
+          "/vodosnabzhenie/ceny/"
+        ],
+        [
+          "Калькулятор",
+          "/vodosnabzhenie/kalkulyator/"
         ]
       ]
     },

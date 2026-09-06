@@ -2,6 +2,7 @@ import site from "@/content/site.json";
 import sectionsJson from "@/content/sections.json";
 import otoplenieJson from "@/content/otoplenie.json";
 import burenieJson from "@/content/burenie.json";
+import vodaJson from "@/content/vodosnabzhenie.json";
 
 export type Faq = { q: string; a: string };
 export type Variant = { name: string; price: number; note: string };
@@ -23,7 +24,7 @@ export type Geo = { slug: string; name: string; prep: string; distance: string; 
 export type SiteObject = {
   slug: string; title: string; place: string; geo: string; type: string; product?: string; productName?: string; price: number;
   task: string; solution: string; result: string; estimate: string[][]; estimateDraft?: boolean; draft: boolean; images: string[];
-  /** раздел: undefined = канализация (site.json), "otoplenie" = отопление (otoplenie.json), "burenie" = бурение (burenie.json) */
+  /** раздел: undefined = канализация (site.json), "otoplenie" = отопление (otoplenie.json), "burenie" = бурение (burenie.json). Водоснабжение своих объектов не имеет — ссылается на чужие через objectRefs */
   section?: string; cover?: string; system?: string;
 };
 
@@ -148,5 +149,35 @@ export const BP = {
   ceny: `${BSEC}/ceny/`,
   calc: `${BSEC}/kalkulyator/`,
   map: `${BSEC}/karta-glubin/`,
+  object: (slug: string) => `/obekty/${slug}/`,
+};
+
+/* ======================= РАЗДЕЛ «ВОДОСНАБЖЕНИЕ» (content/vodosnabzhenie.json) ======================= */
+export type VodaService = {
+  slug: string; name: string; title: string; description: string; h1: string; lead: string; cluster: string;
+  heroImage?: string; heroImageAlt?: string; priceFrom?: string; priceDraft?: boolean; sections: TextSection[]; faq: Faq[]; chips?: string[]; objects?: string[];
+};
+export type VodaGeo = { slug: string; name: string; prep: string; distance: string; tract: string; source: string; sewer: string; housing: string; about: string[]; objects?: string[] };
+export const VODA = vodaJson as unknown as {
+  hub: { title: string; description: string; h1: string; lead: string; chips: string[]; priceNote: string; heroImage: string; heroImageAlt: string; stats: string[][]; ogImage: string };
+  clusters: HeatCluster[]; services: VodaService[]; geo: VodaGeo[]; geoNote: { text: string; draft: boolean }; objectRefs: string[]; steps: HeatStep[]; reasons: HeatReason[]; brands: HeatBrand[]; brandsDraft: boolean; faq: Faq[]; prices: HeatPrice[];
+  calculator: { title: string; lead: string; rates: Record<string, number>; ratesDraft: boolean };
+};
+export const vodaServices: VodaService[] = VODA.services;
+export const vodaGeo: VodaGeo[] = VODA.geo;
+/** Объекты раздела — реальные объекты бурения и отопления, где были вода и канализация */
+export const vodaObjects: SiteObject[] = VODA.objectRefs.map((s) => allObjects.find((o) => o.slug === s)).filter(Boolean) as SiteObject[];
+export const getVodaService = (slug: string) => vodaServices.find((s) => s.slug === slug);
+export const getVodaGeo = (slug: string) => vodaGeo.find((g) => g.slug === slug);
+export const vodaServicesByCluster = (cluster: string) => vodaServices.filter((s) => s.cluster === cluster);
+
+/** Ссылки раздела «Водоснабжение» */
+export const VSEC = "/vodosnabzhenie";
+export const VP = {
+  hub: `${VSEC}/`,
+  page: (slug: string) => `${VSEC}/${slug}/`,   // услуги
+  geo: (slug: string) => `${VSEC}/${slug}/`,    // гео — тот же уровень
+  ceny: `${VSEC}/ceny/`,
+  calc: `${VSEC}/kalkulyator/`,
   object: (slug: string) => `/obekty/${slug}/`,
 };

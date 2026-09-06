@@ -15,6 +15,7 @@ import ObjectCard from "@/components/ObjectCard";
 import Draft from "@/components/Draft";
 import Calculator from "@/components/Calculator";
 import MdTable from "@/components/MdTable";
+import RichP from "@/components/RichP";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -146,7 +147,7 @@ function ServicePage({ slug }: { slug: string }) {
 
       <section className="py-12 md:py-16"><div className="container-site prose-site">
         {s.sections.map((sec) => (
-          <div key={sec.h2}><h2>{sec.h2}</h2>{sec.p.map((t, i) => t.startsWith("|") ? <MdTable key={i} md={t} /> : <p key={i}>{t}</p>)}</div>
+          <div key={sec.h2}><h2>{sec.h2}</h2>{sec.p.map((t, i) => t.startsWith("|") ? <MdTable key={i} md={t} /> : <RichP key={i} text={t} />)}</div>
         ))}
       </div></section>
 

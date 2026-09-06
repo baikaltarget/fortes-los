@@ -35,7 +35,7 @@ export const ldLocalBusiness = (addressIndex: number = 0) => {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": `${SITE_URL}/#business${multi ? `-${addressIndex + 1}` : ""}`,
-    name: `${company.name} — инженерные системы: отопление, бурение скважин, канализация, водоснабжение${multi ? ` (${a.label})` : ""}`,
+    name: `${company.name} — инженерные системы: отопление, водоснабжение, канализация, бурение скважин${multi ? ` (${a.label})` : ""}`,
     image: `${SITE_URL}/img/logo.webp`,
     url: SITE_URL,
     telephone: company.phoneRaw,

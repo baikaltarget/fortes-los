@@ -1,6 +1,20 @@
-# Фортес — сайт бренда: канализация и отопление (готово), бурение / водоснабжение / электрика (визитки)
+# Фортес — сайт бренда: канализация, отопление, бурение, водоснабжение (готово), электрика (визитка)
 
-Next.js 14 (App Router) + Tailwind, статическая генерация, формы → Telegram. 155 страниц. Домен: `fortes-group.ru`.
+Next.js 14 (App Router) + Tailwind, статическая генерация, формы → Telegram. 256 страниц. Домен: `fortes-group.ru`.
+
+## 0. Что изменилось в v25 — раздел «Водоснабжение» стал живым
+
+Новый раздел `/vodosnabzhenie/` (внутренние сети: ввод воды, разводка ХВС/ГВС, канализация в доме и до септика, бойлеры, автоматика, подключение к Водоканалу): хаб, 24 услуги, 26 гео, `/vodosnabzhenie/ceny/`, `/vodosnabzhenie/kalkulyator/`. 51 новый адрес. Своих объектов у раздела нет — он показывает реальные объекты бурения и отопления, где были вода и канализация (`objectRefs` в JSON).
+
+Новые файлы/папки:
+- `content/vodosnabzhenie.json` — весь контент раздела
+- `app/vodosnabzhenie/` — роуты (`layout.tsx`, `page.tsx`, `[slug]/page.tsx`, `ceny/`, `kalkulyator/`)
+- `components/WaterLead.tsx`, `WaterBrands.tsx`, `WaterCalculator.tsx`, `RichP.tsx` (абзац с инлайновыми ссылками `[текст](/url/)` в JSON)
+- `public/img/vodosnabzhenie/` — 9 hero-фото (квадраты из реальных фото объектов)
+
+Изменённые (перезапишутся при заливке): `content/sections.json` (водоснабжение `live: true`, меню, хит, subnav, подвал; из меню бурения «Ввод воды» ведёт в новый раздел), `content/burenie.json` (услуга `vvod-vody-v-dom` удалена — переехала в водоснабжение; гарантия на обустройство 2 года; анализ воды в подарок), `content/site.json` (два новых абзаца со ссылками на страницах `kanalizaciya-v-chastnom-dome` и `septik-iz-betonnyh-kolec`), `lib/content.ts` (`VODA`, `VP`, `vodaServices/vodaGeo/vodaObjects`), `lib/seo.ts`, `app/sitemap.ts`, `app/obekty/page.tsx` (секция `#vodosnabzhenie`), `app/burenie/[slug]/page.tsx` (ссылка на водоснабжение в кластере обустройства), `app/kanalizaciya/[slug]/page.tsx` (RichP), `next.config.mjs` (301 `/burenie/vvod-vody-v-dom` → `/vodosnabzhenie/vvod-vody-v-dom/`).
+
+**Удалить из репозитория:** ничего (страница `vvod-vody-v-dom` генерируется из JSON, папок у неё нет).
 
 ## 0а. Что изменилось в v23 — раздел «Бурение» стал живым
 

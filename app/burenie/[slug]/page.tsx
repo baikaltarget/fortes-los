@@ -89,6 +89,9 @@ function ServicePage({ slug }: { slug: string }) {
           {s.sections.map((sec) => (
             <div key={sec.h2}><h2>{sec.h2}</h2>{sec.p.map((t, i) => t.startsWith("|") ? <MdTable key={i} md={t} /> : <p key={i}>{t}</p>)}</div>
           ))}
+          {s.cluster === "obustrojstvo" && (
+            <p className="text-[15px] text-muted">Дальше кессона — <Link href="/vodosnabzhenie/vvod-vody-v-dom/" className="text-brand underline">ввод воды в дом</Link>, узел ввода, разводка по санузлам и канализация до септика — в разделе <Link href="/vodosnabzhenie/" className="text-brand underline">«Водоснабжение»</Link>. Считаем одной сметой со скважиной.</p>
+          )}
         </div></section>
       </Draft>
 
@@ -123,7 +126,7 @@ function GeoPage({ slug }: { slug: string }) {
       <JsonLd data={ldService({ name: `Бурение скважин ${g.prep}`, description: `Бурение и обустройство скважин на воду под ключ ${g.prep}: вода на ${g.depth}, ${g.construction}`, path: BP.geo(g.slug), area: g.name, priceFrom: 2300 })} />
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Бурение", href: BP.hub }, { name: g.name, href: BP.geo(g.slug) }]} />
-        <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-stretch">
+        <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-start">
           <div className="card p-6 md:p-10 shadow-card">
             <h1>Бурение скважин на воду {g.prep}</h1>
             <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[58ch]">Бурим под ключ {g.prep}: вода на {g.depth}, конструкция — {g.construction}. Кессон или адаптер, насос, ввод в дом с греющим кабелем. Цену метра называем до выезда буровой и фиксируем в договоре.</p>
@@ -137,11 +140,11 @@ function GeoPage({ slug }: { slug: string }) {
                 <div><dt className="text-muted">Вода</dt><dd className="font-bold">{g.water}</dd></div>
                 <div className="sm:col-span-2"><dt className="text-muted">Что обычно ставим</dt><dd className="font-bold">{g.construction}</dd></div>
               </dl>
-              <p className="text-[13px] text-muted mt-3">{g.depthNote ? `${g.depthNote}. ` : ""}{g.depthSource === "estimate" ? "Глубина — расчётный ориентир по соседним посёлкам, уточним по карте глубин перед выездом." : "Диапазон — по реальным скважинам в посёлке, точную глубину по вашей улице называем после сверки с картой глубин."}</p>
             </Draft>
           </div>
-          <div className="card overflow-hidden">
-            <img src="/img/burenie/hero-burovaya.webp" alt="Бурение скважины на воду малогабаритной буровой установкой в Иркутском районе" className="w-full h-full object-cover" width="1254" height="1254" />
+          <div className="card p-4 md:p-6">
+            <WellScheme depth={g.depthMax} steel={g.steelDepth} kesson title={`Типовая скважина ${g.prep}: ~${g.depthMax} м`} />
+            <p className="text-[13px] text-muted mt-2">{g.depthNote ? `${g.depthNote}. ` : ""}{g.depthSource === "estimate" ? "Глубина — расчётный ориентир по соседним посёлкам, уточним по карте глубин перед выездом." : "Диапазон — по реальным скважинам в посёлке, точную глубину по вашей улице называем после сверки с картой глубин."}</p>
           </div>
         </div>
       </div>

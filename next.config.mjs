@@ -14,6 +14,9 @@ const redirects = [
   { source: "/otoplenie/vozdushnoe-otoplenie-volcano", destination: "/otoplenie/otoplenie-sklada-angara/", permanent: true },
   { source: "/otoplenie/vozdushnoe-otoplenie-volcano/", destination: "/otoplenie/otoplenie-sklada-angara/", permanent: true },
   { source: "/vodosnabzhenie/burenie-skvazhin", destination: "/burenie/", permanent: true },
+  // v25: ввод воды в дом переехал из бурения в водоснабжение
+  { source: "/burenie/vvod-vody-v-dom", destination: "/vodosnabzhenie/vvod-vody-v-dom/", permanent: true },
+  { source: "/burenie/vvod-vody-v-dom/", destination: "/vodosnabzhenie/vvod-vody-v-dom/", permanent: true },
   { source: "/vodosnabzhenie/burenie-skvazhin/", destination: "/burenie/", permanent: true },
   { source: "/burenie/remont-skvazhin", destination: "/burenie/doburivanie-skvazhiny/", permanent: true },
   { source: "/burenie/remont-skvazhin/", destination: "/burenie/doburivanie-skvazhiny/", permanent: true },
