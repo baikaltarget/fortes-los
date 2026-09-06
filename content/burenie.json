@@ -96,7 +96,9 @@
       ],
       "objects": [
         "patrony-park-skvazhina-52"
-      ]
+      ],
+      "heroImage": "/img/burenie/hero-burovaya.webp",
+      "heroImageAlt": "Бурение скважины на воду малогабаритной установкой в Иркутском районе"
     },
     {
       "slug": "skvazhina-pod-klyuch",
@@ -141,7 +143,9 @@
       "objects": [
         "patrony-park-skvazhina-52",
         "hajryuzovka-vodosnabzhenie-iz-skvazhiny"
-      ]
+      ],
+      "heroImage": "/img/burenie/hero-burovaya.webp",
+      "heroImageAlt": "Буровая установка на участке при бурении скважины под ключ"
     },
     {
       "slug": "skvazhina-dlya-chastnogo-doma",
@@ -186,7 +190,9 @@
       "objects": [
         "patrony-park-skvazhina-52",
         "hajryuzovka-vodosnabzhenie-iz-skvazhiny"
-      ]
+      ],
+      "heroImage": "/img/burenie/hero-burovaya.webp",
+      "heroImageAlt": "Бурение скважины на воду для частного дома в Иркутской области"
     },
     {
       "slug": "skvazhina-dlya-dachi",
@@ -227,7 +233,9 @@
           "a": "Слить воду из труб и насоса, закрыть оголовок. Весной запустить и прокачать 20–30 минут. Сама скважина зимой не страдает — вода в ней не замерзает."
         }
       ],
-      "objects": []
+      "objects": [],
+      "heroImage": "/img/burenie/hero-burovaya.webp",
+      "heroImageAlt": "Бурение скважины для дачи буровой установкой"
     },
     {
       "slug": "artezianskaya-skvazhina",
@@ -271,7 +279,9 @@
       ],
       "objects": [
         "patrony-park-skvazhina-52"
-      ]
+      ],
+      "heroImage": "/img/burenie/hero-burovaya.webp",
+      "heroImageAlt": "Бурение глубокой артезианской скважины на второй-третий водоносный горизонт"
     },
     {
       "slug": "skvazhina-na-pesok",
@@ -312,7 +322,9 @@
           "a": "Если фильтр заилился, промывка обычно возвращает дебит — это делают сервисные организации. Если горизонт истощился, мы добуриваем скважину до следующего горизонта."
         }
       ],
-      "objects": []
+      "objects": [],
+      "heroImage": "/img/burenie/hero-burovaya.webp",
+      "heroImageAlt": "Бурение скважины на песок буровой установкой"
     },
     {
       "slug": "konstrukciya-skvazhiny",
@@ -357,7 +369,9 @@
       ],
       "objects": [
         "patrony-park-skvazhina-52"
-      ]
+      ],
+      "heroImage": "/img/burenie/hero-burovaya.webp",
+      "heroImageAlt": "Обсадка скважины стальной и пластиковой трубой при бурении"
     },
     {
       "slug": "malogabaritnoe-burenie",
@@ -399,7 +413,9 @@
           "a": "Не рекомендуем: при проходке выходит много воды и шлама, а обслуживать скважину в подвале неудобно. Лучше точка снаружи у стены и ввод через фундамент."
         }
       ],
-      "objects": []
+      "objects": [],
+      "heroImage": "/img/burenie/hero-burovaya.webp",
+      "heroImageAlt": "Бурение малогабаритной установкой на стеснённом участке"
     },
     {
       "slug": "doburivanie-skvazhiny",
@@ -440,7 +456,9 @@
           "a": "Один-два дня, как обычное бурение. Обустройство устья остаётся, меняем только насос при необходимости."
         }
       ],
-      "objects": []
+      "objects": [],
+      "heroImage": "/img/burenie/hero-burovaya.webp",
+      "heroImageAlt": "Добуривание скважины до нового водоносного горизонта"
     },
     {
       "slug": "burenie-skvazhin-zimoj",
@@ -481,7 +499,9 @@
           "a": "Нет: обсадная колонна стоит в грунте, где температура плюсовая. На поверхности остаётся только оголовок в кессоне."
         }
       ],
-      "objects": []
+      "objects": [],
+      "heroImage": "/img/burenie/hero-burovaya.webp",
+      "heroImageAlt": "Зимнее бурение скважины на воду"
     },
     {
       "slug": "obustrojstvo-skvazhiny",
@@ -621,7 +641,9 @@
           "a": "Адаптер стоит ниже промерзания, труба к дому — на той же глубине или с греющим кабелем. Работает всю зиму."
         }
       ],
-      "objects": []
+      "objects": [],
+      "heroImage": "/img/burenie/hero-vvod-v-dom.webp",
+      "heroImageAlt": "Скважинный адаптер и ввод воды в дом с греющим кабелем"
     },
     {
       "slug": "letnee-obustrojstvo-skvazhiny",
@@ -661,7 +683,9 @@
           "a": "Только если статический уровень воды выше 8 м от поверхности. Чаще в Иркутском районе он ниже, тогда — погружной насос."
         }
       ],
-      "objects": []
+      "objects": [],
+      "heroImage": "/img/burenie/hero-obustrojstvo-kesson.webp",
+      "heroImageAlt": "Летнее обустройство скважины с оголовком и насосом"
     },
     {
       "slug": "montazh-nasosa-v-skvazhinu",
@@ -704,7 +728,9 @@
       ],
       "objects": [
         "hajryuzovka-vodosnabzhenie-iz-skvazhiny"
-      ]
+      ],
+      "heroImage": "/img/burenie/hero-vvod-v-dom.webp",
+      "heroImageAlt": "Монтаж скважинного насоса с автоматикой и гидроаккумулятором"
     },
     {
       "slug": "vvod-vody-v-dom",
@@ -837,7 +863,9 @@
           "a": "Засыпка — 5–7 лет, картриджи механики — 3–6 месяцев, УФ-лампа — год. Обслуживание раз в год."
         }
       ],
-      "objects": []
+      "objects": [],
+      "heroImage": "/img/burenie/hero-obustrojstvo-kesson.webp",
+      "heroImageAlt": "Оборудование водоочистки, смонтированное в кессоне скважины"
     },
     {
       "slug": "burenie-dlya-snt-i-predpriyatij",
@@ -884,7 +912,9 @@
           "a": "Да, по Иркутской области — Шелеховский, Ангарский, Ольхонский районы, Байкальский тракт до Листвянки. Переезд техники считаем отдельно."
         }
       ],
-      "objects": []
+      "objects": [],
+      "heroImage": "/img/burenie/hero-burovaya.webp",
+      "heroImageAlt": "Бурение скважины для СНТ и предприятий на общее водоснабжение"
     }
   ],
   "geo": [
