@@ -24,8 +24,8 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   if (s) return meta({ title: s.title, description: s.description, path: BP.page(s.slug) });
   const g = getBurGeo(params.slug);
   if (g) return meta({
-    title: `Бурение скважин на воду ${g.prep} — цена за метр, глубина, под ключ | Фортес`,
-    description: `Бурение скважин ${g.prep}: вода на ${g.depth}, грунт — ${g.soil}, конструкция — ${g.construction}. От 2 300 ₽ за метр, обустройство кессоном, насос, ввод в дом. Гарантия 5 лет, выезд инженера бесплатно.`,
+    title: `Бурение скважин на воду ${g.prep} — глубина, цена за метр | Фортес`,
+    description: `Бурение скважин ${g.prep}: вода на ${g.depth}, грунт — ${g.soil}. От 2 300 ₽ за метр, кессон, насос, ввод в дом. Гарантия 5 лет, инженер бесплатно.`,
     path: BP.geo(g.slug),
   });
   return {};

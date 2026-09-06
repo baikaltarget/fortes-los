@@ -5,7 +5,7 @@ import HeatingCalculator from "@/components/HeatingCalculator";
 import Draft from "@/components/Draft";
 import ServiceLinks from "@/components/ServiceLinks";
 
-export const metadata = meta({ title: "Калькулятор стоимости отопления частного дома в Иркутске — онлайн-расчёт | Фортес", description: "Рассчитайте ориентировочную стоимость отопления дома под ключ в Иркутске: площадь, этажи, тёплый пол, радиаторы, тип котла — и вы видите смету по разделам. Точный расчёт с проектом — бесплатно после выезда инженера.", path: HP.calc });
+export const metadata = meta({ title: "Калькулятор стоимости отопления дома в Иркутске — онлайн-расчёт | Фортес", description: "Ориентировочная стоимость отопления дома под ключ в Иркутске: площадь, этажи, тёплый пол, радиаторы, котёл — смета по разделам онлайн. Точный расчёт с проектом бесплатно.", path: HP.calc });
 
 export default function Page() {
   return (

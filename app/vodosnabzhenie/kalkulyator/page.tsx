@@ -5,7 +5,7 @@ import WaterCalculator from "@/components/WaterCalculator";
 import Draft from "@/components/Draft";
 import ServiceLinks from "@/components/ServiceLinks";
 
-export const metadata = meta({ title: "Калькулятор стоимости водоснабжения и канализации в доме — Иркутск, онлайн-расчёт по точкам | Фортес", description: "Рассчитайте ориентировочную стоимость воды и канализации в частном доме под Иркутском: санузлы и точки, материал труб, ввод, канализация к септику, бойлер, гидроаккумулятор, сантехника. Точную смету инженер составит бесплатно.", path: VP.calc });
+export const metadata = meta({ title: "Калькулятор водоснабжения и канализации в доме — онлайн-расчёт, Иркутск", description: "Ориентировочная стоимость воды и канализации в частном доме под Иркутском: санузлы и точки, материал труб, ввод, канализация к септику, бойлер. Точную смету инженер составит бесплатно.", path: VP.calc });
 
 export default function Page() {
   return (

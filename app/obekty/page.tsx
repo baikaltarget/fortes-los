@@ -5,7 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import ObjectCard from "@/components/ObjectCard";
 import LeadSection from "@/components/LeadSection";
 
-export const metadata = meta({ title: "Наши объекты — отопление, водоснабжение, скважины и септики в Иркутске со сметой и ценой под ключ", description: "Реальные объекты Фортес с ценами: отопление домов 120–450 м² в Бурдаковке и Ново-Разводной, скважины и водоснабжение в Патронах, Маркова и Хайрюзовке, септики на Байкальском тракте, в Хомутово и Смоленщине. Сметы, фото с монтажей.", path: "/obekty/" });
+export const metadata = meta({ title: "Объекты Фортес в Иркутске — отопление, скважины, септики со сметой и ценой", description: "Реальные объекты с ценами под ключ: отопление домов 120–450 м², скважины и водоснабжение в Патронах и Маркова, септики на Байкальском тракте и в Хомутово. Сметы, фото с монтажей.", path: "/obekty/" });
 
 export default function Page() {
   return (

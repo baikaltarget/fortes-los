@@ -15,8 +15,8 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   const o = getAnyObject(params.slug); if (!o) return {};
   const heat = o.section === "otoplenie" || o.section === "burenie";
   const did = heat ? `Смонтировали: ${o.system}.` : `Поставили ${o.productName}.`;
-  const title = heat ? `${o.title} — ${rub(o.price)} под ключ, ${o.place}` : `${o.title}, ${o.place} — смета и цена под ключ ${rub(o.price)}`;
-  return meta({ title, description: `${o.type}, ${o.place}. ${o.task.slice(0, 110).replace(/\s\S*$/, "")}… ${did} Итого под ключ ${rub(o.price)}.`.slice(0, 300), path: `/obekty/${o.slug}/`, type: "article" });
+  const title = `${o.title} — ${rub(o.price)} под ключ`;
+  return meta({ title, description: `${o.type}, ${o.place}. ${did.length > 95 ? did.slice(0, 95).replace(/[\s,;]\S*$/, "") + "…" : did} Итого под ключ ${rub(o.price)}.`, path: `/obekty/${o.slug}/`, type: "article" });
 }
 
 export default function Page({ params }: { params: { slug: string } }) {

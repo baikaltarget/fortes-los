@@ -2,7 +2,18 @@
 
 Next.js 14 (App Router) + Tailwind, статическая генерация, формы → Telegram. 256 страниц. Домен: `fortes-group.ru`.
 
-## 0. Что изменилось в v25 — раздел «Водоснабжение» стал живым
+## 0. Что изменилось в v26 — SEO-чистка: title/description, хаб водоснабжения, перелинковка блога
+
+Сборка v25 прошла полный аудит 256 адресов. Устранено:
+- **Каннибализация хаба водоснабжения:** `/vodosnabzhenie/` теперь h1 «Водоснабжение частного дома под ключ в Иркутске» (`content/vodosnabzhenie.json → hub`), услуга `vodosnabzhenie-i-kanalizaciya-pod-klyuch` осталась единственной под «водоснабжение и канализация под ключ».
+- **Title и description:** все услуги бурения и водоснабжения переписаны (≤75 символов, description ≤175); шаблоны гео всех четырёх разделов, объектов (`app/obekty/[slug]/page.tsx`), `/obekty/`, цен, калькуляторов, карты глубин, хабов отопления/бурения, `/politika/` ужаты. Было 95 title длиннее 80 символов, осталось 2.
+- **Блог:** новый `components/RelatedPosts.tsx` — блок «Статьи по теме» на главной, `/kanalizaciya/`, `/kanalizaciya/stancii/`, всех услугах и брендах канализации (карта «услуга → статьи» — константа `RELATED_POSTS` в том же файле). В 8 статьях ссылки переведены со старых корневых адресов на `/kanalizaciya/…`.
+
+Изменённые файлы: `content/site.json`, `content/otoplenie.json`, `content/burenie.json`, `content/vodosnabzhenie.json`, `content/blog/*.md` (8), `components/RelatedPosts.tsx` (новый), `app/page.tsx`, `app/politika/page.tsx`, `app/obekty/page.tsx`, `app/obekty/[slug]/page.tsx`, `app/kanalizaciya/page.tsx`, `app/kanalizaciya/stancii/page.tsx`, `app/kanalizaciya/[slug]/page.tsx`, `app/otoplenie/[slug]/page.tsx`, `app/otoplenie/ceny/page.tsx`, `app/otoplenie/kalkulyator/page.tsx`, `app/burenie/[slug]/page.tsx`, `app/burenie/ceny/page.tsx`, `app/burenie/kalkulyator/page.tsx`, `app/burenie/karta-glubin/page.tsx`, `app/vodosnabzhenie/[slug]/page.tsx`, `app/vodosnabzhenie/ceny/page.tsx`, `app/vodosnabzhenie/kalkulyator/page.tsx`.
+
+**Удалить из репозитория:** ничего.
+
+## 0а. Что изменилось в v25 — раздел «Водоснабжение» стал живым
 
 Новый раздел `/vodosnabzhenie/` (внутренние сети: ввод воды, разводка ХВС/ГВС, канализация в доме и до септика, бойлеры, автоматика, подключение к Водоканалу): хаб, 24 услуги, 26 гео, `/vodosnabzhenie/ceny/`, `/vodosnabzhenie/kalkulyator/`. 51 новый адрес. Своих объектов у раздела нет — он показывает реальные объекты бурения и отопления, где были вода и канализация (`objectRefs` в JSON).
 
@@ -16,7 +27,7 @@ Next.js 14 (App Router) + Tailwind, статическая генерация, �
 
 **Удалить из репозитория:** ничего (страница `vvod-vody-v-dom` генерируется из JSON, папок у неё нет).
 
-## 0а. Что изменилось в v23 — раздел «Бурение» стал живым
+## 0б. Что изменилось в v23 — раздел «Бурение» стал живым
 
 Новый раздел `/burenie/` по той же схеме, что отопление: хаб, 19 страниц услуг, 26 гео-страниц, `/burenie/ceny/`, `/burenie/kalkulyator/`, `/burenie/karta-glubin/` и 3 объекта со старого лендинга в общем `/obekty/#burenie`. Всего на сайте 205 адресов в sitemap.
 
@@ -30,7 +41,7 @@ Next.js 14 (App Router) + Tailwind, статическая генерация, �
 
 **Перед заливкой этой дельты удалите в репозитории 6 старых файлов** (SVG-заглушки объектов, заменены на реальные фото): `public/img/objects/burenie/patrony-park-skvazhina-52-cover.svg`, `patrony-park-skvazhina-52-1.svg`, `markova-zapadnyj-obustrojstvo-80-cover.svg`, `markova-zapadnyj-obustrojstvo-80-1.svg`, `hajryuzovka-vodosnabzhenie-iz-skvazhiny-cover.svg`, `hajryuzovka-vodosnabzhenie-iz-skvazhiny-1.svg`. Остальное — залить с заменой, визитка `/burenie/` из `app/[section]/` отключилась сама. **Все цены раздела — заглушки (`draft: true`), кроме 2 300 ₽/м, кессона из колец 90 000 ₽ и бесплатного выезда** — править в `content/burenie.json`: `services[].priceFrom`, `prices[]`, `calculator.rates`, `geo[].depth/depthMax`.
 
-## 0б. Что изменилось в v15 — раздел «Отопление» стал живым
+## 0в. Что изменилось в v15 — раздел «Отопление» стал живым
 
 Новый раздел `/otoplenie/` по той же схеме, что канализация: хаб, 30 страниц услуг, 26 гео-страниц, `/otoplenie/ceny/`, `/otoplenie/kalkulyator/` и 6 реальных объектов с фото в общем `/obekty/`. Всего на сайте 155 адресов в sitemap.
 

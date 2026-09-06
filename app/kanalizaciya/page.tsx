@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import ProductCard from "@/components/ProductCard";
 import LeadSection from "@/components/LeadSection";
+import RelatedPosts, { RELATED_POSTS } from "@/components/RelatedPosts";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import ServiceLinks from "@/components/ServiceLinks";
@@ -12,7 +13,7 @@ import Reasons from "@/components/Reasons";
 
 export const metadata = meta({
   title: "Автономная канализация и септики в Иркутске — все решения Фортес",
-  description: "Раздел «Канализация»: станции Novo Eko, Zörde, Kolo Vesi под ключ от 350 000 ₽, кессоны, обслуживание, решения для дачи, глины, скальника и высокой воды. 20 посёлков Иркутского района, выезд инженера бесплатно.",
+  description: "Станции Novo Eko, Zörde, Kolo Vesi под ключ от 350 000 ₽, кессоны, обслуживание, решения для дачи, глины, скальника и высокой воды. 20 посёлков Иркутского района, инженер бесплатно.",
   path: P.hub,
 });
 
@@ -47,6 +48,7 @@ export default function Page() {
       <Steps />
       <FAQ items={SITE.homeFaq} />
       <LeadSection source="хаб канализация" />
+      <RelatedPosts slugs={RELATED_POSTS.hub} />
     </>
   );
 }

@@ -7,6 +7,7 @@ import Steps from "@/components/Steps";
 import ObjectCard from "@/components/ObjectCard";
 import FAQ from "@/components/FAQ";
 import LeadSection from "@/components/LeadSection";
+import RelatedPosts, { RELATED_POSTS } from "@/components/RelatedPosts";
 import GeoLinks from "@/components/GeoLinks";
 import ServiceLinks from "@/components/ServiceLinks";
 import { getPosts } from "@/lib/blog";
@@ -112,6 +113,7 @@ export default function Home() {
 
       <Steps />
       <LeadSection source="главная" />
+      <RelatedPosts slugs={RELATED_POSTS.home} />
       <ServiceLinks />
       <GeoLinks />
 

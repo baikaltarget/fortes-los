@@ -3,7 +3,7 @@ import { company } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Draft from "@/components/Draft";
 
-export const metadata = { ...meta({ title: "Политика конфиденциальности | Фортес", description: "Политика обработки персональных данных сайта Фортес.", path: "/politika/" }), robots: { index: false, follow: true } };
+export const metadata = { ...meta({ title: "Политика конфиденциальности и обработки персональных данных | Фортес", description: "Какие данные собирает сайт fortes-group.ru при отправке заявки и звонке, как они хранятся и используются, как отозвать согласие. ИП Иващенко С.В., Иркутск.", path: "/politika/" }), robots: { index: false, follow: true } };
 
 export default function Page() {
   return (

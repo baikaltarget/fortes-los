@@ -23,8 +23,8 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   if (s) return meta({ title: s.title, description: s.description, path: VP.page(s.slug) });
   const g = getVodaGeo(params.slug);
   if (g) return meta({
-    title: `Водоснабжение и канализация ${g.prep} — ввод воды, разводка, монтаж под ключ | Фортес`,
-    description: `Вода и канализация в частном доме ${g.prep}: источник — ${g.source.split(";")[0]}, стоки — ${g.sewer.split(";")[0]}. Ввод в дом, разводка ХВС и ГВС по точкам, канализация с фановым стояком, труба к септику, бойлер. Цена за точку, гарантия 2 года, выезд инженера бесплатно.`,
+    title: `Водоснабжение и канализация ${g.prep} — ввод, разводка, монтаж | Фортес`,
+    description: `Вода и канализация в доме ${g.prep}: источник — ${g.source.split(/[;,(]/)[0].trim()}, стоки — ${g.sewer.split(/[;,(]/)[0].trim()}. Ввод, разводка ХВС/ГВС, канализация, бойлер. Гарантия 2 года, инженер бесплатно.`,
     path: VP.geo(g.slug),
   });
   return {};

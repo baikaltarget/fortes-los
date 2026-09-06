@@ -3,6 +3,7 @@ import { products, brands, productsByBrand, P } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProductCard from "@/components/ProductCard";
 import LeadSection from "@/components/LeadSection";
+import RelatedPosts, { RELATED_POSTS } from "@/components/RelatedPosts";
 import FAQ from "@/components/FAQ";
 import Link from "next/link";
 
@@ -45,6 +46,7 @@ export default function Page() {
       </div></section>
       <FAQ items={faq} />
       <LeadSection source="каталог станций" />
+      <RelatedPosts slugs={RELATED_POSTS.stancii} title="Сравнения и разборы" />
     </>
   );
 }

@@ -24,7 +24,7 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   const g = getHeatGeo(params.slug);
   if (g) return meta({
     title: `Монтаж отопления ${g.prep} — под ключ, тёплый пол, котельная | Фортес`,
-    description: `Отопление частного дома ${g.prep} под ключ: электрокотёл, водяной тёплый пол, радиаторы, котельная. ${g.power[0].toUpperCase() + g.power.slice(1)} — подбираем котёл под сети посёлка. Выезд инженера бесплатно, смета и проект до договора.`,
+    description: `Отопление дома ${g.prep} под ключ: электрокотёл, тёплый пол, радиаторы, котельная. ${g.power[0].toUpperCase() + g.power.slice(1)} — котёл под сети посёлка. Инженер бесплатно, смета до договора.`,
     path: HP.geo(g.slug),
   });
   return {};
@@ -106,21 +106,21 @@ function GeoPage({ slug }: { slug: string }) {
       <JsonLd data={ldService({ name: `Монтаж отопления ${g.prep}`, description: `Отопление частного дома под ключ ${g.prep}: котельная, тёплый пол, радиаторы`, path: HP.geo(g.slug), area: g.name })} />
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Отопление", href: HP.hub }, { name: g.name, href: HP.geo(g.slug) }]} />
-        <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-stretch">
+        <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-start">
           <div className="card p-6 md:p-10 shadow-card">
             <h1>Монтаж отопления {g.prep}</h1>
             <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[58ch]">Котельная, водяной тёплый пол, радиаторы под ключ для домов {g.prep}. Подбираем котёл под сети посёлка, проект и смету показываем до договора.</p>
             <div className="mt-5 flex flex-wrap gap-2">{HEAT.hub.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
             <div className="mt-8 flex flex-wrap gap-3"><a href="#lead" className="btn-primary">Вызвать инженера {g.prep}</a><Link href={HP.calc} className="btn-outline">Рассчитать стоимость</Link></div>
-            <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-3 text-[15px] border-t border-line pt-5 mt-6">
+          </div>
+          <div className="card p-6">
+            <h2 className="text-xl">Дома {g.prep}</h2>
+            <dl className="mt-4 text-[15px] space-y-3">
               <div><dt className="text-muted">Расстояние от Иркутска</dt><dd className="font-bold">{g.distance}, {g.tract}</dd></div>
               <div><dt className="text-muted">Электросети</dt><dd className="font-bold">{g.power}</dd></div>
-              <div className="sm:col-span-2"><dt className="text-muted">Какие дома</dt><dd className="font-bold">{g.housing}</dd></div>
-              <div className="sm:col-span-2"><dt className="text-muted">Что обычно ставим</dt><dd className="font-bold">{weakGrid ? "Электрокотёл + ТТ-котёл или теплоаккумулятор, тёплый пол в стяжке" : bigHouses ? "Тёплый пол по всему дому, конвекторы под витражи, котельная с гидрострелкой, тепловой насос" : "Электрокотёл Zota / Kospel, тёплый пол на первом этаже, радиаторы на втором"}</dd></div>
+              <div><dt className="text-muted">Какие дома</dt><dd className="font-bold">{g.housing}</dd></div>
+              <div><dt className="text-muted">Что обычно ставим</dt><dd className="font-bold">{weakGrid ? "Электрокотёл + ТТ-котёл или теплоаккумулятор, тёплый пол в стяжке" : bigHouses ? "Тёплый пол по всему дому, конвекторы под витражи, котельная с гидрострелкой, тепловой насос" : "Электрокотёл Zota / Kospel, тёплый пол на первом этаже, радиаторы на втором"}</dd></div>
             </dl>
-          </div>
-          <div className="card overflow-hidden">
-            <img src="/img/otoplenie/hero-master-radiator-2.webp" alt="Инженер Фортес монтирует радиатор отопления в фирменной форме" className="w-full h-full object-cover" width="1254" height="1254" />
           </div>
         </div>
       </div>

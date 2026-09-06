@@ -6,6 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import ProductCard from "@/components/ProductCard";
 import ProductGrid from "@/components/ProductGrid";
 import LeadSection from "@/components/LeadSection";
+import RelatedPosts, { RELATED_POSTS } from "@/components/RelatedPosts";
 import JsonLd from "@/components/JsonLd";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
@@ -29,7 +30,7 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   const g = getGeo(params.slug);
   if (g) return meta({
     title: `Септик под ключ ${g.prep} — установка, цена с монтажом | Фортес`,
-    description: `Септик без откачки и автономная канализация ${g.prep}: Novo Eko, Zörde, Kolo Vesi под ключ от ${rub(turnkeyFrom(topPicks[0]))}. Грунт: ${g.soil}. Выезд инженера бесплатно, монтаж 1–2 дня, рассрочка и кредит через банки.`,
+    description: `Септик без откачки ${g.prep}: Novo Eko, Zörde, Kolo Vesi под ключ от ${rub(turnkeyFrom(topPicks[0]))}. Грунт: ${g.soil}. Инженер бесплатно, монтаж 1–2 дня, рассрочка.`,
     path: P.geo(g.slug),
   });
   return {};
@@ -55,6 +56,7 @@ function BrandPage({ slug }: { slug: string }) {
       </div></section>
       <Steps />
       <LeadSection source={`бренд ${b.name}`} />
+      <RelatedPosts slugs={RELATED_POSTS[b.slug]} />
       <ServiceLinks />
     </>
   );
@@ -162,6 +164,7 @@ function ServicePage({ slug }: { slug: string }) {
       <Steps />
       <FAQ items={s.faq} />
       <LeadSection source={s.name} />
+      <RelatedPosts slugs={RELATED_POSTS[s.slug]} />
       <ServiceLinks exclude={s.slug} title="Смежные задачи" />
       <GeoLinks />
     </>

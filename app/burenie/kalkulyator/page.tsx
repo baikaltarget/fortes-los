@@ -5,7 +5,7 @@ import DrillingCalculator from "@/components/DrillingCalculator";
 import Draft from "@/components/Draft";
 import ServiceLinks from "@/components/ServiceLinks";
 
-export const metadata = meta({ title: "Калькулятор стоимости скважины на воду в Иркутске — онлайн-расчёт | Фортес", description: "Рассчитайте ориентировочную стоимость скважины под ключ в Иркутске: глубина, конструкция обсадной колонны, кессон или адаптер, насос, ввод в дом. Точную цену метра инженер назовёт бесплатно после выезда.", path: BP.calc });
+export const metadata = meta({ title: "Калькулятор стоимости скважины на воду в Иркутске — онлайн-расчёт | Фортес", description: "Ориентировочная стоимость скважины под ключ в Иркутске: глубина, конструкция колонны, кессон или адаптер, насос, ввод в дом. Точную цену метра инженер назовёт после выезда.", path: BP.calc });
 
 export default function Page() {
   return (

@@ -21,4 +21,4 @@ date: "2026-07-15"
 
 ## Какие станции ближе всего к «без откачки»
 
-Zörde 4 — раз в два года. Novo Eko 3 и 5, Kolo Vesi — раз в год. Все — на странице [септик без откачки](/septik-bez-otkachki/).
+Zörde 4 — раз в два года. Novo Eko 3 и 5, Kolo Vesi — раз в год. Все — на странице [септик без откачки](/kanalizaciya/septik-bez-otkachki/).

@@ -25,4 +25,4 @@ date: "2026-06-15"
 
 Компрессор останавливается, станция работает как отстойник. Сутки-двое — без последствий. Бактерии на биофильтрах живут без воздуха дольше, чем взвешенный ил.
 
-Схему станции в разрезе мы показываем на каждой странице модели: [Novo Eko 3](/stancii/novo-eko-3/), [Zörde 4](/stancii/zorde-4/), [Kolo Vesi 5](/stancii/kolo-vesi-5/).
+Схему станции в разрезе мы показываем на каждой странице модели: [Novo Eko 3](/kanalizaciya/stancii/novo-eko-3/), [Zörde 4](/kanalizaciya/stancii/zorde-4/), [Kolo Vesi 5](/kanalizaciya/stancii/kolo-vesi-5/).
