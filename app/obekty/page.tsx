@@ -1,10 +1,11 @@
+import Link from "next/link";
 import { meta } from "@/lib/seo";
-import { objects } from "@/lib/content";
+import { objects, heatObjects, HP, P } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ObjectCard from "@/components/ObjectCard";
 import LeadSection from "@/components/LeadSection";
 
-export const metadata = meta({ title: "Наши объекты — установленные септики в Иркутске со сметой и ценой", description: "Реальные объекты Фортес: замена выгребной ямы на Байкальском тракте, Novo Eko в Хомутово и Пивоварихе, Zörde на глине в Смоленщине. Сметы и цены под ключ.", path: "/obekty/" });
+export const metadata = meta({ title: "Наши объекты — отопление и септики в Иркутске со сметой и ценой под ключ", description: "Реальные объекты Фортес с ценами: отопление домов 120–450 м² в Бурдаковке и Ново-Разводной, коммерческое помещение 350 м² в Иркутске, септики на Байкальском тракте, в Хомутово и Смоленщине. Сметы, фото с монтажей.", path: "/obekty/" });
 
 export default function Page() {
   return (
@@ -12,10 +13,18 @@ export default function Page() {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Объекты", href: "/obekty/" }]} />
         <h1>Объекты со сметой</h1>
-        <p className="mt-4 text-[18px] text-ink/85 max-w-[62ch]">Показываем, что было на участке, что поставили и сколько это стоило под ключ. Так проще понять, во что обойдётся ваш.</p>
-        <div className="mt-8 grid gap-5 md:grid-cols-2">{objects.map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
+        <p className="mt-4 text-[18px] text-ink/85 max-w-[62ch]">Показываем, что было на объекте, что поставили и сколько это стоило под ключ. Так проще понять, во что обойдётся ваш дом — ещё до звонка.</p>
+        <div className="mt-6 flex flex-wrap gap-2"><a href="#otoplenie" className="chip hover:border-ink">Отопление</a><a href="#kanalizaciya" className="chip hover:border-ink">Канализация</a></div>
+
+        <h2 id="otoplenie" className="mt-12 mb-2 scroll-mt-28">Отопление</h2>
+        <p className="text-muted max-w-[70ch] mb-6">Тёплые полы, котельные, радиаторы — от бани до коттеджа 450 м² и коммерческого помещения. Подробнее о направлении — <Link href={HP.hub} className="text-brand underline">раздел «Отопление»</Link>.</p>
+        <div className="grid gap-5 md:grid-cols-2">{heatObjects.map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
+
+        <h2 id="kanalizaciya" className="mt-14 mb-2 scroll-mt-28">Канализация</h2>
+        <p className="text-muted max-w-[70ch] mb-6">Станции биологической очистки Novo Eko, Zörde, Kolo Vesi под ключ. Подробнее — <Link href={P.hub} className="text-brand underline">раздел «Канализация»</Link>.</p>
+        <div className="grid gap-5 md:grid-cols-2">{objects.map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
       </div>
-      <LeadSection source="объекты" />
+      <LeadSection source="объекты" title="Похожий объект? Посчитаем так же подробно" text="Инженер приедет бесплатно, посмотрит дом или проект и составит смету с теми же строками, что вы видите на этой странице. Смета фиксируется в договоре." />
     </>
   );
 }

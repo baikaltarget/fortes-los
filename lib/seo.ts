@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { SITE_URL, company, type Faq } from "./content";
 
-export function meta(o: { title: string; description: string; path: string; type?: "website" | "article" }): Metadata {
+export function meta(o: { title: string; description: string; path: string; type?: "website" | "article"; image?: string }): Metadata {
   const url = `${SITE_URL}${o.path}`;
+  const img = o.image || "/img/og.jpg";
   return {
     title: o.title,
     description: o.description,
     alternates: { canonical: url },
-    openGraph: { title: o.title, description: o.description, url, siteName: company.name, locale: "ru_RU", type: o.type || "website", images: [{ url: `${SITE_URL}/img/og.jpg`, width: 1200, height: 630 }] },
+    openGraph: { title: o.title, description: o.description, url, siteName: company.name, locale: "ru_RU", type: o.type || "website", images: [{ url: `${SITE_URL}${img}`, width: 1200, height: 630 }] },
     robots: { index: true, follow: true },
   };
 }
@@ -34,7 +35,7 @@ export const ldLocalBusiness = (addressIndex: number = 0) => {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": `${SITE_URL}/#business${multi ? `-${addressIndex + 1}` : ""}`,
-    name: `${company.name} — септики и автономная канализация${multi ? ` (${a.label})` : ""}`,
+    name: `${company.name} — инженерные системы: отопление, канализация, водоснабжение${multi ? ` (${a.label})` : ""}`,
     image: `${SITE_URL}/img/logo.webp`,
     url: SITE_URL,
     telephone: company.phoneRaw,

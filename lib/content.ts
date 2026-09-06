@@ -1,5 +1,6 @@
 import site from "@/content/site.json";
 import sectionsJson from "@/content/sections.json";
+import otoplenieJson from "@/content/otoplenie.json";
 
 export type Faq = { q: string; a: string };
 export type Variant = { name: string; price: number; note: string };
@@ -19,8 +20,10 @@ export type Service = {
 };
 export type Geo = { slug: string; name: string; prep: string; distance: string; soil: string; note: string };
 export type SiteObject = {
-  slug: string; title: string; place: string; geo: string; type: string; product: string; productName: string; price: number;
+  slug: string; title: string; place: string; geo: string; type: string; product?: string; productName?: string; price: number;
   task: string; solution: string; result: string; estimate: string[][]; estimateDraft?: boolean; draft: boolean; images: string[];
+  /** раздел: undefined = канализация (site.json), "otoplenie" = отопление (otoplenie.json) */
+  section?: string; cover?: string; system?: string;
 };
 
 export const SITE = site as unknown as typeof site & { products: Product[]; brands: Brand[]; services: Service[]; geo: Geo[]; objects: SiteObject[] };
@@ -70,4 +73,44 @@ export const P = {
   geo: (slug: string) => `${SEC}/${slug}/`,    // гео — тот же уровень
   object: (slug: string) => `/obekty/${slug}/`,
   post: (slug: string) => `/blog/${slug}/`,
+};
+
+/* ======================= РАЗДЕЛ «ОТОПЛЕНИЕ» (content/otoplenie.json) ======================= */
+export type HeatService = {
+  slug: string; name: string; title: string; description: string; h1: string; lead: string; cluster: string;
+  heroImage?: string; heroImageAlt?: string; priceFrom?: string; priceDraft?: boolean; sections: TextSection[]; faq: Faq[]; chips?: string[]; objects?: string[];
+};
+export type HeatGeo = { slug: string; name: string; prep: string; distance: string; tract: string; power: string; housing: string; about: string[]; objects?: string[] };
+export type HeatCluster = { slug: string; title: string; sub: string };
+export type HeatPrice = { name: string; price: string; note: string; draft: boolean; href: string };
+export type HeatBrand = { name: string; what: string; note: string };
+export type HeatStep = { title: string; text: string };
+export type HeatReason = { title: string; text: string; url?: string; draft?: boolean };
+
+export const HEAT = otoplenieJson as unknown as {
+  hub: { title: string; description: string; h1: string; lead: string; chips: string[]; priceNote: string; heroImage: string; heroImageAlt: string; stats: string[][]; ogImage: string };
+  clusters: HeatCluster[]; services: HeatService[]; geo: HeatGeo[]; objects: SiteObject[]; steps: HeatStep[]; reasons: HeatReason[]; brands: HeatBrand[]; faq: Faq[]; prices: HeatPrice[];
+  calculator: { title: string; lead: string; rates: Record<string, number>; ratesDraft: boolean };
+};
+export const heatServices: HeatService[] = HEAT.services;
+export const heatGeo: HeatGeo[] = HEAT.geo;
+export const heatObjects: SiteObject[] = HEAT.objects.map((o) => ({ ...o, section: "otoplenie" }));
+export const getHeatService = (slug: string) => heatServices.find((s) => s.slug === slug);
+export const getHeatGeo = (slug: string) => heatGeo.find((g) => g.slug === slug);
+export const heatServicesByCluster = (cluster: string) => heatServices.filter((s) => s.cluster === cluster);
+
+/** Все объекты бренда для общих страниц /obekty/ — канализация + отопление */
+export const allObjects: SiteObject[] = [...objects, ...heatObjects];
+export const getAnyObject = (slug: string) => allObjects.find((o) => o.slug === slug);
+export const objectCover = (o: SiteObject) => o.cover || o.images[0];
+
+/** Ссылки раздела «Отопление» */
+export const HSEC = "/otoplenie";
+export const HP = {
+  hub: `${HSEC}/`,
+  page: (slug: string) => `${HSEC}/${slug}/`,   // услуги
+  geo: (slug: string) => `${HSEC}/${slug}/`,    // гео — тот же уровень
+  ceny: `${HSEC}/ceny/`,
+  calc: `${HSEC}/kalkulyator/`,
+  object: (slug: string) => `/obekty/${slug}/`,
 };

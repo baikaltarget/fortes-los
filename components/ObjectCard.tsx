@@ -1,13 +1,13 @@
 import Link from "next/link";
 import Draft from "./Draft";
-import { rub, type SiteObject } from "@/lib/content";
+import { rub, objectCover, type SiteObject } from "@/lib/content";
 
 export default function ObjectCard({ o }: { o: SiteObject }) {
   return (
     <Draft on={o.draft} note="объект придуман — заменить на реальный" className="min-w-0">
       <article className="card overflow-hidden h-full flex flex-col shadow-card">
         <Link href={`/obekty/${o.slug}/`} className="block aspect-[16/10] bg-frost relative">
-          <img src={o.images[0]} alt={`${o.title}, ${o.place}`} className="w-full h-full object-cover max-w-full" loading="lazy" width="800" height="500" />
+          <img src={objectCover(o)} alt={`${o.title}, ${o.place}`} className="w-full h-full object-cover max-w-full" loading="lazy" width="800" height="500" />
         </Link>
         <div className="p-5 md:p-6 flex flex-col flex-1">
           <div className="text-[13px] text-muted">{o.type}</div>

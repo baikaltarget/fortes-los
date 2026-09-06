@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL, products, brands, services, geo, objects, sections, P } from "@/lib/content";
+import { SITE_URL, products, brands, services, geo, objects, sections, P, heatServices, heatGeo, heatObjects, HP } from "@/lib/content";
 import { getPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const u = (p: string, priority = 0.7, changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] = "monthly") => ({ url: `${SITE_URL}${p}`, lastModified: now, changeFrequency, priority });
   return [
     u("/", 1, "weekly"),
+    // канализация
     u(P.hub, 0.9, "weekly"), u(P.stancii, 0.9, "weekly"),
     u("/ceny/", 0.9, "weekly"), u("/kalkulyator/", 0.8), u("/obekty/", 0.8),
     u("/blog/", 0.6, "weekly"), u("/o-kompanii/", 0.5), u("/kontakty/", 0.6), u("/otzyvy/", 0.5), u("/politika/", 0.1, "yearly"),
@@ -17,5 +18,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...geo.map((g) => u(P.geo(g.slug), 0.7)),
     ...objects.map((o) => u(P.object(o.slug), 0.6)),
     ...getPosts().map((p) => u(P.post(p.slug), 0.5)),
+    // отопление
+    u(HP.hub, 0.9, "weekly"), u(HP.ceny, 0.9, "weekly"), u(HP.calc, 0.8),
+    ...heatServices.map((s) => u(HP.page(s.slug), 0.8)),
+    ...heatGeo.map((g) => u(HP.geo(g.slug), 0.7)),
+    ...heatObjects.map((o) => u(HP.object(o.slug), 0.7)),
   ];
 }

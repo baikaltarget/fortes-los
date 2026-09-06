@@ -1,6 +1,37 @@
-# Фортес — сайт бренда: канализация (готово), отопление / бурение / водоснабжение / электрика (визитки)
+# Фортес — сайт бренда: канализация и отопление (готово), бурение / водоснабжение / электрика (визитки)
 
-Next.js 14 (App Router) + Tailwind, статическая генерация, формы → Telegram. 91 страница. Домен: `fortes-group.ru`.
+Next.js 14 (App Router) + Tailwind, статическая генерация, формы → Telegram. 155 страниц. Домен: `fortes-group.ru`.
+
+## 0б. Что изменилось в v15 — раздел «Отопление» стал живым
+
+Новый раздел `/otoplenie/` по той же схеме, что канализация: хаб, 30 страниц услуг, 26 гео-страниц, `/otoplenie/ceny/`, `/otoplenie/kalkulyator/` и 6 реальных объектов с фото в общем `/obekty/`. Всего на сайте 155 адресов в sitemap.
+
+**Что появилось (новые папки/файлы — просто добавить в репозиторий):**
+- `content/otoplenie.json` — весь контент раздела (хаб, услуги, гео, объекты, этапы, причины, FAQ, бренды, цены, ставки калькулятора)
+- `app/otoplenie/` — роуты раздела (`layout.tsx`, `page.tsx`, `[slug]/page.tsx`, `ceny/`, `kalkulyator/`)
+- `components/HeatBrands.tsx`, `components/HeatLead.tsx`, `components/HeatingCalculator.tsx`
+- `public/img/otoplenie/` — 20 hero-квадратов и `og.jpg` из реальных фото
+- `public/img/objects/otoplenie/` — обложки и галереи 6 объектов
+
+**Что изменилось (перезапишется при заливке):** `content/sections.json` (отопление `live: true`, меню, хит, вторая строка, подвал), `lib/content.ts` (типы и экспорты `HEAT`, `HP`, `allObjects`), `lib/seo.ts` (`meta()` принимает `image`, название LocalBusiness), `components/Steps.tsx`, `Reasons.tsx`, `ServiceLinks.tsx`, `GeoLinks.tsx`, `ObjectCard.tsx` (стали параметризуемыми, дефолт — канализация), `app/obekty/page.tsx` и `app/obekty/[slug]/page.tsx` (объекты обоих разделов, галерея в натуральных пропорциях), `app/sitemap.ts`, `app/kanalizaciya/[slug]/page.tsx` (одна строка под новый тип объекта).
+
+**Удалять ничего не нужно** — визитка `/otoplenie/` из `app/[section]/` отключилась сама (генерируется только для `live: false`).
+
+**Где что править в отоплении:** всё в `content/otoplenie.json`.
+
+| Что | Где |
+|---|---|
+| Заголовок, текст, чипы, фото хаба | `hub` |
+| Страницы услуг (`/otoplenie/montazh-teplogo-pola/` и т.д.) | `services[]` — `priceFrom` с `priceDraft: true` = цена в красной рамке |
+| Гео-страницы (`/otoplenie/khomutovo/`) | `geo[]` — `power` (сети), `housing`, `about` (2 абзаца), `objects` (слаги объектов рядом) |
+| Объекты | `objects[]` — `cover` (обложка 16:10), `images` (галерея, любые пропорции), `estimate` |
+| Таблица цен `/otoplenie/ceny/` | `prices[]` — `draft: true` = красная рамка |
+| Ставки калькулятора | `calculator.rates`, рамка через `ratesDraft` |
+| Меню, хит, вторая строка, подвал | `content/sections.json` → блок `otoplenie` |
+
+Добавить объект: положить фото в `public/img/objects/otoplenie/`, скопировать блок в `objects[]`, при желании вписать слаг в `objects` нужных услуг и гео. Добавить гео/услугу — скопировать блок в `geo[]` / `services[]`, роут и sitemap подхватят сами.
+
+**Старый лендинг по отоплению** (Tilda) — редирект на `fortes-group.ru/otoplenie/` настраивается на стороне Tilda/DNS, в коде сайта его нет.
 
 ## 0а. Что изменилось в v7
 

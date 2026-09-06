@@ -64,7 +64,7 @@ function ServicePage({ slug }: { slug: string }) {
   const svc = s;
   const first = s.products?.[0] ? getProduct(s.products[0]) : undefined;
   const priceFrom = svc.koloIlma ? undefined : svc.kessons?.[0]?.price ?? (first ? turnkeyFrom(first) : undefined);
-  const relatedObjects = objects.filter((o) => s.products?.includes(o.product)).slice(0, 2);
+  const relatedObjects = objects.filter((o) => !!o.product && s.products?.includes(o.product)).slice(0, 2);
   return (
     <>
       <JsonLd data={ldService({ name: s.name, description: s.description, path: P.page(s.slug), priceFrom })} />
