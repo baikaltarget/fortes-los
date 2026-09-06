@@ -123,7 +123,7 @@ export type BurService = {
 };
 export type BurGeo = {
   slug: string; name: string; prep: string; distance: string; tract: string;
-  depth: string; depthMax: number; steelDepth: number; water: string; soil: string; construction: string; about: string[]; objects?: string[];
+  depth: string; depthMax: number; steelDepth: number; depthSource?: "wells" | "estimate"; depthNote?: string; water: string; soil: string; construction: string; about: string[]; objects?: string[];
 };
 export const BUR = burenieJson as unknown as {
   hub: { title: string; description: string; h1: string; lead: string; chips: string[]; priceNote: string; heroImage: string; heroImageAlt: string; stats: string[][]; ogImage: string };

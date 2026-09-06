@@ -30,7 +30,7 @@ export default function Page() {
         </div>
 
         <h2 className="mt-12 mb-4">Глубина воды по посёлкам</h2>
-        <Draft on={BUR.geoNote.depthDraft} note="глубины по посёлкам — ориентир, уточнить у клиента">
+        <Draft on={BUR.geoNote.depthDraft} note="посёлки со звёздочкой — расчётный ориентир, уточнить у клиента">
           <div className="card overflow-x-auto">
             <table className="w-full text-[15px] min-w-[760px]">
               <thead className="text-left text-muted"><tr><th className="p-4">Посёлок</th><th className="p-4">Вода</th><th className="p-4">Грунт</th><th className="p-4">Качество воды</th><th className="p-4">Конструкция</th></tr></thead>
@@ -38,7 +38,7 @@ export default function Page() {
                 {burGeo.map((g) => (
                   <tr key={g.slug} className="border-t border-line">
                     <td className="p-4 font-bold"><Link href={BP.geo(g.slug)} className="hover:text-brand">{g.name}</Link><div className="text-[12px] text-muted font-normal">{g.distance}, {g.tract}</div></td>
-                    <td className="p-4 whitespace-nowrap font-bold">{g.depth}</td>
+                    <td className="p-4 whitespace-nowrap font-bold">{g.depth}{g.depthSource === "estimate" && <span className="text-muted font-normal" title="расчётный ориентир, данных по скважинам пока нет">*</span>}{g.depthNote && <div className="text-[12px] text-muted font-normal whitespace-normal max-w-[220px]">{g.depthNote}</div>}</td>
                     <td className="p-4 text-muted">{g.soil}</td>
                     <td className="p-4 text-muted">{g.water}</td>
                     <td className="p-4 text-muted">{g.construction}</td>
@@ -48,7 +48,7 @@ export default function Page() {
             </table>
           </div>
         </Draft>
-        <p className="text-[14px] text-muted mt-3">{BUR.geoNote.text} Посчитать по своей глубине — в <Link href={BP.calc} className="text-brand underline">калькуляторе</Link>.</p>
+        <p className="text-[14px] text-muted mt-3">{BUR.geoNote.text} Звёздочкой отмечены посёлки, где пока стоит расчётный ориентир. Посчитать по своей глубине — в <Link href={BP.calc} className="text-brand underline">калькуляторе</Link>.</p>
       </div>
       <FAQ items={faq} title="Вопросы про карту глубин" />
       <DrillLead source="карта глубин" title="Скажем глубину по вашей улице" text="Оставьте телефон и посёлок — инженер посмотрит соседние скважины по базе, назовёт ориентир по глубине и цене метра и запишет на бесплатный выезд." />

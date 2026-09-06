@@ -129,7 +129,7 @@ function GeoPage({ slug }: { slug: string }) {
             <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[58ch]">Бурим под ключ {g.prep}: вода на {g.depth}, конструкция — {g.construction}. Кессон или адаптер, насос, ввод в дом с греющим кабелем. Цену метра называем до выезда буровой и фиксируем в договоре.</p>
             <div className="mt-5 flex flex-wrap gap-2">{BUR.hub.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
             <div className="mt-8 flex flex-wrap gap-3"><a href="#lead" className="btn-primary">Вызвать инженера {g.prep}</a><Link href={BP.calc} className="btn-outline">Рассчитать стоимость</Link></div>
-            <Draft on={BUR.geoNote.depthDraft} note="глубины по посёлкам — ориентир, уточнить у клиента" className="mt-6">
+            <Draft on={g.depthSource === "estimate"} note="глубина — расчётный ориентир, данных по скважинам нет; уточнить у клиента" className="mt-6">
               <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-3 text-[15px] border-t border-line pt-5">
                 <div><dt className="text-muted">Расстояние от Иркутска</dt><dd className="font-bold">{g.distance}, {g.tract}</dd></div>
                 <div><dt className="text-muted">Глубина воды</dt><dd className="font-bold">{g.depth}</dd></div>
@@ -141,7 +141,7 @@ function GeoPage({ slug }: { slug: string }) {
           </div>
           <div className="card p-4 md:p-6">
             <WellScheme depth={g.depthMax} steel={g.steelDepth} kesson title={`Типовая скважина ${g.prep}: ~${g.depthMax} м`} />
-            <p className="text-[13px] text-muted mt-2">{BUR.geoNote.text}</p>
+            <p className="text-[13px] text-muted mt-2">{g.depthNote ? `${g.depthNote}. ` : ""}{g.depthSource === "estimate" ? "Глубина — расчётный ориентир по соседним посёлкам, уточним по карте глубин перед выездом." : "Диапазон — по реальным скважинам в посёлке, точную глубину по вашей улице называем после сверки с картой глубин."}</p>
           </div>
         </div>
       </div>
