@@ -1,126 +1,96 @@
 import Link from "next/link";
 import { meta } from "@/lib/seo";
-import { SITE, company, topPicks, objects, rub, P } from "@/lib/content";
-import ProductCard from "@/components/ProductCard";
+import { BRAND, brandObjects, brandGeo, COMPLEX_PATH } from "@/lib/content";
+import { getPosts } from "@/lib/blog";
+import HouseSystems from "@/components/HouseSystems";
+import ObjectCard from "@/components/ObjectCard";
 import Reasons from "@/components/Reasons";
 import Steps from "@/components/Steps";
-import ObjectCard from "@/components/ObjectCard";
 import FAQ from "@/components/FAQ";
 import LeadSection from "@/components/LeadSection";
-import RelatedPosts, { RELATED_POSTS } from "@/components/RelatedPosts";
-import GeoLinks from "@/components/GeoLinks";
-import ServiceLinks from "@/components/ServiceLinks";
-import { getPosts } from "@/lib/blog";
-import SubNav from "@/components/SubNav";
 
-export const metadata = meta({ title: SITE.home.title, description: SITE.home.description, path: "/" });
+const H = BRAND.home;
+export const metadata = meta({ title: H.title, description: H.description, path: "/", image: H.ogImage });
 
+const GEO_LINKS: Record<string, string> = { burenie: "Скважина", vodosnabzhenie: "Вода", kanalizaciya: "Септик", otoplenie: "Отопление", elektrika: "Электрика" };
+
+/**
+ * Главная бренда (v28). Все пять направлений живые; посадочная «септик под ключ»
+ * переехала на /kanalizaciya/septik-pod-klyuch/. Контент — content/brand.json.
+ */
 export default function Home() {
   const posts = getPosts().slice(0, 3);
+  const featured = brandObjects(BRAND.featuredObjects);
   return (
     <>
-      <SubNav section="kanalizaciya" />
-      {/* HERO — как на teplo.fortes-dom.ru: белая карточка слева, визуал справа */}
-      <section className="container-site pt-6 md:pt-10">
-        <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">
-          <div className="card p-6 md:p-10 shadow-card">
-            <h1>{SITE.home.h1}</h1>
-            <p className="mt-4 text-[17px] leading-relaxed text-ink/85 max-w-[58ch]">{SITE.home.lead}</p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {SITE.home.chips.map((c) => <span key={c} className="chip">{c}</span>)}
+      {/* HERO: фото котельной во всю карточку, текст на серой стене слева (фото зеркальное — оборудование справа) */}
+      <section className="container-site pt-6 md:pt-8">
+        <div className="card overflow-hidden shadow-card relative">
+          <img src={H.heroImageMobile} alt={H.heroImageAlt} className="lg:hidden w-full h-auto" width="1000" height="729" fetchPriority="high" />
+          <div className="hidden lg:block absolute inset-0 bg-cover bg-right" style={{ backgroundImage: `url(${H.heroImage})` }} role="img" aria-label={H.heroImageAlt} />
+          <div className="hidden lg:block absolute inset-0" style={{ background: "linear-gradient(90deg, #F2F2F2 0%, #F2F2F2 28%, rgba(242,242,242,.93) 48%, rgba(242,242,242,.6) 66%, rgba(242,242,242,0) 80%)" }} aria-hidden />
+          <div className="relative p-6 md:p-10 lg:p-14 lg:min-h-[620px] flex flex-col justify-center lg:max-w-[680px]">
+            <h1>{H.h1}</h1>
+            <p className="mt-4 text-[17px] leading-relaxed text-ink/85 max-w-[52ch]">{H.lead}</p>
+            <div className="mt-5 flex flex-wrap gap-2">{H.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
+            <div className="mt-7 flex flex-wrap gap-3 items-center">
+              <a href="#lead" className="btn-primary">Вызвать инженера</a>
+              <Link href={COMPLEX_PATH} className="btn-outline bg-white/70">Дом целиком</Link>
             </div>
-            <div className="mt-6 flex flex-wrap gap-3 items-center">
-              <a href="#lead" className="btn-primary">Записаться на замер</a>
-              <Link href="/kalkulyator/" className="btn-outline">Подобрать станцию</Link>
-              <span className="text-[15px] text-muted">Под ключ от {rub(SITE.home.heroPriceFrom)}</span>
-            </div>
-          </div>
-          <div className="card p-4 md:p-6 flex flex-col">
-            <img src="/img/hero.webp" alt="Станция Kolo Vesi в котловане перед засыпкой на участке в Иркутском районе" className="w-full h-auto rounded-card" width="1254" height="1254" fetchPriority="high" />
-            <div className="grid grid-cols-3 gap-2 mt-2 text-center">
-              <div className="rounded-btn bg-page p-3"><div className="text-2xl font-extrabold tracking-tight">98%</div><div className="text-[12px] text-muted">очистка стоков</div></div>
-              <div className="rounded-btn bg-page p-3"><div className="text-2xl font-extrabold tracking-tight">1–2</div><div className="text-[12px] text-muted">дня монтаж</div></div>
-              <div className="rounded-btn bg-page p-3"><div className="text-2xl font-extrabold tracking-tight">{company.warrantyYears}</div><div className="text-[12px] text-muted">лет корпус</div></div>
+            <div className="mt-8 grid grid-cols-3 gap-2 max-w-[520px]">
+              {H.stats.map(([a, b]) => (
+                <div key={a} className="rounded-btn bg-white/90 border border-line p-3 text-center">
+                  <div className="text-2xl font-extrabold tracking-tight">{a}</div>
+                  <div className="text-[12px] text-muted leading-tight">{b}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ХИТЫ */}
-      <section className="py-12 md:py-16">
-        <div className="container-site">
-          <h2 className="mb-2">Три станции, которые заказывают чаще всего</h2>
-          <p className="text-muted max-w-[70ch] mb-8">Novo Eko 3 для дач и небольших домов, Novo Eko 5 для семьи, Zörde 4 — когда хочется обслуживать раз в два года. Остальная линейка Kolo Vesi — в каталоге.</p>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {topPicks.map((p) => <ProductCard key={p.slug} p={p} />)}
-          </div>
-          <div className="mt-6"><Link href={P.stancii} className="btn-ghost -ml-4">Вся линейка: Kolo Vesi, Zörde, Novo Eko ›</Link></div>
-        </div>
-      </section>
+      <HouseSystems title={BRAND.chain.title} text={BRAND.chain.text} cta={BRAND.chain.cta} href={BRAND.chain.href} />
 
-      {/* ДРУГИЕ РЕШЕНИЯ: кессоны, ёмкости, Дача, посёлки */}
+      {/* ОБЪЕКТЫ СО СМЕТОЙ — по одному-два из каждого направления */}
       <section className="py-6">
         <div className="container-site">
-          <h2 className="mb-2">Не только станции</h2>
-          <p className="text-muted max-w-[70ch] mb-6">Кессоны для скважин, очистные для посёлков и турбаз, сервис и замена старых выгребных ям — тоже наша работа.</p>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { h: "/kanalizaciya/kesson-dlya-skvazhiny/", t: "Кессон для скважины", p: "от 66 500 ₽", d: "Пластиковые СОЮЗ, СОЮЗ-М, СОЮЗ-ПРО. Герметичны, не выдавливаются грунтом." },
-              { h: "/kanalizaciya/obsluzhivanie-septika/", t: "Обслуживание станций", p: "от 10 000 ₽", d: "Откачка ила, промывка фильтров, проверка компрессора — раз в 1–2 года." },
-              { h: "/kanalizaciya/zamena-vygrebnoj-yamy/", t: "Замена выгребной ямы", p: "окупаемость 3 года", d: "Считаем на реальном объекте: 140 000 ₽ в год на откачку против станции." },
-              { h: "/kanalizaciya/kanalizaciya-dlya-poselka/", t: "ЛОС для посёлка и турбазы", p: "цена по запросу", d: "Kolo Ilma 30/50/75 на 6–15 м³ в сутки, проект и монтаж." },
-            ].map((c) => (
-              <Link key={c.h} href={c.h} className="card p-5 md:p-6 block hover:shadow-card h-full">
-                <h3 className="text-[18px]">{c.t}</h3>
-                <div className="text-brand font-extrabold tracking-tight mt-1">{c.p}</div>
-                <p className="mt-2 text-[14px] text-ink/75 leading-relaxed">{c.d}</p>
-              </Link>
+          <div className="flex flex-wrap items-baseline justify-between gap-3 mb-2"><h2>Объекты с ценами под ключ</h2><Link href="/obekty/" className="text-brand underline underline-offset-2 text-[15px]">Все объекты</Link></div>
+          <p className="text-muted max-w-[70ch] mb-8">Реальные дома, бани и скважины в Иркутском районе с полной раскладкой сметы. Так вы понимаете, во сколько обойдётся ваш дом, ещё до звонка.</p>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{featured.map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
+        </div>
+      </section>
+
+      <Reasons items={BRAND.reasons} title="Почему инженерные системы заказывают у Фортес" />
+
+      {/* ГЕО: посёлок → пять направлений */}
+      <section id="geo" className="py-12 md:py-16 scroll-mt-28">
+        <div className="container-site">
+          <h2 className="mb-2">Работаем в Иркутске и по всем трактам</h2>
+          <p className="text-muted max-w-[70ch] mb-6">У каждого посёлка своя глубина воды, грунт, сети и лимит мощности — под каждое направление есть страница с местной фактурой. Выезд инженера бесплатный.</p>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {brandGeo.map((g) => (
+              <div key={g.slug} className="card p-4">
+                <div className="font-bold">{g.name}</div>
+                <div className="text-[13px] text-muted mt-0.5">{g.tract}</div>
+                <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[13px]">
+                  {g.sections.map((s) => <Link key={s} href={`/${s}/${g.slug}/`} className="underline underline-offset-2 decoration-line hover:text-brand hover:decoration-brand">{GEO_LINKS[s]}</Link>)}
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <Reasons />
+      <Steps items={BRAND.steps} title="Как проходит заказ" />
 
-      {/* ЗИМА — сибирский аргумент */}
-      <section className="py-12 md:py-16">
-        <div className="container-site">
-          <div className="card bg-frost p-6 md:p-10 grid gap-6 lg:grid-cols-[1fr_1fr] items-center">
-            <div>
-              <h2>Работает при −40 °C</h2>
-              <p className="mt-4 text-ink/85 max-w-[56ch]">Рабочая часть станции — ниже глубины промерзания, стоки из дома тёплые, горловину утепляем. Ставим и обслуживаем круглый год, дачные станции Novo Eko зимуют без консервации.</p>
-              <Link href="/kanalizaciya/septik-dlya-zimy/" className="btn-outline mt-6 bg-white">Как станция зимует в Иркутске</Link>
-            </div>
-            <ul className="grid gap-3 text-[15px]">
-              {["Заглубление ниже 2,2 м — нормативная глубина промерзания в Иркутске", "Труба от дома с уклоном 2 см/м — сухая, замерзать нечему", "Утеплённая крышка и пеноплекс по периметру горловины", "Отключение света на сутки-двое станция переживает без последствий"].map((t) => (
-                <li key={t} className="card px-4 py-3 flex gap-3"><span className="w-2 h-2 mt-2 rounded-sm bg-brand shrink-0" />{t}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
+      <LeadSection source="главная бренда" title="Инженер приедет бесплатно и посчитает дом по разделам" text="Один выезд закрывает все направления: смотрим дом, участок, сети посёлка и лимит мощности. Смета — по системам, цену фиксируем в договоре." />
 
-      {/* ОБЪЕКТЫ */}
-      <section className="py-12 md:py-16">
-        <div className="container-site">
-          <h2 className="mb-2">Объекты со сметой</h2>
-          <p className="text-muted max-w-[70ch] mb-8">Реальные цены под ключ — чтобы вы понимали, во сколько обойдётся ваш участок ещё до звонка.</p>
-          <div className="grid gap-5 md:grid-cols-2">
-            {objects.slice(0, 4).map((o) => <ObjectCard key={o.slug} o={o} />)}
-          </div>
-        </div>
-      </section>
-
-      <Steps />
-      <LeadSection source="главная" />
-      <RelatedPosts slugs={RELATED_POSTS.home} />
-      <ServiceLinks />
-      <GeoLinks />
+      <FAQ items={BRAND.faq} />
 
       {posts.length > 0 && (
         <section className="py-12 md:py-16">
           <div className="container-site">
-            <h2 className="mb-8">Разбираемся в септиках</h2>
+            <div className="flex flex-wrap items-baseline justify-between gap-3 mb-8"><h2>Статьи</h2><Link href="/blog/" className="text-brand underline underline-offset-2 text-[15px]">Все статьи</Link></div>
             <div className="grid gap-4 md:grid-cols-3">
               {posts.map((p) => (
                 <Link key={p.slug} href={`/blog/${p.slug}/`} className="card p-5 md:p-6 hover:shadow-card block">
@@ -132,8 +102,6 @@ export default function Home() {
           </div>
         </section>
       )}
-
-      <FAQ items={SITE.homeFaq} />
     </>
   );
 }

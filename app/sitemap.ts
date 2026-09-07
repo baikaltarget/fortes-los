@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL, products, brands, services, geo, objects, sections, P, heatServices, heatGeo, heatObjects, HP, burServices, burGeo, burObjects, BP, vodaServices, vodaGeo, VP, elekServices, elekGeo, EP } from "@/lib/content";
+import { SITE_URL, SEPTIK_PATH, COMPLEX_PATH, products, brands, services, geo, objects, sections, P, heatServices, heatGeo, heatObjects, HP, burServices, burGeo, burObjects, BP, vodaServices, vodaGeo, VP, elekServices, elekGeo, EP } from "@/lib/content";
 import { getPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -7,6 +7,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const u = (p: string, priority = 0.7, changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] = "monthly") => ({ url: `${SITE_URL}${p}`, lastModified: now, changeFrequency, priority });
   return [
     u("/", 1, "weekly"),
+    u(COMPLEX_PATH, 0.9, "weekly"),
+    u(SEPTIK_PATH, 0.9, "weekly"),
     // канализация
     u(P.hub, 0.9, "weekly"), u(P.stancii, 0.9, "weekly"),
     u("/ceny/", 0.9, "weekly"), u("/kalkulyator/", 0.8), u("/obekty/", 0.8),

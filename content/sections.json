@@ -1,5 +1,5 @@
 {
-  "_readme": "Направления бренда для шапки и подвала. kanalizaciya (site.json), otoplenie (otoplenie.json), burenie (burenie.json) и vodosnabzhenie (vodosnabzhenie.json) — живые разделы. Остальные — визитки со ссылкой на старый поддомен. Добавить направление = блок здесь + content/<slug>.json + app/<slug>/ + фото.",
+  "_readme": "Направления бренда для шапки и подвала. Все пять разделов живые (site.json, otoplenie.json, burenie.json, vodosnabzhenie.json, elektrika.json). Добавить направление = блок здесь + content/<slug>.json + app/<slug>/ + фото. companyLinks — общие ссылки (подвал «Компания», мобильное меню).",
   "sections": [
     {
       "slug": "kanalizaciya",
@@ -12,7 +12,7 @@
           "links": [
             [
               "Септик под ключ",
-              "/"
+              "/kanalizaciya/septik-pod-klyuch/"
             ],
             [
               "Септик без откачки",
@@ -119,7 +119,7 @@
       "footer": [
         [
           "Септик под ключ",
-          "/"
+          "/kanalizaciya/septik-pod-klyuch/"
         ],
         [
           "Без откачки",
@@ -761,6 +761,10 @@
     }
   ],
   "companyLinks": [
+    [
+      "Дом целиком",
+      "/inzhenernye-seti-pod-klyuch/"
+    ],
     [
       "Объекты со сметой",
       "/obekty/"

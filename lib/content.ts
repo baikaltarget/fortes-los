@@ -4,6 +4,7 @@ import otoplenieJson from "@/content/otoplenie.json";
 import burenieJson from "@/content/burenie.json";
 import vodaJson from "@/content/vodosnabzhenie.json";
 import elekJson from "@/content/elektrika.json";
+import brandJson from "@/content/brand.json";
 
 export type Faq = { q: string; a: string };
 export type Variant = { name: string; price: number; note: string };
@@ -77,6 +78,8 @@ export const P = {
   object: (slug: string) => `/obekty/${slug}/`,
   post: (slug: string) => `/blog/${slug}/`,
 };
+/** v28: посадочная «Септик под ключ» (бывшая главная); корень `/` теперь главная бренда */
+export const SEPTIK_PATH = `${SEC}/septik-pod-klyuch/`;
 
 /* ======================= РАЗДЕЛ «ОТОПЛЕНИЕ» (content/otoplenie.json) ======================= */
 export type HeatService = {
@@ -212,3 +215,24 @@ export const EP = {
   calc: `${ESEC}/kalkulyator/`,
   object: (slug: string) => `/obekty/${slug}/`,
 };
+
+/* ======================= ГЛАВНАЯ БРЕНДА И КОМПЛЕКС (content/brand.json) ======================= */
+export type BrandDirection = { slug: string; order: number; name: string; what: string; priceFrom: string; priceNote: string; priceDraft?: boolean; links: string[][]; objects: string[] };
+export type ComplexStage = { n: string; title: string; href: string; text: string; time: string };
+export const BRAND = brandJson as unknown as {
+  home: { title: string; description: string; h1: string; lead: string; chips: string[]; heroImage: string; heroImageMobile: string; heroImageAlt: string; ogImage: string; stats: string[][] };
+  directions: BrandDirection[];
+  chain: { title: string; text: string; cta: string; href: string };
+  featuredObjects: string[]; reasons: HeatReason[]; steps: HeatStep[]; faq: Faq[];
+  complex: { slug: string; title: string; description: string; h1: string; lead: string; chips: string[]; priceFrom: string; priceNote: string; priceDraft?: boolean; stages: ComplexStage[]; sections: TextSection[]; objects: string[]; faq: Faq[] };
+};
+/** Направления в порядке стройки: скважина → вода → канализация → отопление → электрика */
+export const brandDirections: BrandDirection[] = [...BRAND.directions].sort((a, b) => a.order - b.order);
+export const brandObjects = (slugs: string[]): SiteObject[] => slugs.map((s) => allObjects.find((o) => o.slug === s)).filter(Boolean) as SiteObject[];
+export const COMPLEX_PATH = `/${BRAND.complex.slug}/`;
+/** Посёлки для общего гео-блока главной: 26 слагов отопления; у канализации только 20 — проверяем наличие */
+export type BrandGeo = { slug: string; name: string; prep: string; tract: string; sections: string[] };
+export const brandGeo: BrandGeo[] = heatGeo.map((g) => ({
+  slug: g.slug, name: g.name, prep: g.prep, tract: g.tract,
+  sections: ["burenie", "vodosnabzhenie", ...(geo.some((k) => k.slug === g.slug) ? ["kanalizaciya"] : []), "otoplenie", "elektrika"],
+}));

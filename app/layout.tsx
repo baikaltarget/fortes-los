@@ -12,8 +12,8 @@ import { SITE_URL, company } from "@/lib/content";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: "Септики и автономная канализация в Иркутске | Фортес", template: "%s" },
-  description: "Септики без откачки и станции биологической очистки под ключ в Иркутске.",
+  title: { default: "Инженерные системы для дома в Иркутске | Фортес", template: "%s" },
+  description: "Отопление, бурение скважин, водоснабжение, канализация и электрика в частном доме под ключ в Иркутске и районе.",
   verification: { other: { "yandex-verification": company.yandexVerification } },
 };
 
