@@ -29,7 +29,7 @@
       "name": "Отопление",
       "what": "Котельная, водяной тёплый пол, радиаторы, автоматика",
       "priceFrom": "от 3 900 ₽/м²",
-      "priceNote": "дом под ключ, по объекту в Бурдаковке",
+      "priceNote": "дом под ключ, объект в Бурдаковке",
       "links": [["Тёплый пол", "/otoplenie/montazh-teplogo-pola/"], ["Котельная", "/otoplenie/montazh-kotelnoj/"], ["Электроотопление", "/otoplenie/elektrootoplenie-doma/"], ["Цены", "/otoplenie/ceny/"]],
       "objects": ["burdakovka-dom-120", "novo-razvodnaya-gazobeton-240"]
     },
@@ -37,7 +37,7 @@
       "slug": "burenie",
       "order": 1,
       "name": "Бурение скважин",
-      "what": "Скважина на воду, кессон, насос, паспорт и гарантия 5 лет",
+      "what": "Скважина на воду, кессон, насос, гарантия 5 лет",
       "priceFrom": "от 2 300 ₽/м",
       "priceNote": "бурение, обсадная сталь, прокачка",
       "links": [["Скважина под ключ", "/burenie/skvazhina-pod-klyuch/"], ["Обустройство", "/burenie/obustrojstvo-skvazhiny/"], ["Карта глубин", "/burenie/karta-glubin/"], ["Цены", "/burenie/ceny/"]],
