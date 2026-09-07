@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL, products, brands, services, geo, objects, sections, P, heatServices, heatGeo, heatObjects, HP, burServices, burGeo, burObjects, BP, vodaServices, vodaGeo, VP } from "@/lib/content";
+import { SITE_URL, products, brands, services, geo, objects, sections, P, heatServices, heatGeo, heatObjects, HP, burServices, burGeo, burObjects, BP, vodaServices, vodaGeo, VP, elekServices, elekGeo, EP } from "@/lib/content";
 import { getPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -32,5 +32,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     u(VP.hub, 0.9, "weekly"), u(VP.ceny, 0.9, "weekly"), u(VP.calc, 0.8),
     ...vodaServices.map((s) => u(VP.page(s.slug), 0.8)),
     ...vodaGeo.map((g) => u(VP.geo(g.slug), 0.7)),
+    // электрика (своих объектов нет)
+    u(EP.hub, 0.9, "weekly"), u(EP.ceny, 0.9, "weekly"), u(EP.calc, 0.8),
+    ...elekServices.map((s) => u(EP.page(s.slug), 0.8)),
+    ...elekGeo.map((g) => u(EP.geo(g.slug), 0.7)),
   ];
 }

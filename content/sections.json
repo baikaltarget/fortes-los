@@ -608,48 +608,154 @@
     {
       "slug": "elektrika",
       "name": "Электрика",
-      "short": "Электромонтаж",
-      "live": false,
-      "external": "https://electro.fortes-dom.ru",
-      "title": "Электромонтаж в частном доме в Иркутске — Фортес",
-      "description": "Электромонтажные работы в частных домах Иркутска и района: ввод, щит, разводка, освещение, заземление. Проект и исполнительная документация.",
-      "h1": "Электромонтаж в частном доме",
-      "lead": "Ввод, щит, разводка, освещение, заземление — с проектом и документацией. Пока подробности — на нашем сайте по электрике.",
+      "short": "Электромонтаж в доме",
+      "live": true,
       "menu": [
         {
-          "title": "Услуги",
+          "title": "По типу дома и под ключ",
           "links": [
             [
-              "Электромонтаж под ключ",
-              "/elektrika/"
+              "Электрика в доме под ключ",
+              "/elektrika/elektrika-v-chastnom-dome-pod-klyuch/"
             ],
             [
-              "Щит и ввод",
-              "/elektrika/"
+              "В деревянном доме",
+              "/elektrika/elektrika-v-derevyannom-dome/"
             ],
             [
-              "Освещение",
-              "/elektrika/"
+              "В доме из газобетона",
+              "/elektrika/elektrika-v-dome-iz-gazobetona/"
             ],
             [
-              "Заземление",
-              "/elektrika/"
+              "В каркасном доме",
+              "/elektrika/elektrika-v-karkasnom-dome/"
+            ],
+            [
+              "Ретро-проводка",
+              "/elektrika/retro-provodka/"
+            ],
+            [
+              "Электрика в бане",
+              "/elektrika/elektrika-v-bane/"
+            ],
+            [
+              "Проводка под электроотопление",
+              "/elektrika/elektrika-pod-elektrootoplenie/"
+            ]
+          ]
+        },
+        {
+          "title": "Работы",
+          "links": [
+            [
+              "Ввод электричества в дом",
+              "/elektrika/vvod-elektrichestva-v-dom/"
+            ],
+            [
+              "Сборка электрощита",
+              "/elektrika/sborka-elektroshchita/"
+            ],
+            [
+              "Разводка электрики",
+              "/elektrika/razvodka-elektriki-v-dome/"
+            ],
+            [
+              "Монтаж заземления",
+              "/elektrika/montazh-zazemleniya/"
+            ],
+            [
+              "Генератор с АВР",
+              "/elektrika/podklyuchenie-generatora-avr/"
+            ],
+            [
+              "Замена проводки",
+              "/elektrika/zamena-elektroprovodki/"
+            ],
+            [
+              "Калькулятор стоимости",
+              "/elektrika/kalkulyator/"
             ]
           ]
         }
       ],
       "footer": [
         [
-          "Электромонтаж",
-          "/elektrika/"
+          "Электрика в доме под ключ",
+          "/elektrika/elektrika-v-chastnom-dome-pod-klyuch/"
         ],
         [
-          "Щит и ввод",
-          "/elektrika/"
+          "В деревянном доме",
+          "/elektrika/elektrika-v-derevyannom-dome/"
         ],
         [
-          "Освещение",
-          "/elektrika/"
+          "Ввод электричества",
+          "/elektrika/vvod-elektrichestva-v-dom/"
+        ],
+        [
+          "Сборка электрощита",
+          "/elektrika/sborka-elektroshchita/"
+        ],
+        [
+          "Заземление",
+          "/elektrika/montazh-zazemleniya/"
+        ],
+        [
+          "Генератор с АВР",
+          "/elektrika/podklyuchenie-generatora-avr/"
+        ],
+        [
+          "Цены за точку",
+          "/elektrika/ceny/"
+        ],
+        [
+          "Калькулятор",
+          "/elektrika/kalkulyator/"
+        ]
+      ],
+      "hit": {
+        "label": "Ориентир",
+        "name": "Дом 120 м²: ввод, щит 380 В, 45 точек, заземление",
+        "sub": "газобетон, под электрокотёл и тёплые полы",
+        "price": "от 180 000 ₽",
+        "note": "с материалами, без светильников",
+        "href": "/elektrika/ceny/"
+      },
+      "subnav": [
+        [
+          "Под ключ",
+          "/elektrika/elektrika-v-chastnom-dome-pod-klyuch/"
+        ],
+        [
+          "Ввод",
+          "/elektrika/vvod-elektrichestva-v-dom/"
+        ],
+        [
+          "Щит",
+          "/elektrika/sborka-elektroshchita/"
+        ],
+        [
+          "Разводка",
+          "/elektrika/razvodka-elektriki-v-dome/"
+        ],
+        [
+          "Заземление",
+          "/elektrika/montazh-zazemleniya/"
+        ],
+        [
+          "Генератор",
+          "/elektrika/podklyuchenie-generatora-avr/"
+        ],
+        [
+          "Цены",
+          "/elektrika/ceny/"
+        ],
+        [
+          "Калькулятор",
+          "/elektrika/kalkulyator/"
+        ],
+        [
+          "Посёлки",
+          "/elektrika/#geo"
         ]
       ]
     }

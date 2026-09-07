@@ -3,6 +3,7 @@ import sectionsJson from "@/content/sections.json";
 import otoplenieJson from "@/content/otoplenie.json";
 import burenieJson from "@/content/burenie.json";
 import vodaJson from "@/content/vodosnabzhenie.json";
+import elekJson from "@/content/elektrika.json";
 
 export type Faq = { q: string; a: string };
 export type Variant = { name: string; price: number; note: string };
@@ -179,5 +180,35 @@ export const VP = {
   geo: (slug: string) => `${VSEC}/${slug}/`,    // гео — тот же уровень
   ceny: `${VSEC}/ceny/`,
   calc: `${VSEC}/kalkulyator/`,
+  object: (slug: string) => `/obekty/${slug}/`,
+};
+
+/* ======================= РАЗДЕЛ «ЭЛЕКТРИКА» (content/elektrika.json) ======================= */
+export type ElekService = {
+  slug: string; name: string; title: string; description: string; h1: string; lead: string; cluster: string;
+  heroImage?: string; heroImageAlt?: string; photoWanted?: string; priceFrom?: string; priceDraft?: boolean; confirmWithClient?: string; sections: TextSection[]; faq: Faq[]; chips?: string[]; objects?: string[];
+};
+export type ElekGeo = { slug: string; name: string; prep: string; distance: string; tract: string; grid: string; housing: string; about: string[]; objects?: string[] };
+export const ELEK = elekJson as unknown as {
+  hub: { title: string; description: string; h1: string; lead: string; chips: string[]; priceNote: string; photoWanted?: string; stats: string[][]; ogImage: string };
+  clusters: HeatCluster[]; services: ElekService[]; geo: ElekGeo[]; geoNote: { text: string; draft: boolean }; objectRefs: string[]; objectsNote: string; steps: HeatStep[]; reasons: HeatReason[]; brands: HeatBrand[]; brandsDraft: boolean; faq: Faq[]; prices: HeatPrice[];
+  calculator: { title: string; lead: string; rates: Record<string, number>; ratesDraft: boolean };
+};
+export const elekServices: ElekService[] = ELEK.services;
+export const elekGeo: ElekGeo[] = ELEK.geo;
+/** Объекты раздела — реальные объекты отопления с электрокотлами (своих объектов по электрике пока нет) */
+export const elekObjects: SiteObject[] = ELEK.objectRefs.map((s) => allObjects.find((o) => o.slug === s)).filter(Boolean) as SiteObject[];
+export const getElekService = (slug: string) => elekServices.find((s) => s.slug === slug);
+export const getElekGeo = (slug: string) => elekGeo.find((g) => g.slug === slug);
+export const elekServicesByCluster = (cluster: string) => elekServices.filter((s) => s.cluster === cluster);
+
+/** Ссылки раздела «Электрика» */
+export const ESEC = "/elektrika";
+export const EP = {
+  hub: `${ESEC}/`,
+  page: (slug: string) => `${ESEC}/${slug}/`,   // услуги
+  geo: (slug: string) => `${ESEC}/${slug}/`,    // гео — тот же уровень
+  ceny: `${ESEC}/ceny/`,
+  calc: `${ESEC}/kalkulyator/`,
   object: (slug: string) => `/obekty/${slug}/`,
 };
