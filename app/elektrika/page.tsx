@@ -53,7 +53,7 @@ export default function Page() {
       {/* УСЛУГИ ПО КЛАСТЕРАМ */}
       <section className="py-12 md:py-16"><div className="container-site">
         <h2 className="mb-2">Что делаем</h2>
-        <p className="text-muted max-w-[70ch] mb-8">Только частные дома, коттеджи, бани и дачи — квартирами не занимаемся. У каждой страницы — цена, что входит и ответы на вопросы. Котельные и тёплые полы, под которые считаем проводку, — в <Link href={HP.hub} className="text-brand underline">разделе «Отопление»</Link>.</p>
+        <p className="text-muted max-w-[70ch] mb-8">Только частные дома, коттеджи, бани и дачи целиком — под ключ или крупными этапами (ввод, щит, разводка). Квартирами и разовыми вызовами «поменять розетку» не занимаемся. У каждой страницы — цена, что входит и ответы на вопросы. Котельные и тёплые полы, под которые считаем проводку, — в <Link href={HP.hub} className="text-brand underline">разделе «Отопление»</Link>.</p>
         <div className="grid gap-8">
           {ELEK.clusters.map((c) => {
             const list = elekServicesByCluster(c.slug);
@@ -100,7 +100,7 @@ export default function Page() {
 
       {/* ГЕО */}
       <section id="geo" className="py-12 md:py-16 scroll-mt-28"><div className="container-site">
-        <h2 className="mb-2">Электрик в Иркутском районе — по трактам и посёлкам</h2>
+        <h2 className="mb-2">Электромонтаж в Иркутском районе — по трактам и посёлкам</h2>
         <p className="text-muted max-w-[70ch] mb-6">Выезд инженера бесплатный. По каждому посёлку знаем, какие там сети: где просаживается напряжение зимой, где дают 15 кВт без вопросов, а где лучше сразу закладывать генератор.</p>
         <div className="grid gap-6">
           {byTract().map(([tract, list]) => (
@@ -109,7 +109,7 @@ export default function Page() {
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {list.map((g) => (
                   <Link key={g.slug} href={EP.geo(g.slug)} className="card p-4 hover:shadow-card block">
-                    <div className="font-bold">Электрик {g.prep}</div>
+                    <div className="font-bold">Электрика {g.prep}</div>
                     <div className="text-[13px] text-muted mt-1">{g.distance} · {g.grid.split(/[;,]/)[0]}</div>
                   </Link>
                 ))}

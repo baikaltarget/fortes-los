@@ -153,6 +153,5 @@ export const SCHEME_BY_SLUG: Record<string, { highlight: SchemeHighlight; groups
   "molniezashchita": { highlight: "spd" },
   "elektrika-pod-elektrootoplenie": { highlight: "heating" },
   "elektrika-v-chastnom-dome-pod-klyuch": { highlight: "panel" },
-  "elektrik-na-dom": { highlight: "relay" },
   "elektrika-na-dache": { highlight: "relay", phases: 1, groups: ["Обогреватели", "Бойлер", "Кухня", "Розетки", "Свет", "Насос"] },
 };

@@ -24,7 +24,7 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   if (s) return meta({ title: s.title, description: s.description, path: EP.page(s.slug) });
   const g = getElekGeo(params.slug);
   if (g) return meta({
-    title: `Электрик ${g.prep} — электромонтаж в частном доме | Фортес`,
+    title: `Электромонтаж в частном доме ${g.prep} под ключ | Фортес`,
     description: `Электрика в частном доме ${g.prep}: ввод 15 кВт, щит с реле напряжения, разводка под электрокотёл, заземление. Сети: ${g.grid.split(/[;,(]/)[0].trim()}. Инженер бесплатно.`,
     path: EP.geo(g.slug),
   });
@@ -94,7 +94,7 @@ function ServicePage({ slug }: { slug: string }) {
       <FAQ items={s.faq} />
       <ElectroLead source={`электрика: ${s.name}`} />
       <ServiceLinks items={links} href={EP.page} title={cluster ? `${cluster.title}: смежные задачи` : "Смежные задачи"} />
-      <GeoLinks items={elekGeo} href={EP.geo} title="Электрик в Иркутском районе" text={GEO_TEXT} />
+      <GeoLinks items={elekGeo} href={EP.geo} title="Электромонтаж в Иркутском районе" text={GEO_TEXT} />
     </>
   );
 }
@@ -118,10 +118,10 @@ function GeoPage({ slug }: { slug: string }) {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Электрика", href: EP.hub }, { name: g.name, href: EP.geo(g.slug) }]} />
         <div className="card p-6 md:p-10 shadow-card">
-          <h1>Электрик {g.prep}: электромонтаж в частном доме под ключ</h1>
-          <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[62ch]">Делаем электрику в домах {g.prep}: ввод от опоры на 15 кВт, щит с реле напряжения, разводку по комнатам с расчётом под электрокотёл и тёплые полы, заземление, освещение в доме и на участке, при желании — резерв от генератора. Одна бригада с отоплением и водой, цена за точку известна до начала работ.</p>
+          <h1>Электромонтаж в частном доме {g.prep} под ключ</h1>
+          <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[62ch]">Делаем электрику домов {g.prep} целиком — от ввода до розеток, а не разовые выезды: ввод от опоры на 15 кВт, щит с реле напряжения, разводку по комнатам с расчётом под электрокотёл и тёплые полы, заземление, освещение в доме и на участке, при желании — резерв от генератора. Одна бригада с отоплением и водой, цена за точку известна до начала работ.</p>
           <div className="mt-5 flex flex-wrap gap-2">{ELEK.hub.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
-          <div className="mt-8 flex flex-wrap gap-3"><a href="#lead" className="btn-primary">Вызвать инженера {g.prep}</a><Link href={EP.calc} className="btn-outline">Рассчитать стоимость</Link></div>
+          <div className="mt-8 flex flex-wrap gap-3"><a href="#lead" className="btn-primary">Инженер {g.prep} бесплатно</a><Link href={EP.calc} className="btn-outline">Рассчитать стоимость</Link></div>
           <Draft on={ELEK.geoNote.draft} note="сети / лимиты по посёлку — сверить с клиентом" className="mt-6">
             <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-3 text-[15px] border-t border-line pt-5">
               <div><dt className="text-muted">Расстояние от Иркутска</dt><dd className="font-bold">{g.distance}, {g.tract}</dd></div>
@@ -146,7 +146,7 @@ function GeoPage({ slug }: { slug: string }) {
       <FAQ items={faq} title={`Вопросы про электрику ${g.prep}`} />
       <ElectroLead source={`электрика гео ${g.name}`} title={`Инженер приедет ${g.prep} бесплатно`} />
       <ServiceLinks items={elekServices.filter((x) => MAIN_CLUSTERS.includes(x.cluster)).slice(0, 9)} href={EP.page} title="Решения под задачу" />
-      <GeoLinks items={elekGeo} href={EP.geo} current={g.slug} title="Электрик в Иркутском районе" text={GEO_TEXT} />
+      <GeoLinks items={elekGeo} href={EP.geo} current={g.slug} title="Электромонтаж в Иркутском районе" text={GEO_TEXT} />
     </>
   );
 }
