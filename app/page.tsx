@@ -8,6 +8,7 @@ import Reasons from "@/components/Reasons";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import LeadSection from "@/components/LeadSection";
+import Certificates from "@/components/Certificates";
 
 const H = BRAND.home;
 export const metadata = meta({ title: H.title, description: H.description, path: "/", image: H.ogImage });
@@ -61,6 +62,7 @@ export default function Home() {
       </section>
 
       <Reasons items={BRAND.reasons} title="Почему инженерные системы заказывают у Фортес" />
+      <Certificates compact />
 
       {/* ГЕО: посёлок → пять направлений */}
       <section id="geo" className="py-12 md:py-16 scroll-mt-28">

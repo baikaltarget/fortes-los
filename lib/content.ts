@@ -218,12 +218,14 @@ export const EP = {
 
 /* ======================= ГЛАВНАЯ БРЕНДА И КОМПЛЕКС (content/brand.json) ======================= */
 export type BrandDirection = { slug: string; order: number; name: string; what: string; priceFrom: string; priceNote: string; priceDraft?: boolean; links: string[][]; objects: string[] };
+export type Cert = { slug: string; title: string; sub: string; alt: string; w: number; h: number };
 export type ComplexStage = { n: string; title: string; href: string; text: string; time: string };
 export const BRAND = brandJson as unknown as {
   home: { title: string; description: string; h1: string; lead: string; chips: string[]; heroImage: string; heroImageMobile: string; heroImageAlt: string; ogImage: string; stats: string[][] };
   directions: BrandDirection[];
   chain: { title: string; text: string; cta: string; href: string };
   featuredObjects: string[]; reasons: HeatReason[]; steps: HeatStep[]; faq: Faq[];
+  certs: { title: string; text: string; items: Cert[] };
   complex: { slug: string; title: string; description: string; h1: string; lead: string; chips: string[]; priceFrom: string; priceNote: string; priceDraft?: boolean; stages: ComplexStage[]; sections: TextSection[]; objects: string[]; faq: Faq[] };
 };
 /** Направления в порядке стройки: скважина → вода → канализация → отопление → электрика */

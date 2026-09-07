@@ -1,13 +1,16 @@
+import Link from "next/link";
 import { meta } from "@/lib/seo";
-import { company } from "@/lib/content";
+import { company, BRAND, brandDirections } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import LeadSection from "@/components/LeadSection";
-import Draft from "@/components/Draft";
 import Steps from "@/components/Steps";
+import Certificates from "@/components/Certificates";
 
-export const metadata = meta({ title: "О компании Фортес — септики, отопление, водоснабжение в Иркутске с 2014 года", description: "Фортес — инженерная компания в Иркутске: с 2014 года, 1100+ объектов. Официальный дилер заводов Kolo Vesi и Экомир. Своя бригада, гарантия и сервис на месте.", path: "/o-kompanii/" });
+export const metadata = meta({ title: "О компании Фортес — инженерные системы для дома в Иркутске с 2014", description: "Фортес — инженерная компания в Иркутске: с 2014 года, 1100+ объектов. Отопление, скважины, вода, канализация, электрика своей бригадой. Дилер Kolo Vesi и Экомир, два офиса.", path: "/o-kompanii/" });
 
+/** Страница бренда (v29): до этого была написана под септики. Дипломы — components/Certificates, данные в brand.json → certs */
 export default function Page() {
+  const years = new Date().getFullYear() - company.foundedYear;
   return (
     <>
       <div className="container-site">
@@ -15,22 +18,26 @@ export default function Page() {
         <h1>Фортес: инженерные системы для дома с {company.foundedYear} года</h1>
         <div className="mt-6 grid gap-8 lg:grid-cols-[1.2fr_1fr]">
           <div className="prose-site">
-            <p>Мы делаем всё, что закопано и спрятано в стенах загородного дома: отопление, водоснабжение, бурение скважин, электрику и канализацию. За {new Date().getFullYear() - company.foundedYear} лет — {company.objectsDone} объектов в Иркутске и области.</p>
-            <p>Канализацию мы начинали как дополнение к водоснабжению, а сейчас это отдельное направление: официальное дилерство завода Kolo Vesi (станции Kolo Vesi, Novo Eko, Zörde, Kolo Ilma) и завода Экомир (кессоны СОЮЗ для скважин).</p>
-            <h2>Почему это важно для вас</h2>
-            <p>Дилерство означает цены завода, обучение монтажников на производстве и гарантийные вопросы, которые решаем мы в Иркутске, а не колл-центр в Петербурге. Своя бригада — значит один ответственный за замер, смету, монтаж и сервис.</p>
+            <p>Мы делаем всё, что закопано в участке и спрятано в стенах загородного дома: бурение скважин, водоснабжение, канализацию, отопление и электрику. За {years} лет — {company.objectsDone} объектов в Иркутске, Иркутском районе, Ангарске и Шелехове: от дачной бани до коттеджа 450 м² и коммерческих помещений.</p>
+            <p>Начинали с отопления и водоснабжения, потом добавили бурение, канализацию и электрику — так, чтобы <Link href="/inzhenernye-seti-pod-klyuch/">дом целиком</Link> можно было сделать одной бригадой, без стыков между подрядчиками. Каждое направление при этом работает и отдельно.</p>
+            <h2>Что за этим стоит</h2>
+            <p>Своя бригада и инженер, а не субподряд: один человек отвечает за замер, смету, монтаж и сервис. Официальное дилерство завода Kolo Vesi (станции Kolo Vesi, Novo Eko, Zörde, Kolo Ilma) и завода Экомир (кессоны СОЮЗ) — это цены завода и гарантийные вопросы, которые решаем мы в Иркутске. Монтажники проходят обучение у производителей, которых ставим: STOUT, VALTEC, Zota, Kospel. Своё производство ЖБИ для кессонов и переливных септиков.</p>
+            <h2>Направления</h2>
+            <ul>
+              {brandDirections.map((d) => <li key={d.slug}><Link href={`/${d.slug}/`}>{d.name}</Link> — {d.what}</li>)}
+            </ul>
             <h2>Реквизиты</h2>
-            <p>{company.legalName}<br />ИНН {company.inn}, ОГРН {company.ogrn}<br />{company.addresses.map((a) => `${a.city}, ${a.street}`).join(" · ")}</p>
+            <p>{company.legalName}<br />ИНН {company.inn}, ОГРН {company.ogrn}<br />{company.addresses.map((a) => `${a.city}, ${a.street}`).join(" · ")}<br /><Link href="/kontakty/">Контакты и карта</Link></p>
           </div>
-          <div className="grid gap-4 content-start">
-            {[[String(company.foundedYear), "год основания"], [company.objectsDone, "выполненных объектов"], ["6", "способов оплаты"], ["1", "офис в Иркутске"]].map(([a, b]) => (
+          <div className="grid gap-4 content-start sm:grid-cols-2 lg:grid-cols-1">
+            {[[String(company.foundedYear), "год основания"], [company.objectsDone, "выполненных объектов"], [String(brandDirections.length), "направлений одной бригадой"], [String(company.addresses.length), "офиса в Иркутске"]].map(([a, b]) => (
               <div key={b} className="card p-6"><div className="text-4xl font-extrabold tracking-tight">{a}</div><div className="text-muted">{b}</div></div>
             ))}
-            <Draft note="сертификаты дилера — загрузить сканы в public/img/certs"><div className="card p-6"><h3>Сертификаты дилера</h3><p className="mt-2 text-[15px] text-muted">Сертификаты Kolo Vesi и Экомир, дипломы обучения монтажников.</p></div></Draft>
           </div>
         </div>
       </div>
-      <Steps />
+      <Certificates />
+      <Steps items={BRAND.steps} />
       <LeadSection source="о компании" />
     </>
   );
