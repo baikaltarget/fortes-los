@@ -33,6 +33,42 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
 const GEO_TEXT = "Выезд инженера бесплатный. Знаем, где какие сети и лимиты мощности, — от этого зависит, какой котёл ставить и нужен ли резерв.";
 const HERO_FACTS = [["5–10", "дней монтаж дома до 200 м²"], ["проект", "и смета до договора"], ["банки РФ", "рассрочка и кредит"], ["бесплатно", "выезд инженера"]];
 
+/** v32: реальный проект п. Лесной — PDF в public/docs/ + превью листов в public/img/otoplenie/proekt/ */
+const PROJECT_PDF = "/docs/fortes-proekt-otopleniya-lesnoj-2025.pdf";
+const PROJECT_SHEETS: [string, string][] = [
+  ["teplyj-pol-1-etazh", "Схема отопления 1 этажа: 20 контуров тёплого пола с площадью, шагом и длиной"],
+  ["aksonometriya-otopleniya", "Аксонометрическая схема отопления с настройкой расходомеров"],
+  ["shema-itp", "Схема котельной: ТТ-котёл 37 кВт, два электрокотла 18 кВт, коллектор, бойлер 300 л"],
+  ["pirog-teplogo-pola", "Разрез пирога тёплого пола: EPS 60 мм, труба PE-RT 16×2, стяжка 70 мм"],
+];
+function ProjectDownload() {
+  return (
+    <section className="py-6"><div className="container-site">
+      <div className="card p-6 md:p-10 shadow-card">
+        <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+          <div>
+            <h2>Скачать реальный проект (PDF, 2,3 МБ)</h2>
+            <p className="mt-3 text-ink/85 max-w-[62ch]">Проектная документация отопления, водоснабжения и водоотведения дома 404 м² в п. Лесной, 2025 год: 18 листов ОВиК, 4 листа котельной, спецификация, пояснительная записка с теплотехническим расчётом. Такой комплект получает каждый заказчик монтажа под ключ.</p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href={PROJECT_PDF} download className="btn-primary" data-goal="project_download">Скачать проект PDF</a>
+              <a href={PROJECT_PDF} target="_blank" rel="noopener" className="btn-outline">Открыть в браузере</a>
+            </div>
+          </div>
+          <a href={PROJECT_PDF} target="_blank" rel="noopener" className="block"><img src="/img/otoplenie/proekt/oblozhka.webp" alt="Обложка проекта Фортес: проектная документация отопления, водоснабжения и водоотведения дома в п. Лесной" className="w-full rounded-card border border-line" width="1400" height="990" loading="lazy" /></a>
+        </div>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {PROJECT_SHEETS.map(([f, alt]) => (
+            <figure key={f}>
+              <a href={`/img/otoplenie/proekt/${f}.webp`} target="_blank" rel="noopener"><img src={`/img/otoplenie/proekt/${f}.webp`} alt={alt} className="w-full rounded-btn border border-line" width="1400" height="990" loading="lazy" /></a>
+              <figcaption className="mt-2 text-[13px] text-muted leading-snug">{alt}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </div></section>
+  );
+}
+
 function ServicePage({ slug }: { slug: string }) {
   const s = getHeatService(slug)!;
   const related = (s.objects || []).map((o) => getAnyObject(o)).filter(Boolean) as typeof heatObjects;
@@ -76,6 +112,8 @@ function ServicePage({ slug }: { slug: string }) {
         ))}
       </div></section>
 
+      {s.slug === "proektirovanie-otopleniya" && <ProjectDownload />}
+
       {related.length > 0 && (
         <section className="py-6"><div className="container-site"><h2 className="mb-2">Похожие объекты с ценой</h2><p className="text-muted mb-6 max-w-[70ch]">Реальные дома с фото монтажа и тем, что вошло в стоимость.</p><div className="grid gap-5 md:grid-cols-2">{related.map((o) => <ObjectCard key={o.slug} o={o} />)}</div></div></section>
       )}
@@ -96,7 +134,7 @@ function GeoPage({ slug }: { slug: string }) {
   const weakGrid = /перегруж|отключ|просад|ограничен|слаб/i.test(g.power);
   const bigHouses = /200|300|400|коттедж/i.test(g.housing);
   const faq = [
-    { q: `Сколько стоит отопление дома ${g.prep}?`, a: `Ориентир по нашему объекту: дом 120 м² с водяным тёплым полом, котельной на электрокотле и конвекторами под окна — 470 680 ₽ под ключ, около 3 900 ₽ за м² с оборудованием. Для дома ${g.prep} смету считаем после бесплатного выезда: она зависит от площади, утепления, лимита мощности и того, нужен ли резервный котёл.` },
+    { q: `Сколько стоит отопление дома ${g.prep}?`, a: `Ориентир по нашему объекту: дом 120 м² с водяным тёплым полом, котельной на электрокотле и конвекторами под окна — 470 680 ₽ под ключ (2024 год). Сейчас считаем: радиаторы под ключ с котлом, материалами и работой — от 2 500 ₽/м², тёплый пол — от 4 500 ₽/м². Для дома ${g.prep} смету считаем после бесплатного выезда: она зависит от площади, утепления, лимита мощности и того, нужен ли резервный котёл.` },
     { q: `Какой котёл ставить ${g.prep}?`, a: `${g.power[0].toUpperCase() + g.power.slice(1)}. ${weakGrid ? "Поэтому один электрокотёл здесь — риск: собираем связку с твердотопливным котлом или теплоаккумулятором и ставим защиту от просадок напряжения." : bigHouses ? "На дома от 200 м² электрокотёл дополняем тепловым насосом, чтобы уложиться в лимит и снизить счета в межсезонье." : "Для дома до 150 м² с нормальным утеплением хватает электрокотла Zota или Kospel на 9–12 кВт."}` },
     { q: `Как быстро приедете и сделаете ${g.prep}?`, a: `Инженер — в течение 2–3 дней после заявки, ${g.distance} от Иркутска для нас рабочая зона. Монтаж дома 100–150 м² — 5–7 дней, до 100 м² — 3–5 дней. Оборудование Zota, Stout, RoyalThermo есть на складе в Иркутске.` },
     { q: "Работаете зимой?", a: "Да, монтаж внутри дома — круглый год. Стяжку тёплого пола заливаем при плюсовой температуре внутри, при необходимости ставим временный обогрев." },

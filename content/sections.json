@@ -44,6 +44,10 @@
               "/kanalizaciya/stancii/"
             ],
             [
+              "Септик из колец от 80 000 ₽",
+              "/kanalizaciya/septik-iz-betonnyh-kolec/"
+            ],
+            [
               "Станции Novo Eko",
               "/kanalizaciya/novo-eko/"
             ],
@@ -96,6 +100,10 @@
           "/kanalizaciya/septik-dlya-dachi/"
         ],
         [
+          "Из колец",
+          "/kanalizaciya/septik-iz-betonnyh-kolec/"
+        ],
+        [
           "Цены",
           "/ceny/"
         ],
@@ -132,6 +140,10 @@
         [
           "Для дачи",
           "/kanalizaciya/septik-dlya-dachi/"
+        ],
+        [
+          "Септик из бетонных колец",
+          "/kanalizaciya/septik-iz-betonnyh-kolec/"
         ],
         [
           "Станции Novo Eko",
@@ -223,7 +235,7 @@
       "hit": {
         "label": "Реальный объект",
         "name": "Дом 120 м², тёплый пол",
-        "sub": "котельная Zota, конвекторы под окна",
+        "sub": "радиаторы под ключ от 2 500 ₽/м², тёплый пол от 4 500 ₽/м²",
         "price": "470 680 ₽",
         "note": "под ключ с оборудованием",
         "href": "/obekty/burdakovka-dom-120/"
@@ -298,6 +310,156 @@
         [
           "Проектирование",
           "/otoplenie/proektirovanie-otopleniya/"
+        ]
+      ]
+    },
+    {
+      "slug": "ventilyaciya",
+      "name": "Вентиляция",
+      "short": "Приточно-вытяжная, рекуперация",
+      "live": true,
+      "menu": [
+        {
+          "title": "Частный дом",
+          "links": [
+            [
+              "Вентиляция в частном доме",
+              "/ventilyaciya/ventilyaciya-v-chastnom-dome/"
+            ],
+            [
+              "Приточно-вытяжная с рекуперацией",
+              "/ventilyaciya/pritochno-vytyazhnaya-ventilyaciya-s-rekuperaciej/"
+            ],
+            [
+              "Приточная: клапаны, бризеры",
+              "/ventilyaciya/pritochnaya-ventilyaciya/"
+            ],
+            [
+              "Вытяжная вентиляция",
+              "/ventilyaciya/vytyazhnaya-ventilyaciya/"
+            ],
+            [
+              "Ванная и санузел",
+              "/ventilyaciya/ventilyaciya-v-vannoj-i-sanuzle/"
+            ],
+            [
+              "Вентиляция в бане",
+              "/ventilyaciya/ventilyaciya-v-bane/"
+            ],
+            [
+              "Каркасный дом и СИП",
+              "/ventilyaciya/ventilyaciya-karkasnogo-doma/"
+            ]
+          ]
+        },
+        {
+          "title": "Бизнес и проект",
+          "links": [
+            [
+              "Промышленная вентиляция",
+              "/ventilyaciya/promyshlennaya-ventilyaciya/"
+            ],
+            [
+              "Офисы, кафе, магазины",
+              "/ventilyaciya/pritochno-vytyazhnaya-ventilyaciya-pomeshchenij/"
+            ],
+            [
+              "Цеха и склады",
+              "/ventilyaciya/ventilyaciya-proizvodstvennyh-pomeshchenij/"
+            ],
+            [
+              "Аспирация",
+              "/ventilyaciya/aspiraciya/"
+            ],
+            [
+              "Проектирование",
+              "/ventilyaciya/proektirovanie-ventilyacii/"
+            ],
+            [
+              "Цены",
+              "/ventilyaciya/ceny/"
+            ],
+            [
+              "Калькулятор",
+              "/ventilyaciya/kalkulyator/"
+            ]
+          ]
+        }
+      ],
+      "hit": {
+        "label": "Официальный дилер",
+        "name": "Turkov: приточно-вытяжная с рекуперацией",
+        "sub": "до 80% тепла обратно, защита от обмерзания в −40 °C",
+        "price": "от 50 000 ₽",
+        "note": "вентиляция дома под ключ",
+        "href": "/ventilyaciya/pritochno-vytyazhnaya-ventilyaciya-s-rekuperaciej/"
+      },
+      "subnav": [
+        [
+          "В частном доме",
+          "/ventilyaciya/ventilyaciya-v-chastnom-dome/"
+        ],
+        [
+          "С рекуперацией",
+          "/ventilyaciya/pritochno-vytyazhnaya-ventilyaciya-s-rekuperaciej/"
+        ],
+        [
+          "Приточная",
+          "/ventilyaciya/pritochnaya-ventilyaciya/"
+        ],
+        [
+          "Вытяжная",
+          "/ventilyaciya/vytyazhnaya-ventilyaciya/"
+        ],
+        [
+          "Промышленная",
+          "/ventilyaciya/promyshlennaya-ventilyaciya/"
+        ],
+        [
+          "Цены",
+          "/ventilyaciya/ceny/"
+        ],
+        [
+          "Калькулятор",
+          "/ventilyaciya/kalkulyator/"
+        ],
+        [
+          "Посёлки",
+          "/ventilyaciya/#geo"
+        ]
+      ],
+      "footer": [
+        [
+          "Вентиляция в частном доме",
+          "/ventilyaciya/ventilyaciya-v-chastnom-dome/"
+        ],
+        [
+          "С рекуперацией Turkov",
+          "/ventilyaciya/pritochno-vytyazhnaya-ventilyaciya-s-rekuperaciej/"
+        ],
+        [
+          "Приточная вентиляция",
+          "/ventilyaciya/pritochnaya-ventilyaciya/"
+        ],
+        [
+          "Вытяжная вентиляция",
+          "/ventilyaciya/vytyazhnaya-ventilyaciya/"
+        ],
+        [
+          "Вентиляция в бане",
+          "/ventilyaciya/ventilyaciya-v-bane/"
+        ],
+        [
+          "Промышленная вентиляция",
+          "/ventilyaciya/promyshlennaya-ventilyaciya/"
+        ],
+        [
+          "Цены",
+          "/ventilyaciya/ceny/"
+        ],
+        [
+          "Калькулятор",
+          "/ventilyaciya/kalkulyator/"
         ]
       ]
     },
@@ -481,10 +643,6 @@
               "/vodosnabzhenie/goryachee-vodosnabzhenie-recirkulyaciya/"
             ],
             [
-              "Подключение к Водоканалу",
-              "/vodosnabzhenie/podklyuchenie-k-vodokanalu/"
-            ],
-            [
               "Водоснабжение из колодца",
               "/vodosnabzhenie/vvod-vody-iz-kolodca/"
             ]
@@ -550,10 +708,6 @@
           "/vodosnabzhenie/montazh-kanalizacii-v-dome/"
         ],
         [
-          "Водоканал",
-          "/vodosnabzhenie/podklyuchenie-k-vodokanalu/"
-        ],
-        [
           "Цены",
           "/vodosnabzhenie/ceny/"
         ],
@@ -590,10 +744,6 @@
         [
           "Бойлер косвенного нагрева",
           "/vodosnabzhenie/bojler-kosvennogo-nagreva/"
-        ],
-        [
-          "Подключение к Водоканалу",
-          "/vodosnabzhenie/podklyuchenie-k-vodokanalu/"
         ],
         [
           "Цены за точку",
@@ -668,10 +818,6 @@
               "/elektrika/podklyuchenie-generatora-avr/"
             ],
             [
-              "Замена проводки",
-              "/elektrika/zamena-elektroprovodki/"
-            ],
-            [
               "Калькулятор стоимости",
               "/elektrika/kalkulyator/"
             ]
@@ -714,10 +860,10 @@
       ],
       "hit": {
         "label": "Ориентир",
-        "name": "Дом 120 м²: ввод, щит 380 В, 45 точек, заземление",
-        "sub": "газобетон, под электрокотёл и тёплые полы",
-        "price": "от 180 000 ₽",
-        "note": "с материалами, без светильников",
+        "name": "Дом 120 м² под ключ: ввод, щит 380 В, 45 точек, заземление",
+        "sub": "от 3 500 ₽/м² с котельной, материалами и работой",
+        "price": "от 420 000 ₽",
+        "note": "под ключ с материалами",
         "href": "/elektrika/ceny/"
       },
       "subnav": [

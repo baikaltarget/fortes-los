@@ -148,7 +148,6 @@ export const SCHEME_BY_SLUG: Record<string, { highlight: SchemeHighlight; groups
   "montazh-zazemleniya": { highlight: "ground" },
   "razvodka-elektriki-v-dome": { highlight: "groups" },
   "montazh-osveshcheniya": { highlight: "light", groups: ["Свет 1 этаж", "Свет 2 этаж", "Лента, подсветка", "Улица, датчики", "Розетки", "Кухня", "Котёл", "Бойлер"] },
-  "zamena-elektroprovodki": { highlight: "relay", groups: ["Кухня", "Бойлер", "Обогреватели", "Розетки", "Свет", "Санузел", "Улица", "Гараж"] },
   "podklyuchenie-generatora-avr": { highlight: "avr", avr: true, groups: ["Котёл: автоматика", "Насосы, скважина", "Холодильник", "Свет", "Ворота, интернет", "Тёплый пол", "Кухня", "Розетки"] },
   "molniezashchita": { highlight: "spd" },
   "elektrika-pod-elektrootoplenie": { highlight: "heating" },

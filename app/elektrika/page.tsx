@@ -25,7 +25,7 @@ function byTract() {
 export default function Page() {
   return (
     <>
-      <JsonLd data={ldService({ name: "Электромонтаж в частном доме в Иркутске", description: "Электрика частных домов, коттеджей и дач под ключ: ввод 15 кВт, щит, разводка под электроотопление, заземление, освещение, генератор с АВР — Иркутск и Иркутский район", path: EP.hub, priceFrom: 1200 })} />
+      <JsonLd data={ldService({ name: "Электромонтаж в частном доме в Иркутске", description: "Электрика частных домов, коттеджей и дач под ключ: ввод 15 кВт, щит, разводка под электроотопление, заземление, освещение, генератор с АВР — Иркутск и Иркутский район", path: EP.hub, priceFrom: 1400 })} />
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Электрика", href: EP.hub }]} />
         <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">

@@ -33,6 +33,7 @@ export default function Analytics() {
       else if (company.maxUrl && href === company.maxUrl) goal("max_click");
       else if (href.includes("2gis.ru")) goal("reviews_2gis_click");
       else if (company.yandexMapsUrl && href === company.yandexMapsUrl) goal("reviews_yandex_click");
+      else if (href.endsWith(".pdf") && href.startsWith("/docs/")) goal("project_download"); // v32: скачивание примера проекта
     }
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);

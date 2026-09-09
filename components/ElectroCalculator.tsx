@@ -54,6 +54,10 @@ export default function ElectroCalculator() {
     if (extra === "manual") lines.push(["Перекидной рубильник и розетка под генератор", R.generatorManual]);
     if (extra.startsWith("avr")) lines.push(["АВР с автозапуском генератора (без генератора)", R.generatorAvr]);
     if (extra === "avr-light") lines.push(["Свет на участке: 4 светильника, кабель в земле, датчики", 4 * R.outdoorLight]);
+    // v32: минимальная ставка под ключ — от 3 500 ₽/м² (с материалами и работой)
+    const sub = lines.reduce((s, l) => s + l[1], 0);
+    const minTurnkey = area * (R.turnkeyMinPerM2 || 3500);
+    if (sub < minTurnkey) lines.push([`Доведение до ставки под ключ ${rub(R.turnkeyMinPerM2 || 3500)}/м²`, minTurnkey - sub]);
     const total = lines.reduce((s, l) => s + l[1], 0);
     return { lines, total, points, wallName };
   }, [walls, area, entry, voltage, heating, extra]);

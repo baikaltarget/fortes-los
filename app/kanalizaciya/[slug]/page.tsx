@@ -120,7 +120,7 @@ function ServicePage({ slug }: { slug: string }) {
               </div>
             ))}
           </div>
-          {!svc.koloIlma && <p className="text-[14px] text-muted mt-4">Рекомендованные розничные цены завода «Экомир». Монтаж — по смете.</p>}
+          {!svc.koloIlma && <p className="text-[14px] text-muted mt-4">Рекомендованные розничные цены завода «Экомир». Монтаж — по запросу.</p>}
         </div></section>
       )}
 

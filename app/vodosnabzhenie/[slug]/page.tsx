@@ -90,6 +90,25 @@ function ServicePage({ slug }: { slug: string }) {
   );
 }
 
+/** Фото для гео-страницы: по источнику воды — сеть → узел ввода, колодец → насосная станция, скважина → трасса ввода; чередуем, чтобы не было одного кадра на 26 страницах */
+const GEO_PHOTOS: [RegExp, string, string][] = [
+  [/водоканал|центральн|сет/i, "/img/vodosnabzhenie/hero-uzel-vvoda.webp", "Узел ввода воды из центрального водопровода: кран, фильтр, редуктор, счётчик"],
+  [/колод/i, "/img/vodosnabzhenie/hero-nasos-rele.webp", "Насосная станция и реле давления на вводе воды в дом"],
+];
+const GEO_ROTATE = [
+  ["/img/vodosnabzhenie/hero-vvod-trassa.webp", "Траншея с трубой ввода воды от скважины к дому"],
+  ["/img/vodosnabzhenie/hero-razvodka-banya.webp", "Коллекторная разводка воды и канализации в бане"],
+  ["/img/vodosnabzhenie/hero-bojler-kollektor.webp", "Бойлер и коллекторы водоснабжения в котельной частного дома"],
+  ["/img/vodosnabzhenie/hero-transheya.webp", "Траншея под наружную канализацию до септика"],
+  ["/img/vodosnabzhenie/hero-gidroakkumulyator.webp", "Гидроаккумулятор и автоматика водоснабжения из скважины"],
+];
+function geoPhoto(g: { slug: string; source: string }) {
+  for (const [re, src, alt] of GEO_PHOTOS) if (re.test(g.source.split(/[;,(]/)[0])) return { src, alt };
+  const i = vodaGeo.findIndex((x) => x.slug === g.slug);
+  const [src, alt] = GEO_ROTATE[Math.max(0, i) % GEO_ROTATE.length];
+  return { src, alt };
+}
+
 function GeoPage({ slug }: { slug: string }) {
   const g = getVodaGeo(slug)!;
   const objs = (g.objects || []).map((o) => getAnyObject(o)).filter(Boolean) as typeof vodaObjects;
@@ -108,6 +127,7 @@ function GeoPage({ slug }: { slug: string }) {
       <JsonLd data={ldService({ name: `Водоснабжение и канализация ${g.prep}`, description: `Ввод воды, разводка ХВС и ГВС, внутренняя и наружная канализация, бойлер и автоматика под ключ ${g.prep}`, path: VP.geo(g.slug), area: g.name, priceFrom: 4500 })} />
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Водоснабжение", href: VP.hub }, { name: g.name, href: VP.geo(g.slug) }]} />
+        <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-stretch">
         <div className="card p-6 md:p-10 shadow-card">
           <h1>Водоснабжение и канализация дома {g.prep}</h1>
           <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[62ch]">Заводим воду в дом {g.prep}, разводим холодную и горячую по санузлам и кухне, собираем канализацию с фановым стояком и выводим трубу к септику или в сеть. Бойлер, гидроаккумулятор, сантехника — одной бригадой. Цена за точку известна до начала работ.</p>
@@ -122,6 +142,11 @@ function GeoPage({ slug }: { slug: string }) {
             </dl>
           </Draft>
           <p className="text-[13px] text-muted mt-3">{VODA.geoNote.text}</p>
+        </div>
+        {/* v32: фото на гео-страницах — реальные фото объектов раздела, по типу источника воды */}
+        <div className="card p-3 md:p-4 flex">
+          <img src={geoPhoto(g).src} alt={geoPhoto(g).alt} className="w-full h-full rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
+        </div>
         </div>
       </div>
 

@@ -51,7 +51,7 @@ export default function Footer() {
       </div>
 
       {/* Навигация по направлениям — 5 разделов + «Компания» = 6 колонок, без брендовой колонки (она вынесена выше) */}
-      <div className="container-site py-12 md:py-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 text-[14px]">
+      <div className="container-site py-12 md:py-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 text-[14px]">
         {sections.map((s) => (
           <div key={s.slug}>
             <Link href={`/${s.slug}/`} className="block text-white font-bold mb-3 hover:underline">{s.name}</Link>

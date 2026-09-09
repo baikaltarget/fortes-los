@@ -31,6 +31,18 @@ export default function Page() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{topPicks.map((p) => <ProductCard key={p.slug} p={p} compact />)}</div>
         <div className="mt-4 flex flex-wrap gap-2">{brands.map((b) => <Link key={b.slug} href={P.page(b.slug)} className="chip hover:border-ink">{b.name}</Link>)}</div>
       </div></section>
+      {/* v32: ЖБИ-септик своего производства */}
+      <section className="py-6"><div className="container-site">
+        <div className="card p-6 md:p-10 grid gap-6 lg:grid-cols-[1.3fr_1fr] items-center">
+          <div>
+            <div className="text-[13px] font-bold text-brand uppercase tracking-wide">Своё производство ЖБИ</div>
+            <h2 className="mt-2">Септик из бетонных колец под ключ — от 80 000 ₽</h2>
+            <p className="mt-4 text-ink/85 max-w-[60ch]">Два кольца КС 15-9 глубиной 1,5 м, горловина, люк, 3 м трубы от дома, доставка и экскаватор — за один день. Кольца льём сами в Иркутске (бетон М500, вибропресс), поэтому цена под ключ, а не «кольца отдельно, кран отдельно». Для дачи, бани и дома на 1–3 человека на впитывающем грунте — рабочая канализация за разумные деньги; если стоков больше или вода высокая — честно посчитаем станцию.</p>
+            <div className="mt-6 flex flex-wrap gap-3"><Link href={P.page("septik-iz-betonnyh-kolec")} className="btn-primary">Септик из колец под ключ</Link><Link href={P.page("perelivnoj-septik")} className="btn-outline">Переливной септик</Link></div>
+          </div>
+          <img src="/img/hero-kolca.webp" alt="Септик из бетонных колец собственного производства Фортес" className="w-full rounded-card bg-white object-contain aspect-square" width="1254" height="1254" loading="lazy" />
+        </div>
+      </div></section>
       <ServiceLinks title="Решения под задачу" />
       <Reasons />
       <section id="geo" className="py-12 md:py-16 scroll-mt-28"><div className="container-site">

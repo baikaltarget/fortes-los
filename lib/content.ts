@@ -4,6 +4,7 @@ import otoplenieJson from "@/content/otoplenie.json";
 import burenieJson from "@/content/burenie.json";
 import vodaJson from "@/content/vodosnabzhenie.json";
 import elekJson from "@/content/elektrika.json";
+import ventJson from "@/content/ventilyaciya.json";
 import brandJson from "@/content/brand.json";
 
 export type Faq = { q: string; a: string };
@@ -216,9 +217,41 @@ export const EP = {
   object: (slug: string) => `/obekty/${slug}/`,
 };
 
+
+/* ======================= РАЗДЕЛ «ВЕНТИЛЯЦИЯ» (content/ventilyaciya.json, v32) ======================= */
+export type VentService = {
+  slug: string; name: string; title: string; description: string; h1: string; lead: string; cluster: string;
+  heroImage?: string; heroImageAlt?: string; priceFrom?: string; priceDraft?: boolean; confirmWithClient?: string; sections: TextSection[]; faq: Faq[]; chips?: string[]; objects?: string[];
+};
+export type VentGeo = { slug: string; name: string; prep: string; distance: string; tract: string; housing: string; air: string; about: string[]; objects?: string[] };
+export const VENT = ventJson as unknown as {
+  hub: { title: string; description: string; h1: string; lead: string; chips: string[]; priceNote: string; photoWanted?: string; stats: string[][]; ogImage: string };
+  clusters: HeatCluster[]; services: VentService[]; geo: VentGeo[]; geoNote: { text: string; draft: boolean }; objectRefs: string[]; objectsNote: string; steps: HeatStep[]; reasons: HeatReason[]; brands: HeatBrand[]; brandsDraft: boolean; faq: Faq[]; prices: HeatPrice[];
+  calculator: { title: string; lead: string; rates: Record<string, number>; ratesDraft: boolean };
+};
+export const ventServices: VentService[] = VENT.services;
+export const ventGeo: VentGeo[] = VENT.geo;
+/** Объекты раздела — реальные объекты отопления, где делали инженерку целиком (своих объектов по вентиляции пока нет) */
+export const ventObjects: SiteObject[] = VENT.objectRefs.map((s) => allObjects.find((o) => o.slug === s)).filter(Boolean) as SiteObject[];
+export const getVentService = (slug: string) => ventServices.find((s) => s.slug === slug);
+export const getVentGeo = (slug: string) => ventGeo.find((g) => g.slug === slug);
+export const ventServicesByCluster = (cluster: string) => ventServices.filter((s) => s.cluster === cluster);
+
+/** Ссылки раздела «Вентиляция» */
+export const NSEC = "/ventilyaciya";
+export const NP = {
+  hub: `${NSEC}/`,
+  page: (slug: string) => `${NSEC}/${slug}/`,   // услуги
+  geo: (slug: string) => `${NSEC}/${slug}/`,    // гео — тот же уровень
+  ceny: `${NSEC}/ceny/`,
+  calc: `${NSEC}/kalkulyator/`,
+  object: (slug: string) => `/obekty/${slug}/`,
+};
+
 /* ======================= ГЛАВНАЯ БРЕНДА И КОМПЛЕКС (content/brand.json) ======================= */
 export type BrandDirection = { slug: string; order: number; name: string; what: string; priceFrom: string; priceNote: string; priceDraft?: boolean; links: string[][]; objects: string[] };
 export type Cert = { slug: string; title: string; sub: string; alt: string; w: number; h: number };
+export type Dealer = { name: string; what: string; logo?: string; w?: number; h?: number };
 export type ComplexStage = { n: string; title: string; href: string; text: string; time: string };
 export const BRAND = brandJson as unknown as {
   home: { title: string; description: string; h1: string; lead: string; chips: string[]; heroImage: string; heroImageMobile: string; heroImageAlt: string; ogImage: string; stats: string[][] };
@@ -226,9 +259,10 @@ export const BRAND = brandJson as unknown as {
   chain: { title: string; text: string; cta: string; href: string };
   featuredObjects: string[]; reasons: HeatReason[]; steps: HeatStep[]; faq: Faq[];
   certs: { title: string; text: string; items: Cert[] };
+  dealers: { title: string; text: string; items: Dealer[] };
   complex: { slug: string; title: string; description: string; h1: string; lead: string; chips: string[]; priceFrom: string; priceNote: string; priceDraft?: boolean; stages: ComplexStage[]; sections: TextSection[]; objects: string[]; faq: Faq[] };
 };
-/** Направления в порядке стройки: скважина → вода → канализация → отопление → электрика */
+/** Направления в порядке стройки: скважина → вода → канализация → отопление → вентиляция → электрика */
 export const brandDirections: BrandDirection[] = [...BRAND.directions].sort((a, b) => a.order - b.order);
 export const brandObjects = (slugs: string[]): SiteObject[] => slugs.map((s) => allObjects.find((o) => o.slug === s)).filter(Boolean) as SiteObject[];
 export const COMPLEX_PATH = `/${BRAND.complex.slug}/`;
@@ -236,5 +270,5 @@ export const COMPLEX_PATH = `/${BRAND.complex.slug}/`;
 export type BrandGeo = { slug: string; name: string; prep: string; tract: string; sections: string[] };
 export const brandGeo: BrandGeo[] = heatGeo.map((g) => ({
   slug: g.slug, name: g.name, prep: g.prep, tract: g.tract,
-  sections: ["burenie", "vodosnabzhenie", ...(geo.some((k) => k.slug === g.slug) ? ["kanalizaciya"] : []), "otoplenie", "elektrika"],
+  sections: ["burenie", "vodosnabzhenie", ...(geo.some((k) => k.slug === g.slug) ? ["kanalizaciya"] : []), "otoplenie", "ventilyaciya", "elektrika"],
 }));

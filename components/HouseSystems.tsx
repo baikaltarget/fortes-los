@@ -3,8 +3,8 @@ import Draft from "./Draft";
 import { brandDirections, type BrandDirection } from "@/lib/content";
 
 /**
- * Signature-элемент главной бренда: пять систем дома в порядке стройки
- * (скважина → вода → канализация → отопление → электрика), соединённые «трубой».
+ * Signature-элемент главной бренда: шесть систем дома в порядке стройки
+ * (скважина → вода → канализация → отопление → вентиляция → электрика), соединённые «трубой».
  * На десктопе — горизонтальная линия за иконками, на мобильном — вертикальная слева.
  * Данные — content/brand.json → directions (order задаёт порядок).
  */
@@ -27,6 +27,11 @@ const ICONS: Record<string, JSX.Element> = {
   otoplenie: (
     <svg viewBox="0 0 32 32" width="28" height="28" className="w-7 h-7 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <path d="M6 24h20" /><path d="M9 24V12M14 24V12M19 24V12M24 24V12" /><path d="M6 12h20" /><path d="M6 8v4M26 8v4" />
+    </svg>
+  ),
+  ventilyaciya: (
+    <svg viewBox="0 0 32 32" width="28" height="28" className="w-7 h-7 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M16 16c0-4 6-4 6-8" /><path d="M16 16c4 0 4 6 8 6" /><path d="M16 16c0 4-6 4-6 8" /><path d="M16 16c-4 0-4-6-8-6" /><circle cx="16" cy="16" r="2" />
     </svg>
   ),
   elektrika: (
@@ -77,7 +82,7 @@ export default function HouseSystems({ title, text, cta, href }: { title: string
             {/* труба: вертикальная на мобильном, горизонтальная на десктопе */}
             <div className="absolute left-[27px] top-2 bottom-8 w-1 bg-brand rounded lg:hidden" aria-hidden />
             <div className="absolute left-7 right-7 top-[26px] h-1 bg-brand rounded hidden lg:block" aria-hidden />
-            <ol className="grid gap-8 lg:grid-cols-5 lg:gap-6">
+            <ol className="grid gap-8 lg:grid-cols-6 lg:gap-5">
               {brandDirections.map((d, i) => <Station key={d.slug} d={d} i={i} />)}
             </ol>
           </div>

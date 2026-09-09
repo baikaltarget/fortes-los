@@ -9,11 +9,12 @@ import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import LeadSection from "@/components/LeadSection";
 import Certificates from "@/components/Certificates";
+import Dealers from "@/components/Dealers";
 
 const H = BRAND.home;
 export const metadata = meta({ title: H.title, description: H.description, path: "/", image: H.ogImage });
 
-const GEO_LINKS: Record<string, string> = { burenie: "Скважина", vodosnabzhenie: "Вода", kanalizaciya: "Септик", otoplenie: "Отопление", elektrika: "Электрика" };
+const GEO_LINKS: Record<string, string> = { burenie: "Скважина", vodosnabzhenie: "Вода", kanalizaciya: "Септик", otoplenie: "Отопление", ventilyaciya: "Вентиляция", elektrika: "Электрика" };
 
 /**
  * Главная бренда (v28). Все пять направлений живые; посадочная «септик под ключ»
@@ -62,9 +63,10 @@ export default function Home() {
       </section>
 
       <Reasons items={BRAND.reasons} title="Почему инженерные системы заказывают у Фортес" />
+      <Dealers compact />
       <Certificates compact />
 
-      {/* ГЕО: посёлок → пять направлений */}
+      {/* ГЕО: посёлок → шесть направлений */}
       <section id="geo" className="py-12 md:py-16 scroll-mt-28">
         <div className="container-site">
           <h2 className="mb-2">Работаем в Иркутске и по всем трактам</h2>

@@ -57,6 +57,10 @@ export default function HeatingCalculator() {
     lines.push([boilerName, Math.round(boilerBase * boilerScale)]);
     if (boiler === "solid") lines.push(["Теплоаккумулятор для ТТ-котла", R.buffer]);
     if (auto === "yes") lines.push([`Термостаты и сервоприводы, ${rooms} комнат`, rooms * R.automationPerRoom]);
+    // v32: минимальные ставки под ключ — тёплый пол от 4 500 ₽/м², радиаторы от 2 500 ₽/м² (с котлом, материалами и работой)
+    const minTurnkey = floorArea * (R.floorTurnkeyMinPerM2 || 4500) + (area - floorArea) * (R.radiatorTurnkeyMinPerM2 || 2500);
+    const sub = lines.reduce((s, l) => s + l[1], 0);
+    if (sub < minTurnkey) lines.push([`Доведение до ставки под ключ: тёплый пол ${rub(R.floorTurnkeyMinPerM2 || 4500)}/м², радиаторы ${rub(R.radiatorTurnkeyMinPerM2 || 2500)}/м²`, minTurnkey - sub]);
     const total = lines.reduce((s, l) => s + l[1], 0);
     return { lines, total, kw, floorArea, radiators };
   }, [area, floors, walls, devices, boiler, auto]);

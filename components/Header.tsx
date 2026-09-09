@@ -55,10 +55,10 @@ export default function Header({ current }: { current?: string }) {
               </div>
             </div>
           ))}
-          <span className="w-px h-6 bg-line mx-2" aria-hidden />
+          <span className="w-px h-6 bg-line mx-1.5" aria-hidden />
           <Link href="/inzhenernye-seti-pod-klyuch/" className="px-2.5 py-2 rounded-btn text-[14px] font-medium hover:bg-white whitespace-nowrap">Дом целиком</Link>
-          <Link href="/obekty/" className="px-2.5 py-2 rounded-btn text-[14px] font-medium hover:bg-white">Объекты</Link>
-          <Link href="/kontakty/" className="px-2.5 py-2 rounded-btn text-[14px] font-medium hover:bg-white">Контакты</Link>
+          <Link href="/obekty/" className="hidden 2xl:inline-flex px-2.5 py-2 rounded-btn text-[14px] font-medium hover:bg-white">Объекты</Link>
+          <Link href="/kontakty/" className="hidden 2xl:inline-flex px-2.5 py-2 rounded-btn text-[14px] font-medium hover:bg-white">Контакты</Link>
         </nav>
 
         <div className="ml-auto flex items-center gap-3">

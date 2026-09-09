@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL, SEPTIK_PATH, COMPLEX_PATH, products, brands, services, geo, objects, sections, P, heatServices, heatGeo, heatObjects, HP, burServices, burGeo, burObjects, BP, vodaServices, vodaGeo, VP, elekServices, elekGeo, EP } from "@/lib/content";
+import { SITE_URL, SEPTIK_PATH, COMPLEX_PATH, products, brands, services, geo, objects, sections, P, heatServices, heatGeo, heatObjects, HP, burServices, burGeo, burObjects, BP, vodaServices, vodaGeo, VP, elekServices, elekGeo, EP, ventServices, ventGeo, NP } from "@/lib/content";
 import { getPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -38,5 +38,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     u(EP.hub, 0.9, "weekly"), u(EP.ceny, 0.9, "weekly"), u(EP.calc, 0.8),
     ...elekServices.map((s) => u(EP.page(s.slug), 0.8)),
     ...elekGeo.map((g) => u(EP.geo(g.slug), 0.7)),
+    // вентиляция (v32; своих объектов нет)
+    u(NP.hub, 0.9, "weekly"), u(NP.ceny, 0.9, "weekly"), u(NP.calc, 0.8),
+    ...ventServices.map((s) => u(NP.page(s.slug), 0.8)),
+    ...ventGeo.map((g) => u(NP.geo(g.slug), 0.7)),
   ];
 }

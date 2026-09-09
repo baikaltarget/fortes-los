@@ -26,6 +26,11 @@ const redirects = [
   { source: "/burenie/zamena-nasosa-v-skvazhine/", destination: "/burenie/montazh-nasosa-v-skvazhinu/", permanent: true },
   { source: "/burenie/pasport-skvazhiny", destination: "/burenie/burenie-skvazhin-na-vodu/", permanent: true },
   { source: "/burenie/pasport-skvazhiny/", destination: "/burenie/burenie-skvazhin-na-vodu/", permanent: true },
+  // v32: убраны страницы «Замена проводки» и «Подключение к Водоканалу»
+  { source: "/elektrika/zamena-elektroprovodki", destination: "/elektrika/razvodka-elektriki-v-dome/", permanent: true },
+  { source: "/elektrika/zamena-elektroprovodki/", destination: "/elektrika/razvodka-elektriki-v-dome/", permanent: true },
+  { source: "/vodosnabzhenie/podklyuchenie-k-vodokanalu", destination: "/vodosnabzhenie/vvod-vody-iz-centralnogo-vodoprovoda/", permanent: true },
+  { source: "/vodosnabzhenie/podklyuchenie-k-vodokanalu/", destination: "/vodosnabzhenie/vvod-vody-iz-centralnogo-vodoprovoda/", permanent: true },
   ...old.map((slug) => ({ source: `/${slug}`, destination: `/kanalizaciya/${slug}/`, permanent: true })),
 ];
 
