@@ -19,7 +19,7 @@ export default function Header({ current }: { current?: string }) {
 
   return (
     <header className="sticky top-0 z-40 bg-page/95 backdrop-blur border-b border-line">
-      <div className="container-site h-16 md:h-[72px] flex items-center gap-1">
+      <div className="container-header h-16 md:h-[72px] flex items-center gap-1">
         <Link href="/" className="flex items-center shrink-0 mr-3" aria-label="Фортес — на главную">
           <Image src="/img/logo.webp" alt="Фортес" width={141} height={22} priority className="h-[22px] w-auto" />
         </Link>

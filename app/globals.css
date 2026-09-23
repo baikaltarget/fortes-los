@@ -43,7 +43,10 @@ h3 { @apply font-bold; font-size: 1.25rem; line-height: 1.25; }
 
 /* компоненты */
 @layer components {
-.container-site { @apply mx-auto max-w-site px-4 md:px-6 lg:px-8; }
+/* v36: поля контента чуть больше (было px-4 md:px-6 lg:px-8) */
+.container-site { @apply mx-auto max-w-site px-4 md:px-8 lg:px-12 xl:px-14; }
+/* шапка — со старыми полями v35: иначе на 1280–1440 не влезают 6 направлений, «Дом целиком» и телефон */
+.container-header { @apply mx-auto max-w-site px-4 md:px-6 lg:px-8; }
 .card { @apply bg-card rounded-card; }
 .btn { @apply inline-flex items-center justify-center gap-2 rounded-btn px-5 h-12 text-[15px] font-bold transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand/30; }
 .btn-primary { @apply btn bg-brand text-white hover:bg-brandDark; }
