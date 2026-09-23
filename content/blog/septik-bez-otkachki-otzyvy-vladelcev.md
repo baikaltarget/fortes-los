@@ -5,7 +5,7 @@ h1: 'Септик без откачки: что говорят владельц�
 excerpt: Собрали типичные впечатления после сервисных визитов. Не реклама — реальные плюсы и претензии.
 date: '2026-03-20'
 category: kanalizaciya
-updated: '2026-09-24'
+updated: '2026-09-23'
 author: egor-zybarev
 image: /img/blog/septik-bez-otkachki-otzyvy-vladelcev.webp
 imageAlt: Сервисное обслуживание станции биологической очистки

@@ -4,7 +4,7 @@ description: 'Как уложиться в лимит 15 кВт с электр�
 h1: Хватит ли 15 кВт для дома с электрокотлом
 excerpt: Котёл 9 кВт, плита, бойлер и насос скважины на одном вводе — как не выбивать автомат зимой и какой кабель тянуть к котлу.
 date: '2026-09-23'
-updated: '2026-09-24'
+updated: '2026-09-23'
 category: elektrika
 author: egor-zybarev
 image: /img/blog/elektrika-v-dome-pod-elektrootoplenie-15-kvt.webp

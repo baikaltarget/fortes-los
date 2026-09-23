@@ -4,7 +4,7 @@ description: Почему в Мегете вода на 15–35 м, а на Ба
 h1: Какой глубины будет скважина в Иркутском районе
 excerpt: Почему на одном тракте вода на 30 м, а на другом — на 100. Сводка по трактам, нормы и выбор обсадной трубы.
 date: '2026-09-23'
-updated: '2026-09-24'
+updated: '2026-09-23'
 category: burenie
 author: egor-zybarev
 image: /img/blog/kakoj-glubiny-skvazhina-v-irkutskom-rajone.webp

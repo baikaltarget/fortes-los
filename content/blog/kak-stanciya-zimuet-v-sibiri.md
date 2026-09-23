@@ -5,7 +5,7 @@ h1: Как станция зимует в Сибири при −40 °C
 excerpt: Главный вопрос на каждом замере. Отвечаем с цифрами.
 date: '2026-05-05'
 category: kanalizaciya
-updated: '2026-09-24'
+updated: '2026-09-23'
 author: egor-zybarev
 image: /img/blog/kak-stanciya-zimuet-v-sibiri.webp
 imageAlt: Станция биологической очистки зимой на участке в Иркутском районе

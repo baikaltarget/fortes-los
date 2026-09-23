@@ -5,7 +5,7 @@ h1: Правда ли, что септик можно не откачивать
 excerpt: Полностью без откачки — нет. Раз в год-два вместо каждого месяца — да. Объясняем, куда девается всё остальное.
 date: '2026-07-15'
 category: kanalizaciya
-updated: '2026-09-24'
+updated: '2026-09-23'
 author: egor-zybarev
 image: /img/blog/septik-bez-otkachki-pravda-ili-marketing.webp
 imageAlt: Станция без откачки на участке частного дома

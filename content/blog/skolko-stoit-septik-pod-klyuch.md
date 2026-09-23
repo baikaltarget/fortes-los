@@ -5,7 +5,7 @@ h1: 'Из чего складывается цена септика: разбо�
 excerpt: 'Смета по строчкам: станция, работы, труба, отвод. Что делает её дороже и сколько стоит септик из колец.'
 date: '2026-08-25'
 category: kanalizaciya
-updated: '2026-09-24'
+updated: '2026-09-23'
 author: egor-zybarev
 image: /img/blog/skolko-stoit-septik-pod-klyuch.webp
 imageAlt: Станция Kolo Vesi 5 на объекте, Байкальский тракт
