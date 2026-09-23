@@ -5,6 +5,55 @@ const old = [
   ...site.services.map((s) => s.slug),
   ...site.brands.map((b) => b.slug),
 ];
+
+/**
+ * v41: старые адреса прежних сайтов на домене fortes-group.ru (WordPress до 2019, сайт 2021–2026).
+ * Яндекс их помнит (Вебмастер → «Страницы в поиске» и «Статистика обхода»), сейчас они отдают 404.
+ * Каждое правило — в двух вариантах, со слэшем и без. /akcii и /yuridicheskim-licam не редиректим —
+ * страницы возвращены по тем же адресам. Мусор (/bez-rubriki/…, рекурсивные /otoplenie/elektrika/…) — пусть 404.
+ */
+const legacy = [
+  ["/otoplenie/kotelnoe-otoplenie", "/otoplenie/montazh-kotelnoj/"],
+  ["/otoplenie/radiatornoe-otoplenie", "/otoplenie/montazh-radiatorov/"],
+  ["/otoplenie/tyoplye-poly", "/otoplenie/montazh-teplogo-pola/"],
+  ["/otoplenie/tyoplye-poly/vodyanye-poly", "/otoplenie/vodyanoj-teplyj-pol-pod-klyuch/"],
+  ["/otoplenie/tyoplye-poly/lyogkie-sistemy-tyoplogo-pola", "/otoplenie/suhoj-teplyj-pol/"],
+  ["/otoplenie/schema-otoplenya", "/otoplenie/proektirovanie-otopleniya/"],
+  ["/otoplenie/podbiraem-luchshee-otoplenie-dlya-chastnogo-doma", "/otoplenie/otoplenie-chastnogo-doma/"],
+  ["/otoplenie/otoplenie-iz-polipropilena", "/otoplenie/luchevaya-razvodka/"],
+  ["/otoplenye", "/otoplenie/"],
+  ["/category/otoplenie", "/otoplenie/"],
+  ["/category/vodyanoe-otoplenie", "/otoplenie/"],
+  ["/teplyie-vodyanyie-polyi", "/otoplenie/montazh-teplogo-pola/"],
+  ["/category/teplyj-pol", "/otoplenie/montazh-teplogo-pola/"],
+  ["/vodootvedenie-i-kanalizaciya", "/kanalizaciya/"],
+  ["/vodootvedenie-i-kanalizaciya/avtonomnaya-kanalizaciya", "/kanalizaciya/avtonomnaya-kanalizaciya/"],
+  ["/vodootvedenie-i-kanalizaciya/septiki-zhbi", "/kanalizaciya/septik-iz-betonnyh-kolec/"],
+  ["/vodootvedenie-i-kanalizaciya/vnutrennyaya-kanalizaciya", "/vodosnabzhenie/montazh-kanalizacii-v-dome/"],
+  ["/vodootvedenie-i-kanalizaciya/podklyuchenie-k-setyam-kanalizacii", "/kanalizaciya/kanalizaciya-v-chastnom-dome/"],
+  ["/kanalizatsiya", "/kanalizaciya/"],
+  ["/septiki", "/kanalizaciya/"],
+  ["/vyigrebnyie-yamyi", "/kanalizaciya/zamena-vygrebnoj-yamy/"],
+  ["/vodosnabzhenie/vnutrennee-vodosnabzhenie", "/vodosnabzhenie/razvodka-vodosnabzheniya/"],
+  ["/vodosnabzhenie/obustrojstvo-skvazhin-kessony-i-vodoprovod", "/burenie/obustrojstvo-skvazhiny/"],
+  ["/blagoustroystvo-skvazhin", "/burenie/obustrojstvo-skvazhiny/"],
+  ["/avtonomnoe-vodosnabzhenie-chastnogo-d", "/vodosnabzhenie/"],
+  ["/vodoprovod", "/vodosnabzhenie/"],
+  ["/burenie-skvazhin", "/burenie/"],
+  ["/burenie-skvazhin-2", "/burenie/"],
+  ["/elektrika/vnutrennyaya-elektroprovodka", "/elektrika/razvodka-elektriki-v-dome/"],
+  ["/kompleksnyie-resheniya", "/inzhenernye-seti-pod-klyuch/"],
+  ["/nashi-raboty", "/obekty/"],
+  ["/kontaktyi", "/kontakty/"],
+  ["/pravovaya-informaciya", "/politika/"],
+  ["/link-to-policy", "/politika/"],
+  ["/politika-konfidentsialnosti-fortesgroup", "/politika/"],
+  ["/dogovor-oferta", "/politika/"],
+].flatMap(([from, to]) => [
+  { source: from, destination: to, statusCode: 301 },
+  { source: `${from}/`, destination: to, statusCode: 301 },
+]);
+
 const redirects = [
   { source: "/index.html", destination: "/", permanent: true },
   { source: "/stancii", destination: "/kanalizaciya/stancii/", permanent: true },
@@ -32,6 +81,7 @@ const redirects = [
   { source: "/vodosnabzhenie/podklyuchenie-k-vodokanalu", destination: "/vodosnabzhenie/vvod-vody-iz-centralnogo-vodoprovoda/", permanent: true },
   { source: "/vodosnabzhenie/podklyuchenie-k-vodokanalu/", destination: "/vodosnabzhenie/vvod-vody-iz-centralnogo-vodoprovoda/", permanent: true },
   ...old.map((slug) => ({ source: `/${slug}`, destination: `/kanalizaciya/${slug}/`, permanent: true })),
+  ...legacy,
 ];
 
 /** @type {import('next').NextConfig} */
