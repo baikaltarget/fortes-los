@@ -1,0 +1,47 @@
+# Отложенная публикация статей блога.
+# Каждый день в 08:00 по Иркутску (00:00 UTC) проверяет, есть ли в content/blog статья с сегодняшней датой.
+# Если есть — вызывает Deploy Hook Vercel: сайт пересобирается, статья появляется, IndexNow отправляет её в Яндекс.
+# Нужен секрет репозитория VERCEL_DEPLOY_HOOK (Settings → Secrets and variables → Actions).
+name: Публикация статей по расписанию
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Пересобрать сайт, даже если сегодня статей нет"
+        type: boolean
+        default: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Есть ли статья на сегодня
+        id: check
+        run: |
+          TODAY=$(TZ=Asia/Irkutsk date +%F)
+          echo "Сегодня по Иркутску: $TODAY"
+          FILES=$(grep -lE "^date: \"?$TODAY" content/blog/*.md || true)
+          if [ -n "$FILES" ]; then
+            echo "Выходят сегодня:"; echo "$FILES"
+            echo "due=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Сегодня статей нет."
+            echo "due=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Пересобрать сайт на Vercel
+        if: steps.check.outputs.due == 'true' || inputs.force == true
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::error::Нет секрета VERCEL_DEPLOY_HOOK — добавьте его в Settings → Secrets and variables → Actions"
+            exit 1
+          fi
+          curl -fsS -X POST "$HOOK"
+          echo "Сборка запущена. Статья появится на сайте через 2–3 минуты."
