@@ -58,7 +58,7 @@ export default function Page() {
         </div>
       </div></section>
       <Steps />
-      <FAQ items={SITE.homeFaq} />
+      <FAQ items={SITE.hubFaq} title="Вопросы про автономную канализацию" />
       <LeadSection source="хаб канализация" />
       <RelatedPosts slugs={RELATED_POSTS.hub} />
     </>

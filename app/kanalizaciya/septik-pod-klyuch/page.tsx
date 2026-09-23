@@ -11,7 +11,6 @@ import LeadSection from "@/components/LeadSection";
 import RelatedPosts, { RELATED_POSTS } from "@/components/RelatedPosts";
 import GeoLinks from "@/components/GeoLinks";
 import ServiceLinks from "@/components/ServiceLinks";
-import { getPosts } from "@/lib/blog";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { ldService } from "@/lib/seo";
@@ -21,7 +20,6 @@ import { ldService } from "@/lib/seo";
 export const metadata = meta({ title: SITE.home.title, description: SITE.home.description, path: SEPTIK_PATH });
 
 export default function Page() {
-  const posts = getPosts().slice(0, 3);
   return (
     <>
       <JsonLd data={ldService({ name: "Септик под ключ в Иркутске", description: SITE.home.description, path: SEPTIK_PATH, priceFrom: SITE.home.heroPriceFrom })} />
@@ -121,21 +119,6 @@ export default function Page() {
       <ServiceLinks />
       <GeoLinks />
 
-      {posts.length > 0 && (
-        <section className="py-12 md:py-16">
-          <div className="container-site">
-            <h2 className="mb-8">Разбираемся в септиках</h2>
-            <div className="grid gap-4 md:grid-cols-3">
-              {posts.map((p) => (
-                <Link key={p.slug} href={`/blog/${p.slug}/`} className="card p-5 md:p-6 hover:shadow-card block">
-                  <h3 className="text-[18px]">{p.h1}</h3>
-                  <p className="mt-2 text-[15px] text-ink/75 leading-relaxed">{p.excerpt}</p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       <FAQ items={SITE.homeFaq} />
     </>
