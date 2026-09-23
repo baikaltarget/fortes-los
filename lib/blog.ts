@@ -62,6 +62,15 @@ function enrich(html: string) {
 
 let cache: Post[] | null = null;
 
+/**
+ * v42: отложенная публикация. Статья с датой `date` в будущем (по времени Иркутска, UTC+8) не попадает
+ * никуда: ни в ленту, ни в sitemap, ни в /llms.txt, ни в «Статьи по теме»; её адрес отдаёт 404.
+ * В день выхода GitHub Action (.github/workflows/publish-scheduled.yml) дёргает Deploy Hook Vercel,
+ * сайт пересобирается — и статья появляется. Посмотреть все статьи локально: BLOG_SHOW_FUTURE=1 npm run build.
+ */
+export const todayIrkutsk = () => new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+const SHOW_FUTURE = process.env.BLOG_SHOW_FUTURE === "1";
+
 export function getPosts(): Post[] {
   if (cache) return cache;
   if (!fs.existsSync(DIR)) return [];
@@ -94,6 +103,7 @@ export function getPosts(): Post[] {
         author: data.author || DEFAULT_AUTHOR,
       };
     })
+    .filter((p) => SHOW_FUTURE || p.date.slice(0, 10) <= todayIrkutsk())
     .sort((a, b) => (a.date === b.date ? (a.slug < b.slug ? -1 : 1) : a.date < b.date ? 1 : -1));
   return cache;
 }
