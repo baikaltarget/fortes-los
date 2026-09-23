@@ -500,8 +500,8 @@
         }
       ],
       "objects": [],
-      "heroImage": "/img/burenie/hero-burovaya.webp",
-      "heroImageAlt": "Зимнее бурение скважины на воду"
+      "heroImage": "/img/burenie/hero-burenie-zimoj.webp",
+      "heroImageAlt": "Бурение скважины зимой: установка работает на промороженном участке"
     },
     {
       "slug": "obustrojstvo-skvazhiny",
@@ -553,8 +553,8 @@
         "hajryuzovka-vodosnabzhenie-iz-skvazhiny",
         "markova-zapadnyj-obustrojstvo-80"
       ],
-      "heroImage": "/img/burenie/hero-obustrojstvo-kesson.webp",
-      "heroImageAlt": "Пластиковый кессон СОЮЗ, установленный в котлован при обустройстве скважины"
+      "heroImage": "/img/burenie/hero-kesson-ppu.webp",
+      "heroImageAlt": "Кессон на скважине, утеплённый напылением ППУ, перед обратной засыпкой"
     },
     {
       "slug": "obustrojstvo-skvazhiny-s-kessonom",
@@ -818,8 +818,8 @@
         }
       ],
       "objects": [],
-      "heroImage": "/img/burenie/hero-obustrojstvo-kesson.webp",
-      "heroImageAlt": "Оборудование водоочистки, смонтированное в кессоне скважины"
+      "heroImage": "/img/vodosnabzhenie/hero-vodoochistka.webp",
+      "heroImageAlt": "Система водоочистки из скважины: колонна обезжелезивания, фильтры, насосная станция"
     },
     {
       "slug": "burenie-dlya-snt-i-predpriyatij",

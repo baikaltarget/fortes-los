@@ -217,12 +217,12 @@
     "href": "/inzhenernye-seti-pod-klyuch/"
   },
   "featuredObjects": [
+    "angarskij-bereg-inzhenernye-seti-160",
     "rusyj-dom-150-garazh-90",
-    "patrony-park-skvazhina-52",
-    "angarskij-bereg-banya-60",
-    "burdakovka-dom-120",
-    "bajkalskij-trakt-kolo-vesi-5",
-    "novo-razvodnaya-gazobeton-240"
+    "zhemchuzhina-septik-iz-kolec",
+    "novolisikha-elektrika-brus-140",
+    "molodezhnyj-vodoochistka-dom",
+    "patrony-park-skvazhina-52"
   ],
   "reasons": [
     {
@@ -395,6 +395,7 @@
       }
     ],
     "objects": [
+      "angarskij-bereg-inzhenernye-seti-160",
       "rusyj-dom-150-garazh-90",
       "patrony-park-skvazhina-52",
       "angarskij-bereg-banya-60",
@@ -522,5 +523,59 @@
         "h": 137
       }
     ]
-  }
+  },
+  "objects": [
+    {
+      "slug": "angarskij-bereg-inzhenernye-seti-160",
+      "section": "kompleks",
+      "title": "Инженерные сети дома 160 м² под ключ",
+      "place": "СНТ «Ангарский Берег», Байкальский тракт",
+      "geo": "bajkalskij-trakt",
+      "type": "Частный дом, постоянное проживание",
+      "system": "Скважина 62 м, вода, септик из колец, тёплый пол, щит",
+      "price": 1720000,
+      "task": "Коробка дома 160 м² в СНТ на Байкальском тракте сдана осенью, внутри — ничего. Заказчик не хотел собирать четыре бригады по очереди: обычно скважину бурят одни, отопление ведут другие, и на стыках начинаются переделки — трассу перекапывают, гильзы под трубы забывают заложить.",
+      "solution": "Зашли одной бригадой и одним графиком. Сначала пробурили скважину 62 м и обустроили кессон с утеплением напылением ППУ, в ту же траншею уложили ввод воды и трассу канализации до септика из колец. Затем собрали котельную на электрокотле, развели тёплый пол по всем этажам, поставили водоочистку и бойлер, последним этапом — щит и линии под котёл.",
+      "result": "От первого выезда до запуска — 24 рабочих дня, участок вскрывали один раз. Дом вышел на постоянное проживание в ту же зиму. Под ключ по всем системам — 1 720 000 ₽, смета зафиксирована в договоре до начала работ.",
+      "estimate": [
+        [
+          "Скважина 62 м, обсадка, кессон с утеплением ППУ, насос",
+          "включено"
+        ],
+        [
+          "Ввод воды в дом, водоочистка, бойлер, разводка на 2 санузла",
+          "включено"
+        ],
+        [
+          "Септик из бетонных колец, трасса от дома, земляные работы",
+          "включено"
+        ],
+        [
+          "Котельная на электрокотле, тёплый пол по двум этажам",
+          "включено"
+        ],
+        [
+          "Щит, линии под котёл и скважину, заземление",
+          "включено"
+        ],
+        [
+          "Итого под ключ по всем системам",
+          "1 720 000 ₽"
+        ]
+      ],
+      "estimateDraft": true,
+      "draft": true,
+      "cover": "/img/objects/kompleks/angarskij-bereg-seti-cover.webp",
+      "images": [
+        "/img/objects/kompleks/angarskij-bereg-seti-cover.webp",
+        "/img/objects/kompleks/angarskij-bereg-seti-1.webp",
+        "/img/objects/kompleks/angarskij-bereg-seti-2.webp",
+        "/img/objects/kompleks/angarskij-bereg-seti-3.webp",
+        "/img/objects/kompleks/angarskij-bereg-seti-4.webp",
+        "/img/objects/kompleks/angarskij-bereg-seti-5.webp",
+        "/img/objects/kompleks/angarskij-bereg-seti-6.webp",
+        "/img/objects/kompleks/angarskij-bereg-seti-7.webp"
+      ]
+    }
+  ]
 }

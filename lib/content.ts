@@ -22,12 +22,14 @@ export type Service = {
   slug: string; name: string; title: string; description: string; h1: string; lead: string; products: string[]; sections: TextSection[]; faq: Faq[];
   heroImage?: string; heroImageAlt?: string; heroImageFit?: string; chips?: string[]; kessons?: Extra[]; servicePrices?: { name: string; price: string; draft?: boolean }[]; koloIlma?: { priceFrom: number; capacity: string; life: string; service: string };
   productsTitle?: string; productsSub?: string;
+  /** явные ссылки на объекты со сметой — когда объект не привязан продуктом (например, септик из колец) */
+  objectRefs?: string[];
 };
 export type Geo = { slug: string; name: string; prep: string; distance: string; soil: string; note: string };
 export type SiteObject = {
   slug: string; title: string; place: string; geo: string; type: string; product?: string; productName?: string; price: number;
   task: string; solution: string; result: string; estimate: string[][]; estimateDraft?: boolean; draft: boolean; images: string[];
-  /** раздел: undefined = канализация (site.json), "otoplenie" = отопление (otoplenie.json), "burenie" = бурение (burenie.json). Водоснабжение своих объектов не имеет — ссылается на чужие через objectRefs */
+  /** раздел: undefined = канализация (site.json), "otoplenie" = отопление (otoplenie.json), "burenie" = бурение, "elektrika" = электрика, "vodosnabzhenie" = водоснабжение, "kompleks" = объект по нескольким системам (brand.json) */
   section?: string; cover?: string; system?: string;
 };
 
@@ -107,7 +109,15 @@ export const getHeatGeo = (slug: string) => heatGeo.find((g) => g.slug === slug)
 export const heatServicesByCluster = (cluster: string) => heatServices.filter((s) => s.cluster === cluster);
 
 /** Все объекты бренда для общих страниц /obekty/ — канализация + отопление */
-export const allObjects: SiteObject[] = [...objects, ...heatObjects, ...burObjectsList()];
+function ownList(json: unknown, section: string): SiteObject[] {
+  const arr = (json as { objects?: SiteObject[] }).objects || [];
+  return arr.map((o) => ({ ...o, section }));
+}
+/** Свои объекты разделов, у которых раньше были только чужие через objectRefs */
+export const elekOwnObjects: SiteObject[] = ownList(elekJson, "elektrika");
+export const vodaOwnObjects: SiteObject[] = ownList(vodaJson, "vodosnabzhenie");
+export const kompleksObjects: SiteObject[] = ownList(brandJson, "kompleks");
+export const allObjects: SiteObject[] = [...objects, ...heatObjects, ...burObjectsList(), ...elekOwnObjects, ...vodaOwnObjects, ...kompleksObjects];
 export const getAnyObject = (slug: string) => allObjects.find((o) => o.slug === slug);
 export const objectCover = (o: SiteObject) => o.cover || o.images[0];
 
@@ -171,7 +181,7 @@ export const VODA = vodaJson as unknown as {
 export const vodaServices: VodaService[] = VODA.services;
 export const vodaGeo: VodaGeo[] = VODA.geo;
 /** Объекты раздела — реальные объекты бурения и отопления, где были вода и канализация */
-export const vodaObjects: SiteObject[] = VODA.objectRefs.map((s) => allObjects.find((o) => o.slug === s)).filter(Boolean) as SiteObject[];
+export const vodaObjects: SiteObject[] = [...vodaOwnObjects, ...(VODA.objectRefs.map((s) => allObjects.find((o) => o.slug === s)).filter(Boolean) as SiteObject[])];
 export const getVodaService = (slug: string) => vodaServices.find((s) => s.slug === slug);
 export const getVodaGeo = (slug: string) => vodaGeo.find((g) => g.slug === slug);
 export const vodaServicesByCluster = (cluster: string) => vodaServices.filter((s) => s.cluster === cluster);
@@ -194,14 +204,14 @@ export type ElekService = {
 };
 export type ElekGeo = { slug: string; name: string; prep: string; distance: string; tract: string; grid: string; housing: string; about: string[]; objects?: string[] };
 export const ELEK = elekJson as unknown as {
-  hub: { title: string; description: string; h1: string; lead: string; chips: string[]; priceNote: string; photoWanted?: string; stats: string[][]; ogImage: string };
+  hub: { title: string; description: string; h1: string; lead: string; chips: string[]; priceNote: string; photoWanted?: string; heroImage?: string; heroImageAlt?: string; stats: string[][]; ogImage: string };
   clusters: HeatCluster[]; services: ElekService[]; geo: ElekGeo[]; geoNote: { text: string; draft: boolean }; objectRefs: string[]; objectsNote: string; steps: HeatStep[]; reasons: HeatReason[]; brands: HeatBrand[]; brandsDraft: boolean; faq: Faq[]; prices: HeatPrice[];
   calculator: { title: string; lead: string; rates: Record<string, number>; ratesDraft: boolean };
 };
 export const elekServices: ElekService[] = ELEK.services;
 export const elekGeo: ElekGeo[] = ELEK.geo;
 /** Объекты раздела — реальные объекты отопления с электрокотлами (своих объектов по электрике пока нет) */
-export const elekObjects: SiteObject[] = ELEK.objectRefs.map((s) => allObjects.find((o) => o.slug === s)).filter(Boolean) as SiteObject[];
+export const elekObjects: SiteObject[] = [...elekOwnObjects, ...(ELEK.objectRefs.map((s) => allObjects.find((o) => o.slug === s)).filter(Boolean) as SiteObject[])];
 export const getElekService = (slug: string) => elekServices.find((s) => s.slug === slug);
 export const getElekGeo = (slug: string) => elekGeo.find((g) => g.slug === slug);
 export const elekServicesByCluster = (cluster: string) => elekServices.filter((s) => s.cluster === cluster);

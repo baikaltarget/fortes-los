@@ -27,7 +27,9 @@
       ]
     ],
     "ogImage": "/img/og.jpg",
-    "photoWanted": "/img/elektrika/hero-shchit.webp"
+    "heroImage": "/img/elektrika/hero-shchit.webp",
+    "heroImageAlt": "Распределительный щит частного дома, собранный бригадой Фортес",
+    "photoWanted": "/img/elektrika/hero-vvod.webp (ввод СИП/трубостойка), hero-zazemlenie.webp, hero-osveshchenie.webp, hero-generator.webp, hero-molniezashchita.webp, hero-retro.webp"
   },
   "clusters": [
     {
@@ -98,7 +100,8 @@
           "a": "От 2 000 ₽ за точку с материалами — дом на 45 точек с щитом, вводом и заземлением обычно 220 000–280 000 ₽. Открытая проводка в кабель-канале дешевле, ретро на изоляторах — дороже. Точная смета после бесплатного выезда инженера."
         }
       ],
-      "photoWanted": "/img/elektrika/hero-brus.webp"
+      "heroImage": "/img/elektrika/hero-brus.webp",
+      "heroImageAlt": "Монтаж щита и подключение групп в доме из бруса"
     },
     {
       "slug": "elektrika-v-dome-iz-gazobetona",
@@ -392,7 +395,8 @@
           "a": "Щит 220 В на 8–12 групп — от 25 000 ₽ с автоматикой IEK/EKF, трёхфазный на 18–24 группы с реле напряжения на каждую фазу — от 45 000 ₽; на Systeme Electric — дороже на 30–40%. Ориентир, смета после выезда."
         }
       ],
-      "photoWanted": "/img/elektrika/hero-shchit.webp"
+      "heroImage": "/img/elektrika/hero-shchit.webp",
+      "heroImageAlt": "Собранный распределительный щит: вводной автомат, реле напряжения, групповые автоматы Systeme Electric"
     },
     {
       "slug": "montazh-zazemleniya",
@@ -488,7 +492,8 @@
           "a": "Да: открыто в кабель-канале, за потолком, в плинтусах или с частичным вскрытием. Часто нужна не переделка, а новый щит с реле напряжения и УЗО плюс несколько отдельных линий на котёл и кухню — это дешевле."
         }
       ],
-      "photoWanted": "/img/elektrika/hero-razvodka.webp"
+      "heroImage": "/img/elektrika/hero-razvodka.webp",
+      "heroImageAlt": "Разводка электрики в гофре по перекрытию до щита"
     },
     {
       "slug": "montazh-osveshcheniya",
@@ -536,7 +541,8 @@
           "a": "Вывод под светильник или выключатель — от 2 000 ₽ (точка), подключение люстры — от 2 000 ₽, точечный светильник в готовый потолок — от 700 ₽, метр LED-ленты с профилем — от 1 500 ₽, уличный столбик с кабелем в земле — от 4 500 ₽. Ориентиры, уточним на выезде."
         }
       ],
-      "photoWanted": "/img/elektrika/hero-osveshchenie.webp"
+      "heroImage": "/img/elektrika/hero-korobki.webp",
+      "heroImageAlt": "Распаячные коробки со сжимами: группы освещения и розеток разведены по коробкам"
     },
     {
       "slug": "podklyuchenie-generatora-avr",
@@ -644,8 +650,8 @@
       "cluster": "zashchita",
       "priceFrom": "от 8 000 ₽ за линию котла",
       "priceDraft": true,
-      "heroImage": "/img/otoplenie/hero-elektrokotel.webp",
-      "heroImageAlt": "Котельная частного дома на электрокотле с автоматикой и щитом",
+      "heroImage": "/img/elektrika/hero-podrozetniki.webp",
+      "heroImageAlt": "Подрозетники и гофра под линии электроотопления, рядом уложен тёплый пол",
       "sections": [
         {
           "h2": "Сколько мощности нужно дому и как её распределить",
@@ -737,7 +743,8 @@
         "burdakovka-dom-120",
         "rusyj-dom-150-garazh-90"
       ],
-      "photoWanted": "/img/elektrika/hero-shchit.webp"
+      "heroImage": "/img/elektrika/hero-shchit-montazh.webp",
+      "heroImageAlt": "Щит на этапе монтажа: вводной кабель заведён, автоматы расставлены по группам"
     },
     {
       "slug": "proekt-elektriki",
@@ -1172,7 +1179,7 @@
     "rusyj-dom-150-garazh-90",
     "novo-razvodnaya-kirpich-450"
   ],
-  "objectsNote": "Объекты ниже — дома с электроотоплением, где мы делали котельные и тёплые полы: под такую нагрузку считаем проводку. Свои объекты по электрике с фото и сметой — ждём от клиента.",
+  "objectsNote": "Объект нашей бригады по электрике. Ниже — дома, где мы делали отопление с электрокотлами: проводка и линии под котёл там тоже наши.",
   "steps": [
     {
       "title": "Заявка и ориентир по цене",
@@ -1457,5 +1464,58 @@
       "turnkeyMinPerM2": 3500
     },
     "ratesDraft": true
-  }
+  },
+  "objects": [
+    {
+      "slug": "novolisikha-elektrika-brus-140",
+      "section": "elektrika",
+      "title": "Электрика в доме из бруса 140 м²",
+      "place": "Новолисиха",
+      "geo": "novaya-lisikha",
+      "type": "Частный дом из бруса, постоянное проживание",
+      "system": "Ввод 380 В, щит на 12 модулей, 58 точек, заземление",
+      "price": 486000,
+      "task": "Дом из бруса 140 м² на два этажа в Новолисихе, отопление электрическое. Застройщик оставил только времянку на одну розетку. Нужна была проводка под постоянное проживание с запасом под электрокотёл и варочную панель, а в деревянном доме ошибки в монтаже стоят дороже всего.",
+      "solution": "Завели ввод 380 В на 15 кВт, собрали щит на 12 модулей: вводной автомат, реле напряжения, УЗО на влажные зоны, отдельные линии на электрокотёл, варочную панель, скважину и гараж. Внутри дома — негорючая гофра в перекрытиях и распаячные коробки со сжимами, все линии подписаны. Смонтировали контур заземления из трёх штырей.",
+      "result": "58 точек, 14 групп, запас в щите на 4 модуля под будущую баню. Вся схема подписана и передана заказчику вместе с актом на заземление. Под ключ с материалами — 486 000 ₽, около 3 470 ₽ за м².",
+      "estimate": [
+        [
+          "Ввод 380 В, 15 кВт, щит учёта",
+          "включено"
+        ],
+        [
+          "Щит на 12 модулей: реле напряжения, УЗО, 14 групп",
+          "включено"
+        ],
+        [
+          "Разводка 58 точек в гофре, распаячные коробки",
+          "включено"
+        ],
+        [
+          "Отдельные линии: электрокотёл, варочная панель, скважина, гараж",
+          "включено"
+        ],
+        [
+          "Контур заземления, замеры, акт",
+          "включено"
+        ],
+        [
+          "Итого под ключ",
+          "486 000 ₽"
+        ]
+      ],
+      "estimateDraft": true,
+      "draft": true,
+      "cover": "/img/objects/elektrika/novolisikha-elektrika-cover.webp",
+      "images": [
+        "/img/objects/elektrika/novolisikha-elektrika-cover.webp",
+        "/img/objects/elektrika/novolisikha-elektrika-1.webp",
+        "/img/objects/elektrika/novolisikha-elektrika-2.webp",
+        "/img/objects/elektrika/novolisikha-elektrika-3.webp",
+        "/img/objects/elektrika/novolisikha-elektrika-4.webp",
+        "/img/objects/elektrika/novolisikha-elektrika-5.webp",
+        "/img/objects/elektrika/novolisikha-elektrika-6.webp"
+      ]
+    }
+  ]
 }

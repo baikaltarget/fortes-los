@@ -40,7 +40,7 @@ export default function Page() {
             <p className="mt-4 text-ink/85 max-w-[60ch]">Два кольца КС 15-9 глубиной 1,5 м, горловина, люк, 3 м трубы от дома, доставка и экскаватор — за один день. Кольца льём сами в Иркутске (бетон М500, вибропресс), поэтому цена под ключ, а не «кольца отдельно, кран отдельно». Для дачи, бани и дома на 1–3 человека на впитывающем грунте — рабочая канализация за разумные деньги; если стоков больше или вода высокая — честно посчитаем станцию.</p>
             <div className="mt-6 flex flex-wrap gap-3"><Link href={P.page("septik-iz-betonnyh-kolec")} className="btn-primary">Септик из колец под ключ</Link><Link href={P.page("perelivnoj-septik")} className="btn-outline">Переливной септик</Link></div>
           </div>
-          <img src="/img/hero-kolca.webp" alt="Септик из бетонных колец собственного производства Фортес" className="w-full rounded-card bg-white object-contain aspect-square" width="1254" height="1254" loading="lazy" />
+          <img src="/img/kanalizaciya/kolca-gotovo.webp" alt="Смонтированный септик из бетонных колец с горловинами под люки, посёлок Урик" className="w-full rounded-card bg-white object-contain aspect-square" width="1254" height="1254" loading="lazy" />
         </div>
       </div></section>
       <ServiceLinks title="Решения под задачу" />

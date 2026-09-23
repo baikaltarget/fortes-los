@@ -40,9 +40,13 @@ export default function Page() {
             <Draft note="ориентир по цене — подтвердить у клиента" className="mt-4"><p className="text-[14px] text-muted">{H.priceNote}</p></Draft>
           </div>
           <div className="card p-4 md:p-6 flex flex-col">
-            <Draft note={`фото щита/монтажа от клиента (${H.photoWanted}) — пока фирменная схема`}>
-              <ElectroScheme highlight="panel" title="Однолинейная схема щита дома 120 м² с электроотоплением" />
-            </Draft>
+            {H.heroImage ? (
+              <img src={H.heroImage} alt={H.heroImageAlt || H.h1} className="w-full rounded-card object-cover aspect-square" width="1254" height="1254" fetchPriority="high" />
+            ) : (
+              <Draft note={`фото щита/монтажа от клиента (${H.photoWanted}) — пока фирменная схема`}>
+                <ElectroScheme highlight="panel" title="Однолинейная схема щита дома 120 м² с электроотоплением" />
+              </Draft>
+            )}
             <div className="grid grid-cols-3 gap-2 mt-2 text-center">
               {H.stats.map(([a, b]) => <div key={a} className="rounded-btn bg-page p-3"><div className="text-2xl font-extrabold tracking-tight">{a}</div><div className="text-[12px] text-muted">{b}</div></div>)}
             </div>
