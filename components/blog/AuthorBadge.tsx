@@ -3,6 +3,11 @@ import { AUTHORS, authorPath, type AuthorKey } from "@/lib/blog";
 
 export function Avatar({ k, size = 44 }: { k: string; size?: number }) {
   const a = AUTHORS[k as AuthorKey] || AUTHORS["egor-zybarev"];
+  const photo = (a as { photo?: string }).photo;
+  if (photo) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={photo} alt={a.name} width={size} height={size} className="shrink-0 rounded-full object-cover bg-white" style={{ width: size, height: size }} loading="lazy" decoding="async" />;
+  }
   return (
     <span className="inline-flex shrink-0 items-center justify-center rounded-full bg-brand text-white font-bold" style={{ width: size, height: size, fontSize: size * 0.36 }} aria-hidden>{a.initials}</span>
   );

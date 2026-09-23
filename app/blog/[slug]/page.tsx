@@ -27,7 +27,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   const updated = p.updated !== p.date;
   return (
     <>
-      <JsonLd data={ldArticle({ title: p.h1, description: p.description, path, date: p.date, updated: p.updated, image: p.image, section: cat.name, words: p.words, author: { name: a.name, role: a.role, path: authorPath(p.author) } })} />
+      <JsonLd data={ldArticle({ title: p.h1, description: p.description, path, date: p.date, updated: p.updated, image: p.image, section: cat.name, words: p.words, author: { name: a.name, role: a.role, path: authorPath(p.author), image: (a as { photo?: string }).photo } })} />
       {p.faq.length > 0 && <JsonLd data={ldFaq(p.faq)} />}
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Статьи", href: "/blog/" }, { name: cat.name, href: categoryPath(p.category) }, { name: p.h1, href: path }]} />

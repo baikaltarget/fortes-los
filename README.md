@@ -2,6 +2,10 @@
 
 Next.js 14 (App Router) + Tailwind, статическая генерация, формы → Telegram и amoCRM. 372 страницы. Домен: `fortes-group.ru`.
 
+## 0. Что изменилось в v43 — фото автора блога
+
+Фото Егора Зыбарева (от клиента) вместо красного кружка с инициалами: `public/img/blog/avtor/egor-zybarev.webp` (400×400, кроп по лицу), поле `photo` в `AUTHORS` (`lib/blog.ts`). `Avatar` в `components/blog/AuthorBadge.tsx` показывает фото, если оно есть, иначе инициалы — так же можно добавить второго автора. Фото попало в JSON-LD: Person на странице автора и author у каждой статьи (`lib/seo.ts`). Изменённые: `lib/blog.ts`, `lib/seo.ts`, `components/blog/AuthorBadge.tsx`, `app/blog/[slug]/page.tsx`, `app/blog/avtor/[author]/page.tsx`. Новый: `public/img/blog/avtor/egor-zybarev.webp`. Удалить: ничего.
+
 ## 0. Что изменилось в v42 — отложенная публикация статей и 20 статей на октябрь–декабрь
 
 **Как работает.** Статья с датой `date` в будущем не появляется на сайте нигде (лента, темы, sitemap, `/llms.txt`, «Статьи по теме») и отдаёт 404 — фильтр в `getPosts()` в `lib/blog.ts` по времени Иркутска. Каждый день в 08:00 по Иркутску GitHub Action `.github/workflows/publish-scheduled.yml` проверяет, есть ли статья с сегодняшней датой, и если есть — вызывает Deploy Hook Vercel. Сайт пересобирается, статья выходит, IndexNow (v41) отправляет её в Яндекс. В дни без статей сборок нет.

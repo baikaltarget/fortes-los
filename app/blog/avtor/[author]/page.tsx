@@ -20,7 +20,7 @@ export default function Page({ params }: { params: { author: string } }) {
   const path = authorPath(params.author);
   return (
     <>
-      <JsonLd data={ldPerson({ name: a.name, role: a.role, path, bio: a.bio })} />
+      <JsonLd data={ldPerson({ name: a.name, role: a.role, path, bio: a.bio, image: (a as { photo?: string }).photo })} />
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Статьи", href: "/blog/" }, { name: a.name, href: path }]} />
         <div className="card p-6 md:p-10 flex flex-col md:flex-row gap-6 items-start">

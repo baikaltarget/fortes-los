@@ -100,18 +100,19 @@ export const ldProduct = (o: { name: string; description: string; path: string; 
   offers: { "@type": "Offer", priceCurrency: "RUB", price: o.price, availability: "https://schema.org/InStock", url: `${SITE_URL}${o.path}`, seller: { "@id": `${SITE_URL}/#business` } },
 });
 
-export const ldPerson = (o: { name: string; role: string; path: string; bio?: string }) => ({
+export const ldPerson = (o: { name: string; role: string; path: string; bio?: string; image?: string }) => ({
   "@context": "https://schema.org",
   "@type": "Person",
   "@id": `${SITE_URL}${o.path}#person`,
   name: o.name,
   jobTitle: o.role.replace(/ Фортес$/, ""),
   description: o.bio,
+  ...(o.image ? { image: `${SITE_URL}${o.image}` } : {}),
   url: `${SITE_URL}${o.path}`,
   worksFor: { "@type": "Organization", name: company.name, url: SITE_URL },
 });
 
-export const ldArticle = (o: { title: string; description: string; path: string; date: string; updated?: string; image?: string; section?: string; words?: number; author?: { name: string; role: string; path: string } }) => ({
+export const ldArticle = (o: { title: string; description: string; path: string; date: string; updated?: string; image?: string; section?: string; words?: number; author?: { name: string; role: string; path: string; image?: string } }) => ({
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline: o.title,
@@ -124,7 +125,7 @@ export const ldArticle = (o: { title: string; description: string; path: string;
   ...(o.section ? { articleSection: o.section } : {}),
   ...(o.words ? { wordCount: o.words } : {}),
   author: o.author
-    ? { "@type": "Person", "@id": `${SITE_URL}${o.author.path}#person`, name: o.author.name, jobTitle: o.author.role.replace(/ Фортес$/, ""), url: `${SITE_URL}${o.author.path}`, worksFor: { "@type": "Organization", name: company.name } }
+    ? { "@type": "Person", "@id": `${SITE_URL}${o.author.path}#person`, name: o.author.name, jobTitle: o.author.role.replace(/ Фортес$/, ""), url: `${SITE_URL}${o.author.path}`, ...(o.author.image ? { image: `${SITE_URL}${o.author.image}` } : {}), worksFor: { "@type": "Organization", name: company.name } }
     : { "@type": "Organization", name: company.name },
   publisher: { "@type": "Organization", name: company.name, logo: { "@type": "ImageObject", url: `${SITE_URL}/img/logo.webp` } },
   mainEntityOfPage: `${SITE_URL}${o.path}`,
