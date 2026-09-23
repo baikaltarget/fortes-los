@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { meta } from "@/lib/seo";
-import { ELEK, elekObjects, rub, EP, pickObjects } from "@/lib/content";
+import { ELEK, EP } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import FAQ from "@/components/FAQ";
 import Draft from "@/components/Draft";
 import ElectroLead from "@/components/ElectroLead";
-import ObjectGrid from "@/components/ObjectGrid";
+import ElectroCase from "@/components/ElectroCase";
 
 export const metadata = meta({
   title: "Цены на электрику в частном доме, Иркутск 2026 — за точку, щит, ввод",
@@ -46,25 +46,8 @@ export default function Page() {
         </div>
         <p className="text-[14px] text-muted mt-3">Цены ориентировочные для Иркутска и Иркутского района, с материалами без фурнитуры и светильников. Точная смета — после бесплатного выезда инженера, фиксируется в договоре. Быстрая прикидка по точкам — в <Link href={EP.calc} className="text-brand underline">калькуляторе</Link>.</p>
 
-        {elekObjects.length > 0 && (
-          <>
-            <h2 className="mt-12 mb-4">Дома с электроотоплением, которые мы делали</h2>
-            <Draft note="свои объекты по электрике с ценой — ждём от клиента"><p className="text-muted max-w-[70ch] mb-4">{ELEK.objectsNote}</p></Draft>
-            <div className="grid gap-4 md:grid-cols-4">
-              {elekObjects.map((o) => (
-                <Link key={o.slug} href={EP.object(o.slug)} className="card p-5 block hover:shadow-card h-full">
-                  <div className="text-[13px] text-muted">{o.type}</div>
-                  <div className="font-bold mt-1">{o.title}</div>
-                  <div className="text-[14px] text-muted">{o.place}</div>
-                  <div className="text-xl font-extrabold tracking-tight mt-2">{rub(o.price)}</div>
-                </Link>
-              ))}
-            </div>
-            <h2 className="mt-12 mb-6">Подробнее — со сметами</h2>
-            <ObjectGrid items={pickObjects(elekObjects, "elektrika")} section="elektrika" />
-          </>
-        )}
       </div>
+      <ElectroCase title="Пример сметы: наш объект по электрике" text={ELEK.objectsNote} />
       <FAQ items={faq} title="Вопросы про цены" />
       <ElectroLead source="цены электрика" />
     </>

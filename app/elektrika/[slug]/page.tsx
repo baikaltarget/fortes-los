@@ -3,14 +3,14 @@ import HeroTitle from "@/components/HeroTitle";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { ELEK, elekServices, elekGeo, elekObjects, getElekService, getElekGeo, getAnyObject, elekServicesByCluster, EP, HP, VP, pickObjects } from "@/lib/content";
+import { ELEK, elekServices, elekGeo, getElekService, getElekGeo, elekServicesByCluster, EP, HP, VP } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import ServiceLinks from "@/components/ServiceLinks";
 import GeoLinks from "@/components/GeoLinks";
-import ObjectGrid from "@/components/ObjectGrid";
+import ElectroCase from "@/components/ElectroCase";
 import Draft from "@/components/Draft";
 import MdTable from "@/components/MdTable";
 import ElectroLead from "@/components/ElectroLead";
@@ -38,7 +38,6 @@ const MAIN_CLUSTERS = ["dom", "raboty"];
 
 function ServicePage({ slug }: { slug: string }) {
   const s = getElekService(slug)!;
-  const related = (s.objects || []).map((o) => getAnyObject(o)).filter(Boolean) as typeof elekObjects;
   const siblings = elekServicesByCluster(s.cluster).filter((x) => x.slug !== s.slug);
   const others = elekServices.filter((x) => x.cluster !== s.cluster);
   const links = [...siblings, ...others].slice(0, 9);
@@ -69,6 +68,7 @@ function ServicePage({ slug }: { slug: string }) {
             ) : (
               <Draft note={`фото от клиента: ${s.photoWanted || "hero-" + s.slug + ".webp"} — пока схема`} className="w-full">
                 <ElectroScheme highlight={sch.highlight} groups={sch.groups} avr={sch.avr} phases={sch.phases} title={s.h1} />
+                <p className="mt-3 px-1 text-[13px] text-muted">Схема электрики дома: красным — узел, который делаем на этой работе.</p>
               </Draft>
             )}
           </div>
@@ -87,9 +87,7 @@ function ServicePage({ slug }: { slug: string }) {
         )}
       </div></section>
 
-      {(
-        <section className="py-6"><div className="container-site"><h2 className="mb-2">Дома с электроотоплением, которые мы делали</h2><Draft note="свои объекты по электрике — ждём от клиента"><p className="text-muted mb-6 max-w-[70ch]">Котельные и тёплые полы на этих объектах — наши; под такую нагрузку считаем щит и проводку.</p></Draft><ObjectGrid items={pickObjects(related, "elektrika")} section="elektrika" /></div></section>
-      )}
+      <ElectroCase />
 
       {(s.cluster === "raboty" || s.cluster === "zashchita") && <ElectroBrands />}
       <Steps items={ELEK.steps} title="Как проходит работа" />
@@ -104,7 +102,6 @@ function ServicePage({ slug }: { slug: string }) {
 
 function GeoPage({ slug }: { slug: string }) {
   const g = getElekGeo(slug)!;
-  const objs = (g.objects || []).map((o) => getAnyObject(o)).filter(Boolean) as typeof elekObjects;
   const weak = /просад|перегруж|слаб|170|180/i.test(g.grid);
   const big = /30 кВт|30–|до 30|запас/i.test(g.grid);
   const wood = /брус|бревн|дерев/i.test(g.housing);
@@ -143,7 +140,7 @@ function GeoPage({ slug }: { slug: string }) {
         <p>Ввод от опоры сетевой организации: СИП на фасад или трубостойку, либо кабель в земле; щит учёта по техусловиям, помощь с заявкой на 15 кВт. Распределительный щит на 380 В: вводной автомат, УЗИП, реле напряжения на каждую фазу, УЗО и автоматы по группам, контактор на котёл, схема на дверце. Разводка по комнатам кабелем ВВГнг-LS по плану мебели, отдельные линии на котёл, тёплые полы, бойлер, кухню, санузлы, улицу и баню. Контур заземления с протоколом, система уравнивания потенциалов в санузлах. Освещение, розетки и свет на участке. Исполнительная схема, проверка УЗО и реле, гарантия на работы до 5 лет, дом застрахован на сумму договора.</p>
       </div></section>
 
-      {<section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><ObjectGrid items={pickObjects(objs, "elektrika")} section="elektrika" /></div></section>}
+      <ElectroCase />
 
       <Steps items={ELEK.steps} title="Как проходит электромонтаж" />
       <RelatedPosts slugs={SECTION_POSTS("elektrika")} />

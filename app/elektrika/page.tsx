@@ -2,13 +2,13 @@ import RelatedPosts, { SECTION_POSTS } from "@/components/RelatedPosts";
 import HeroTitle from "@/components/HeroTitle";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { ELEK, elekGeo, elekObjects, elekServicesByCluster, EP, HP, pickObjects } from "@/lib/content";
+import { ELEK, elekGeo, elekServicesByCluster, EP, HP } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import Reasons from "@/components/Reasons";
-import ObjectGrid from "@/components/ObjectGrid";
+import ElectroCase from "@/components/ElectroCase";
 import Draft from "@/components/Draft";
 import ElectroBrands from "@/components/ElectroBrands";
 import ElectroLead from "@/components/ElectroLead";
@@ -92,14 +92,8 @@ export default function Page() {
         </div>
       </div></section>
 
-      {/* ОБЪЕКТЫ */}
-      {elekObjects.length > 0 && (
-        <section className="py-6"><div className="container-site">
-          <h2 className="mb-2">Дома, где мы считали проводку под электроотопление</h2>
-          <Draft note="свои объекты по электрике с фото и сметой — ждём от клиента"><p className="text-muted max-w-[70ch] mb-8">{ELEK.objectsNote}</p></Draft>
-          <ObjectGrid items={pickObjects(elekObjects, "elektrika")} section="elektrika" />
-        </div></section>
-      )}
+      {/* ОБЪЕКТЫ — только свои по электрике */}
+      <ElectroCase text={ELEK.objectsNote} />
 
       <Reasons items={ELEK.reasons} title="Почему электрику заказывают у Фортес" />
       <ElectroBrands />
