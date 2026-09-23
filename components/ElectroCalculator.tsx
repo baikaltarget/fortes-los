@@ -69,7 +69,7 @@ export default function ElectroCalculator() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr] items-start">
-      <div className="card p-6 md:p-8 shadow-card">
+      <div className="card p-4 md:p-6 shadow-card">
         <div className="flex items-center justify-between text-[13px] text-muted">
           <span>{done ? "Готово" : `Вопрос ${step + 1} из ${steps.length}`}</span>
           {step > 0 && !done && <button type="button" className="underline" onClick={() => setStep(step - 1)}>Назад</button>}
@@ -120,7 +120,7 @@ export default function ElectroCalculator() {
         {done ? (
           <LeadForm source="калькулятор электрики" presetMessage={summary} />
         ) : (
-          <div className="card p-6 md:p-8">
+          <div className="card p-4 md:p-6">
             <h3 className="text-xl">Как считаем</h3>
             <ul className="mt-3 text-[15px] text-ink/80 space-y-2 leading-relaxed">
               <li>Разводка — по точкам: розетка, выключатель, вывод под светильник. В точку входят кабель, гофра или металлорукав, подрозетник, работа.</li>

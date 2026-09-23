@@ -53,7 +53,7 @@ export default function LeadForm({ source = "site", compact = false, presetMessa
 
   if (status === "ok") {
     return (
-      <div className="card p-6 md:p-8 border border-ok/30" role="status">
+      <div className="card p-4 md:p-6 border border-ok/30" role="status">
         <div className="text-2xl font-extrabold tracking-tight">Заявка отправлена</div>
         <p className="mt-2 text-ink/80">Перезвоним в течение 30 минут в рабочее время ({company.hours}). Если срочно — {company.phone}.</p>
       </div>

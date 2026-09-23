@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { meta } from "@/lib/seo";
-import { ELEK, elekObjects, rub, EP } from "@/lib/content";
+import { ELEK, elekObjects, rub, EP, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import FAQ from "@/components/FAQ";
 import Draft from "@/components/Draft";
 import ElectroLead from "@/components/ElectroLead";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 
 export const metadata = meta({
   title: "Цены на электрику в частном доме, Иркутск 2026 — за точку, щит, ввод",
@@ -61,7 +61,7 @@ export default function Page() {
               ))}
             </div>
             <h2 className="mt-12 mb-6">Подробнее — со сметами</h2>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{elekObjects.map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
+            <ObjectGrid items={pickObjects(elekObjects, "elektrika")} section="elektrika" />
           </>
         )}
       </div>

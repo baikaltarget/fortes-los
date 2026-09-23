@@ -33,7 +33,7 @@ export default function Page() {
       </div></section>
       {/* v32: ЖБИ-септик своего производства */}
       <section className="py-6"><div className="container-site">
-        <div className="card p-6 md:p-10 grid gap-6 lg:grid-cols-[1.3fr_1fr] items-center">
+        <div className="card p-4 md:p-7 grid gap-6 lg:grid-cols-[1.3fr_1fr] items-center">
           <div>
             <div className="text-[13px] font-bold text-brand uppercase tracking-wide">Своё производство ЖБИ</div>
             <h2 className="mt-2">Септик из бетонных колец под ключ — от 80 000 ₽</h2>

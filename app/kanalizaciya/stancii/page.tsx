@@ -40,7 +40,7 @@ export default function Page() {
           </div>
         </section>
       ))}
-      <section className="py-6"><div className="container-site card p-6 md:p-8">
+      <section className="py-6"><div className="container-site card p-4 md:p-6">
         <h2 className="text-2xl">Нужно больше: 10–60 пользователей или посёлок</h2>
         <p className="mt-2 text-ink/80 max-w-[70ch]">Kolo Vesi 10, 15, 20, 30, 40, 50, 60 и станции Kolo Ilma на 15–100 м³ в сутки — под запрос. Смотрите <Link href="/kanalizaciya/kanalizaciya-dlya-poselka/" className="text-brand underline">канализацию для посёлка и турбазы</Link>.</p>
       </div></section>

@@ -18,7 +18,7 @@ const config: Config = {
       },
       borderRadius: { card: "20px", btn: "10px" },
       fontFamily: { sans: ["Inter Tight", "Arial", "sans-serif"] },
-      maxWidth: { site: "1200px" },
+      maxWidth: { site: "1400px" }, // v35: было 1200 — поля по краям вдвое меньше
       boxShadow: { card: "0 1px 2px rgba(36,38,47,.04), 0 8px 24px -12px rgba(36,38,47,.12)" },
     },
   },

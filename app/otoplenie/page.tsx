@@ -1,13 +1,14 @@
+import HeroTitle from "@/components/HeroTitle";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { HEAT, heatGeo, heatObjects, heatServicesByCluster, HP } from "@/lib/content";
+import { HEAT, heatGeo, heatObjects, heatServicesByCluster, HP, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import LeadSection from "@/components/LeadSection";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import Reasons from "@/components/Reasons";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 import HeatBrands from "@/components/HeatBrands";
 import HeatLead from "@/components/HeatLead";
 
@@ -22,8 +23,8 @@ export default function Page() {
         <Breadcrumbs items={[{ name: "Отопление", href: HP.hub }]} />
         {/* HERO — та же сетка, что на главной: карточка слева, реальное фото справа */}
         <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">
-          <div className="card p-6 md:p-10 shadow-card flex flex-col">
-            <h1>{H.h1}</h1>
+          <div className="card p-4 md:p-7 shadow-card flex flex-col">
+            <HeroTitle text={H.h1} />
             <p className="mt-4 text-[17px] leading-relaxed text-ink/85 max-w-[58ch]">
               {H.lead}
             </p>
@@ -35,7 +36,7 @@ export default function Page() {
             <p className="mt-4 text-[14px] text-muted">{H.priceNote}</p>
           </div>
           <div className="card p-4 md:p-6 flex flex-col">
-            <img src={H.heroImage} alt={H.heroImageAlt} className="w-full h-auto rounded-card" width="1254" height="1254" fetchPriority="high" />
+            <img src={H.heroImage} alt={H.heroImageAlt} className="w-full h-auto object-cover rounded-card lg:h-0 lg:flex-1 lg:min-h-[320px]" width="1254" height="1254" fetchPriority="high" />
             <div className="grid grid-cols-3 gap-2 mt-2 text-center">
               {H.stats.map(([a, b]) => <div key={a} className="rounded-btn bg-page p-3"><div className="text-2xl font-extrabold tracking-tight">{a}</div><div className="text-[12px] text-muted">{b}</div></div>)}
             </div>
@@ -70,8 +71,8 @@ export default function Page() {
       {/* ОБЪЕКТЫ */}
       <section className="py-6"><div className="container-site">
         <h2 className="mb-2">Объекты с ценами под ключ</h2>
-        <p className="text-muted max-w-[70ch] mb-8">Шесть реальных объектов от бани до коттеджа 450 м² — что сделали, из чего и сколько это стоило. Фото с монтажей.</p>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{heatObjects.map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
+        <p className="text-muted max-w-[70ch] mb-8">Реальные объекты от бани до коммерческого здания 350 м² — что сделали, из чего и сколько это стоило. Фото с монтажей.</p>
+        <ObjectGrid items={pickObjects(heatObjects, "otoplenie")} section="otoplenie" />
       </div></section>
 
       <Reasons items={HEAT.reasons} title="Почему отопление заказывают у Фортес" />

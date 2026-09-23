@@ -1,11 +1,22 @@
-import site from "@/content/site.json";
-import sectionsJson from "@/content/sections.json";
-import otoplenieJson from "@/content/otoplenie.json";
-import burenieJson from "@/content/burenie.json";
-import vodaJson from "@/content/vodosnabzhenie.json";
-import elekJson from "@/content/elektrika.json";
-import ventJson from "@/content/ventilyaciya.json";
-import brandJson from "@/content/brand.json";
+import siteRaw from "@/content/site.json";
+import sectionsRaw from "@/content/sections.json";
+import otoplenieRaw from "@/content/otoplenie.json";
+import burenieRaw from "@/content/burenie.json";
+import vodaRaw from "@/content/vodosnabzhenie.json";
+import elekRaw from "@/content/elektrika.json";
+import ventRaw from "@/content/ventilyaciya.json";
+import brandRaw from "@/content/brand.json";
+import { typo } from "@/lib/typo";
+
+/* v35: весь контент проходит через typo() — неразрывные пробелы в ценах и единицах */
+const site = typo(siteRaw);
+const sectionsJson = typo(sectionsRaw);
+const otoplenieJson = typo(otoplenieRaw);
+const burenieJson = typo(burenieRaw);
+const vodaJson = typo(vodaRaw);
+const elekJson = typo(elekRaw);
+const ventJson = typo(ventRaw);
+const brandJson = typo(brandRaw);
 
 export type Faq = { q: string; a: string };
 export type Variant = { name: string; price: number; note: string };
@@ -22,6 +33,8 @@ export type Service = {
   slug: string; name: string; title: string; description: string; h1: string; lead: string; products: string[]; sections: TextSection[]; faq: Faq[];
   heroImage?: string; heroImageAlt?: string; heroImageFit?: string; chips?: string[]; kessons?: Extra[]; servicePrices?: { name: string; price: string; draft?: boolean }[]; koloIlma?: { priceFrom: number; capacity: string; life: string; service: string };
   productsTitle?: string; productsSub?: string;
+  /** v35: цена «от» в hero и JSON-LD, когда она не выводится из станции (кольца — 80 000, а не 350 000 за Novo Eko 3) */
+  heroPrice?: number;
   /** явные ссылки на объекты со сметой — когда объект не привязан продуктом (например, септик из колец) */
   objectRefs?: string[];
 };
@@ -54,7 +67,7 @@ export const getObject = (slug: string) => objects.find((o) => o.slug === slug);
 
 export const productsByBrand = (brand: string) => products.filter((p) => p.brand === brand);
 
-export const rub = (n: number) => new Intl.NumberFormat("ru-RU").format(n) + " ₽";
+export const rub = (n: number) => new Intl.NumberFormat("ru-RU").format(n).replace(/\s/g, "\u00A0") + "\u00A0₽";
 
 /** Минимальная цена «под ключ» = станция + монтаж */
 export const turnkeyFrom = (p: Product) => p.turnkeyFrom ?? p.price + p.installFrom;
@@ -80,6 +93,9 @@ export const P = {
   geo: (slug: string) => `${SEC}/${slug}/`,    // гео — тот же уровень
   object: (slug: string) => `/obekty/${slug}/`,
   post: (slug: string) => `/blog/${slug}/`,
+  /** v35: цены и калькулятор септиков переехали с корневых /ceny/ и /kalkulyator/ — там теперь общие страницы бренда */
+  ceny: `${SEC}/ceny/`,
+  calc: `${SEC}/kalkulyator/`,
 };
 /** v28: посадочная «Септик под ключ» (бывшая главная); корень `/` теперь главная бренда */
 export const SEPTIK_PATH = `${SEC}/septik-pod-klyuch/`;
@@ -282,3 +298,32 @@ export const brandGeo: BrandGeo[] = heatGeo.map((g) => ({
   slug: g.slug, name: g.name, prep: g.prep, tract: g.tract,
   sections: ["burenie", "vodosnabzhenie", ...(geo.some((k) => k.slug === g.slug) ? ["kanalizaciya"] : []), "otoplenie", "ventilyaciya", "elektrika"],
 }));
+
+/* ======================= v35: ПОДБОР КЕЙСОВ — ВЕЗДЕ РОВНО 4 ======================= */
+/** Раздел объекта: у объектов канализации (site.json) section не задан */
+export const objSection = (o: SiteObject) => o.section || "kanalizaciya";
+/** Куда смотреть за кейсами, если своих не хватает: смежные узлы стройки */
+const NEIGHBOURS: Record<string, string[]> = {
+  kanalizaciya: ["kompleks", "vodosnabzhenie", "burenie", "otoplenie"],
+  vodosnabzhenie: ["burenie", "kompleks", "otoplenie", "kanalizaciya"],
+  burenie: ["vodosnabzhenie", "kompleks", "kanalizaciya", "otoplenie"],
+  otoplenie: ["kompleks", "elektrika", "vodosnabzhenie"],
+  elektrika: ["otoplenie", "kompleks"],
+  ventilyaciya: ["kompleks", "otoplenie"],
+  kompleks: ["otoplenie", "vodosnabzhenie", "burenie", "kanalizaciya", "elektrika"],
+};
+/**
+ * Первыми — явно привязанные (objectRefs, объекты посёлка, модели), затем свои объекты раздела,
+ * затем смежные разделы. Без повторов, ровно n (если объектов на сайте хватает).
+ */
+export function pickObjects(primary: (SiteObject | undefined)[], section: string, n = 4): SiteObject[] {
+  const out: SiteObject[] = [];
+  const add = (o?: SiteObject) => { if (o && out.length < n && !out.some((x) => x.slug === o.slug)) out.push(o); };
+  primary.forEach(add);
+  allObjects.filter((o) => objSection(o) === section).forEach(add);
+  for (const s of NEIGHBOURS[section] || []) allObjects.filter((o) => objSection(o) === s).forEach(add);
+  allObjects.forEach(add);
+  return out;
+}
+/** Якоря секций на /obekty/ */
+export const OBJ_ANCHOR: Record<string, string> = { kanalizaciya: "#kanalizaciya", otoplenie: "#otoplenie", burenie: "#burenie", vodosnabzhenie: "#vodosnabzhenie", elektrika: "#elektrika", kompleks: "#kompleks" };

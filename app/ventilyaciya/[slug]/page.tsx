@@ -1,14 +1,15 @@
+import HeroTitle from "@/components/HeroTitle";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { VENT, ventServices, ventGeo, ventObjects, getVentService, getVentGeo, getAnyObject, ventServicesByCluster, NP, HP, EP } from "@/lib/content";
+import { VENT, ventServices, ventGeo, ventObjects, getVentService, getVentGeo, getAnyObject, ventServicesByCluster, NP, HP, EP, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import ServiceLinks from "@/components/ServiceLinks";
 import GeoLinks from "@/components/GeoLinks";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 import Draft from "@/components/Draft";
 import MdTable from "@/components/MdTable";
 import RichP from "@/components/RichP";
@@ -49,8 +50,8 @@ function ServicePage({ slug }: { slug: string }) {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Вентиляция", href: NP.hub }, { name: s.name, href: NP.page(s.slug) }]} />
         <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-stretch">
-          <div className="card p-6 md:p-10 shadow-card flex flex-col">
-            <h1>{s.h1}</h1>
+          <div className="card p-4 md:p-7 shadow-card flex flex-col">
+            <HeroTitle text={s.h1} />
             <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[58ch]">{s.lead}</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {(s.chips || VENT.hub.chips).map((c) => <span key={c} className="chip">{c}</span>)}
@@ -62,9 +63,9 @@ function ServicePage({ slug }: { slug: string }) {
             </div>
             {s.confirmWithClient && <Draft note={s.confirmWithClient} className="mt-4"><p className="text-[13px] text-muted">Уточнить у клиента: {s.confirmWithClient}</p></Draft>}
           </div>
-          <div className="card p-3 md:p-4 flex">
+          <div className="card p-3 md:p-4 flex flex-col">
             {ownPhoto ? (
-              <img src={s.heroImage} alt={s.heroImageAlt || s.h1} className="w-full h-full rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
+              <img src={s.heroImage} alt={s.heroImageAlt || s.h1} className="w-full h-auto lg:h-0 lg:flex-1 lg:min-h-[320px] rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
             ) : (
               <Draft note={`фото от клиента: ${s.heroImage || "hero-" + s.slug + ".webp"} — пока схема`} className="w-full">
                 <VentScheme highlight={sch.highlight} recuperator={sch.recuperator !== false} title={s.h1} />
@@ -83,8 +84,8 @@ function ServicePage({ slug }: { slug: string }) {
         )}
       </div></section>
 
-      {related.length > 0 && (
-        <section className="py-6"><div className="container-site"><h2 className="mb-2">Объекты, где делали инженерку целиком</h2><Draft note="свои объекты по вентиляции — ждём от клиента"><p className="text-muted mb-6 max-w-[70ch]">{VENT.objectsNote}</p></Draft><div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{related.map((o) => <ObjectCard key={o.slug} o={o} />)}</div></div></section>
+      {(
+        <section className="py-6"><div className="container-site"><h2 className="mb-2">Объекты, где делали инженерку целиком</h2><Draft note="свои объекты по вентиляции — ждём от клиента"><p className="text-muted mb-6 max-w-[70ch]">{VENT.objectsNote}</p></Draft><ObjectGrid items={pickObjects(related, "ventilyaciya")} section="ventilyaciya" /></div></section>
       )}
 
       {s.cluster !== "proekt" && <VentBrands />}
@@ -115,7 +116,7 @@ function GeoPage({ slug }: { slug: string }) {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Вентиляция", href: NP.hub }, { name: g.name, href: NP.geo(g.slug) }]} />
         <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-stretch">
-        <div className="card p-6 md:p-10 shadow-card">
+        <div className="card p-4 md:p-7 shadow-card">
           <h1>Вентиляция в частном доме {g.prep} под ключ</h1>
           <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[62ch]">Считаем воздухообмен по комнатам и делаем вентиляцию домов {g.prep} целиком: вытяжки санузлов, кухни и котельной, приток через клапаны, бризеры или приточно-вытяжную установку с рекуперацией Turkov, воздуховоды в утеплении до потолков, пусконаладка с паспортом. Одна бригада с отоплением и электрикой, цена известна до начала работ.</p>
           <div className="mt-5 flex flex-wrap gap-2">{VENT.hub.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
@@ -144,7 +145,7 @@ function GeoPage({ slug }: { slug: string }) {
         <p>Расчёт воздухообмена по СП 60 для каждого помещения. Вытяжка санузлов, кухни, котельной и постирочной канальными вентиляторами с таймерами и датчиками влажности, утеплённые воздуховоды на чердаке, проход кровли выше конька, обратные клапаны. Приток — клапаны в стенах спален, бризеры с подогревом или приточно-вытяжная установка с рекуперацией Turkov с воздуховодами и шумоглушителями в каждую жилую комнату. Электрика под установку и вентиляторы, автоматика с расписанием. Пусконаладка с замером расходов по каждой решётке, балансировка, паспорт системы и инструкция по замене фильтров.</p>
       </div></section>
 
-      {objs.length > 0 && <section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><div className="grid gap-5 md:grid-cols-2">{objs.map((o) => <ObjectCard key={o.slug} o={o} />)}</div></div></section>}
+      {<section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><ObjectGrid items={pickObjects(objs, "ventilyaciya")} section="ventilyaciya" /></div></section>}
 
       <Steps items={VENT.steps} title="Как проходит монтаж вентиляции" />
       <FAQ items={faq} title={`Вопросы про вентиляцию ${g.prep}`} />

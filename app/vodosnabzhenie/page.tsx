@@ -1,12 +1,13 @@
+import HeroTitle from "@/components/HeroTitle";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { VODA, vodaGeo, vodaObjects, vodaServicesByCluster, VP, BP, P } from "@/lib/content";
+import { VODA, vodaGeo, vodaObjects, vodaServicesByCluster, VP, BP, P, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import Reasons from "@/components/Reasons";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 import WaterBrands from "@/components/WaterBrands";
 import WaterLead from "@/components/WaterLead";
 
@@ -20,8 +21,8 @@ export default function Page() {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Водоснабжение", href: VP.hub }]} />
         <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">
-          <div className="card p-6 md:p-10 shadow-card flex flex-col">
-            <h1>{H.h1}</h1>
+          <div className="card p-4 md:p-7 shadow-card flex flex-col">
+            <HeroTitle text={H.h1} />
             <p className="mt-4 text-[17px] leading-relaxed text-ink/85 max-w-[58ch]">{H.lead}</p>
             <div className="mt-5 flex flex-wrap gap-2">{H.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
             <div className="mt-auto pt-6 flex flex-wrap gap-3 items-center">
@@ -31,7 +32,7 @@ export default function Page() {
             <p className="mt-4 text-[14px] text-muted">{H.priceNote}</p>
           </div>
           <div className="card p-4 md:p-6 flex flex-col">
-            <img src={H.heroImage} alt={H.heroImageAlt} className="w-full h-auto rounded-card" width="1254" height="1254" fetchPriority="high" />
+            <img src={H.heroImage} alt={H.heroImageAlt} className="w-full h-auto object-cover rounded-card lg:h-0 lg:flex-1 lg:min-h-[320px]" width="1254" height="1254" fetchPriority="high" />
             <div className="grid grid-cols-3 gap-2 mt-2 text-center">
               {H.stats.map(([a, b]) => <div key={a} className="rounded-btn bg-page p-3"><div className="text-2xl font-extrabold tracking-tight">{a}</div><div className="text-[12px] text-muted">{b}</div></div>)}
             </div>
@@ -66,8 +67,8 @@ export default function Page() {
       {/* ОБЪЕКТЫ */}
       <section className="py-6"><div className="container-site">
         <h2 className="mb-2">Объекты с водой и канализацией — цены под ключ</h2>
-        <p className="text-muted max-w-[70ch] mb-8">Баня с бойлером и коллектором, дом с рециркуляцией ГВС на два этажа, 183 м трубопроводов на четыре постройки, кессон с вводом за 90 957 ₽ — что сделали и сколько это стоило.</p>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{vodaObjects.map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
+        <p className="text-muted max-w-[70ch] mb-8">Водоочистка с насосной станцией, баня с бойлером и коллектором, 183 м трубопроводов на четыре постройки, дом с гаражом — что сделали и сколько это стоило.</p>
+        <ObjectGrid items={pickObjects(vodaObjects, "vodosnabzhenie")} section="vodosnabzhenie" />
       </div></section>
 
       <Reasons items={VODA.reasons} title="Почему воду и канализацию заказывают у Фортес" />

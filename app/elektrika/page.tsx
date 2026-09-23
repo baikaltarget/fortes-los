@@ -1,12 +1,13 @@
+import HeroTitle from "@/components/HeroTitle";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { ELEK, elekGeo, elekObjects, elekServicesByCluster, EP, HP } from "@/lib/content";
+import { ELEK, elekGeo, elekObjects, elekServicesByCluster, EP, HP, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import Reasons from "@/components/Reasons";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 import Draft from "@/components/Draft";
 import ElectroBrands from "@/components/ElectroBrands";
 import ElectroLead from "@/components/ElectroLead";
@@ -29,8 +30,8 @@ export default function Page() {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Электрика", href: EP.hub }]} />
         <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">
-          <div className="card p-6 md:p-10 shadow-card flex flex-col">
-            <h1>{H.h1}</h1>
+          <div className="card p-4 md:p-7 shadow-card flex flex-col">
+            <HeroTitle text={H.h1} />
             <p className="mt-4 text-[17px] leading-relaxed text-ink/85 max-w-[58ch]">{H.lead}</p>
             <div className="mt-5 flex flex-wrap gap-2">{H.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
             <div className="mt-auto pt-6 flex flex-wrap gap-3 items-center">
@@ -41,7 +42,7 @@ export default function Page() {
           </div>
           <div className="card p-4 md:p-6 flex flex-col">
             {H.heroImage ? (
-              <img src={H.heroImage} alt={H.heroImageAlt || H.h1} className="w-full rounded-card object-cover aspect-square" width="1254" height="1254" fetchPriority="high" />
+              <img src={H.heroImage} alt={H.heroImageAlt || H.h1} className="w-full h-auto object-cover rounded-card lg:h-0 lg:flex-1 lg:min-h-[320px]" width="1254" height="1254" fetchPriority="high" />
             ) : (
               <Draft note={`фото щита/монтажа от клиента (${H.photoWanted}) — пока фирменная схема`}>
                 <ElectroScheme highlight="panel" title="Однолинейная схема щита дома 120 м² с электроотоплением" />
@@ -80,13 +81,13 @@ export default function Page() {
 
       {/* ЭЛЕКТРООТОПЛЕНИЕ — региональная специфика */}
       <section className="py-6"><div className="container-site">
-        <div className="card p-6 md:p-10 grid gap-6 lg:grid-cols-[1.2fr_1fr] items-center">
+        <div className="card p-4 md:p-7 grid gap-6 lg:grid-cols-[1.2fr_1fr] items-center">
           <div>
             <h2>Проводка с расчётом под электроотопление</h2>
             <p className="mt-4 text-ink/85 max-w-[60ch]">В Иркутском районе газа нет, а электричество дешёвое — почти каждый дом греется электрокотлом, тёплыми полами и бойлером. Это 12–15 кВт постоянной нагрузки в −35 °C, а не чайник с телевизором. Поэтому щит собираем на 380 В с разбивкой по фазам, реле напряжения на каждую фазу и контактором на котёл, а линии к котлу, полам и бойлеру ведём отдельно медью 4–6 мм². Автоматы не выбивает, ТЭНы живут.</p>
             <div className="mt-6 flex flex-wrap gap-3"><Link href={EP.page("elektrika-pod-elektrootoplenie")} className="btn-primary">Как считаем нагрузку</Link><Link href={HP.page("ustanovka-elektrokotla")} className="btn-outline">Установка электрокотла</Link></div>
           </div>
-          <ElectroScheme highlight="heating" title="Щит с выделенными линиями под электрокотёл, тёплый пол и бойлер" />
+          <img src="/img/elektrika/hero-podrozetniki.webp" alt="Подрозетники и гофра с кабелем над тёплым полом — линии под электроотопление в частном доме" className="w-full h-auto rounded-card object-cover aspect-[4/3]" width="1254" height="1254" loading="lazy" />
         </div>
       </div></section>
 
@@ -95,7 +96,7 @@ export default function Page() {
         <section className="py-6"><div className="container-site">
           <h2 className="mb-2">Дома, где мы считали проводку под электроотопление</h2>
           <Draft note="свои объекты по электрике с фото и сметой — ждём от клиента"><p className="text-muted max-w-[70ch] mb-8">{ELEK.objectsNote}</p></Draft>
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{elekObjects.map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
+          <ObjectGrid items={pickObjects(elekObjects, "elektrika")} section="elektrika" />
         </div></section>
       )}
 

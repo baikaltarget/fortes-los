@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     u(SEPTIK_PATH, 0.9, "weekly"),
     // канализация
     u(P.hub, 0.9, "weekly"), u(P.stancii, 0.9, "weekly"),
-    u("/ceny/", 0.9, "weekly"), u("/kalkulyator/", 0.8), u("/obekty/", 0.8),
+    u("/ceny/", 0.9, "weekly"), u("/kalkulyator/", 0.8), u("/kanalizaciya/ceny/", 0.9, "weekly"), u("/kanalizaciya/kalkulyator/", 0.8), u("/obekty/", 0.8),
     u("/blog/", 0.6, "weekly"), u("/o-kompanii/", 0.5), u("/kontakty/", 0.6), u("/otzyvy/", 0.5), u("/politika/", 0.1, "yearly"),
     ...sections.filter((s) => !s.live).map((s) => u(`/${s.slug}/`, 0.4)),
     ...brands.map((b) => u(P.page(b.slug), 0.8)),

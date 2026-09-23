@@ -1,10 +1,11 @@
+import HeroTitle from "@/components/HeroTitle";
 import Link from "next/link";
 import { meta } from "@/lib/seo";
-import { SITE, company, topPicks, objects, rub, P, SEPTIK_PATH } from "@/lib/content";
+import { SITE, company, topPicks, objects, rub, P, SEPTIK_PATH, pickObjects } from "@/lib/content";
 import ProductCard from "@/components/ProductCard";
 import Reasons from "@/components/Reasons";
 import Steps from "@/components/Steps";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 import FAQ from "@/components/FAQ";
 import LeadSection from "@/components/LeadSection";
 import RelatedPosts, { RELATED_POSTS } from "@/components/RelatedPosts";
@@ -28,15 +29,15 @@ export default function Page() {
       {/* HERO — как на teplo.fortes-dom.ru: белая карточка слева, визуал справа */}
       <section className="container-site">
         <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">
-          <div className="card p-6 md:p-10 shadow-card">
-            <h1>{SITE.home.h1}</h1>
+          <div className="card p-4 md:p-7 shadow-card">
+            <HeroTitle text={SITE.home.h1} />
             <p className="mt-4 text-[17px] leading-relaxed text-ink/85 max-w-[58ch]">{SITE.home.lead}</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {SITE.home.chips.map((c) => <span key={c} className="chip">{c}</span>)}
             </div>
             <div className="mt-6 flex flex-wrap gap-3 items-center">
               <a href="#lead" className="btn-primary">Записаться на замер</a>
-              <Link href="/kalkulyator/" className="btn-outline">Подобрать станцию</Link>
+              <Link href={P.calc} className="btn-outline">Подобрать станцию</Link>
               <span className="text-[15px] text-muted">Под ключ от {rub(SITE.home.heroPriceFrom)}</span>
             </div>
           </div>
@@ -110,9 +111,7 @@ export default function Page() {
         <div className="container-site">
           <h2 className="mb-2">Объекты со сметой</h2>
           <p className="text-muted max-w-[70ch] mb-8">Реальные цены под ключ — чтобы вы понимали, во сколько обойдётся ваш участок ещё до звонка.</p>
-          <div className="grid gap-5 md:grid-cols-2">
-            {objects.slice(0, 4).map((o) => <ObjectCard key={o.slug} o={o} />)}
-          </div>
+          <ObjectGrid items={pickObjects(objects, "kanalizaciya")} section="kanalizaciya" />
         </div>
       </section>
 

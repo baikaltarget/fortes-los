@@ -1,14 +1,15 @@
+import HeroTitle from "@/components/HeroTitle";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { ELEK, elekServices, elekGeo, elekObjects, getElekService, getElekGeo, getAnyObject, elekServicesByCluster, EP, HP, VP } from "@/lib/content";
+import { ELEK, elekServices, elekGeo, elekObjects, getElekService, getElekGeo, getAnyObject, elekServicesByCluster, EP, HP, VP, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import ServiceLinks from "@/components/ServiceLinks";
 import GeoLinks from "@/components/GeoLinks";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 import Draft from "@/components/Draft";
 import MdTable from "@/components/MdTable";
 import ElectroLead from "@/components/ElectroLead";
@@ -48,8 +49,8 @@ function ServicePage({ slug }: { slug: string }) {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Электрика", href: EP.hub }, { name: s.name, href: EP.page(s.slug) }]} />
         <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-stretch">
-          <div className="card p-6 md:p-10 shadow-card flex flex-col">
-            <h1>{s.h1}</h1>
+          <div className="card p-4 md:p-7 shadow-card flex flex-col">
+            <HeroTitle text={s.h1} />
             <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[58ch]">{s.lead}</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {(s.chips || ELEK.hub.chips).map((c) => <span key={c} className="chip">{c}</span>)}
@@ -61,9 +62,9 @@ function ServicePage({ slug }: { slug: string }) {
             </div>
             {s.confirmWithClient && <Draft note={s.confirmWithClient} className="mt-4"><p className="text-[13px] text-muted">Уточнить у клиента: {s.confirmWithClient}</p></Draft>}
           </div>
-          <div className="card p-3 md:p-4 flex">
+          <div className="card p-3 md:p-4 flex flex-col">
             {s.heroImage ? (
-              <img src={s.heroImage} alt={s.heroImageAlt || s.h1} className="w-full h-full rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
+              <img src={s.heroImage} alt={s.heroImageAlt || s.h1} className="w-full h-auto lg:h-0 lg:flex-1 lg:min-h-[320px] rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
             ) : (
               <Draft note={`фото от клиента: ${s.photoWanted || "hero-" + s.slug + ".webp"} — пока схема`} className="w-full">
                 <ElectroScheme highlight={sch.highlight} groups={sch.groups} avr={sch.avr} phases={sch.phases} title={s.h1} />
@@ -85,8 +86,8 @@ function ServicePage({ slug }: { slug: string }) {
         )}
       </div></section>
 
-      {related.length > 0 && (
-        <section className="py-6"><div className="container-site"><h2 className="mb-2">Дома с электроотоплением, которые мы делали</h2><Draft note="свои объекты по электрике — ждём от клиента"><p className="text-muted mb-6 max-w-[70ch]">Котельные и тёплые полы на этих объектах — наши; под такую нагрузку считаем щит и проводку.</p></Draft><div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{related.map((o) => <ObjectCard key={o.slug} o={o} />)}</div></div></section>
+      {(
+        <section className="py-6"><div className="container-site"><h2 className="mb-2">Дома с электроотоплением, которые мы делали</h2><Draft note="свои объекты по электрике — ждём от клиента"><p className="text-muted mb-6 max-w-[70ch]">Котельные и тёплые полы на этих объектах — наши; под такую нагрузку считаем щит и проводку.</p></Draft><ObjectGrid items={pickObjects(related, "elektrika")} section="elektrika" /></div></section>
       )}
 
       {(s.cluster === "raboty" || s.cluster === "zashchita") && <ElectroBrands />}
@@ -117,7 +118,7 @@ function GeoPage({ slug }: { slug: string }) {
       <JsonLd data={ldService({ name: `Электромонтаж в частном доме ${g.prep}`, description: `Ввод, щит, разводка под электроотопление, заземление, освещение под ключ ${g.prep}`, path: EP.geo(g.slug), area: g.name, priceFrom: 1400 })} />
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Электрика", href: EP.hub }, { name: g.name, href: EP.geo(g.slug) }]} />
-        <div className="card p-6 md:p-10 shadow-card">
+        <div className="card p-4 md:p-7 shadow-card">
           <h1>Электромонтаж в частном доме {g.prep} под ключ</h1>
           <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[62ch]">Делаем электрику домов {g.prep} целиком — от ввода до розеток, а не разовые выезды: ввод от опоры на 15 кВт, щит с реле напряжения, разводку по комнатам с расчётом под электрокотёл и тёплые полы, заземление, освещение в доме и на участке, при желании — резерв от генератора. Одна бригада с отоплением и водой, цена за точку известна до начала работ.</p>
           <div className="mt-5 flex flex-wrap gap-2">{ELEK.hub.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
@@ -140,7 +141,7 @@ function GeoPage({ slug }: { slug: string }) {
         <p>Ввод от опоры сетевой организации: СИП на фасад или трубостойку, либо кабель в земле; щит учёта по техусловиям, помощь с заявкой на 15 кВт. Распределительный щит на 380 В: вводной автомат, УЗИП, реле напряжения на каждую фазу, УЗО и автоматы по группам, контактор на котёл, схема на дверце. Разводка по комнатам кабелем ВВГнг-LS по плану мебели, отдельные линии на котёл, тёплые полы, бойлер, кухню, санузлы, улицу и баню. Контур заземления с протоколом, система уравнивания потенциалов в санузлах. Освещение, розетки и свет на участке. Исполнительная схема, проверка УЗО и реле, гарантия на работы до 5 лет, дом застрахован на сумму договора.</p>
       </div></section>
 
-      {objs.length > 0 && <section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><div className="grid gap-5 md:grid-cols-2">{objs.map((o) => <ObjectCard key={o.slug} o={o} />)}</div></div></section>}
+      {<section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><ObjectGrid items={pickObjects(objs, "elektrika")} section="elektrika" /></div></section>}
 
       <Steps items={ELEK.steps} title="Как проходит электромонтаж" />
       <FAQ items={faq} title={`Вопросы про электрику ${g.prep}`} />

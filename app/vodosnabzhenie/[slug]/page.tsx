@@ -1,14 +1,15 @@
+import HeroTitle from "@/components/HeroTitle";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { VODA, vodaServices, vodaGeo, vodaObjects, getVodaService, getVodaGeo, getAnyObject, vodaServicesByCluster, VP, BP, P } from "@/lib/content";
+import { VODA, vodaServices, vodaGeo, vodaObjects, getVodaService, getVodaGeo, getAnyObject, vodaServicesByCluster, VP, BP, P, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import ServiceLinks from "@/components/ServiceLinks";
 import GeoLinks from "@/components/GeoLinks";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 import Draft from "@/components/Draft";
 import MdTable from "@/components/MdTable";
 import WaterLead from "@/components/WaterLead";
@@ -46,8 +47,8 @@ function ServicePage({ slug }: { slug: string }) {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Водоснабжение", href: VP.hub }, { name: s.name, href: VP.page(s.slug) }]} />
         <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-stretch">
-          <div className="card p-6 md:p-10 shadow-card flex flex-col">
-            <h1>{s.h1}</h1>
+          <div className="card p-4 md:p-7 shadow-card flex flex-col">
+            <HeroTitle text={s.h1} />
             <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[58ch]">{s.lead}</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {(s.chips || VODA.hub.chips).map((c) => <span key={c} className="chip">{c}</span>)}
@@ -58,8 +59,8 @@ function ServicePage({ slug }: { slug: string }) {
               {s.priceFrom && <Draft on={!!s.priceDraft} note="цена — ориентир, уточнить"><span className="text-[15px] text-muted">{s.priceFrom}</span></Draft>}
             </div>
           </div>
-          <div className="card p-3 md:p-4 flex">
-            <img src={s.heroImage} alt={s.heroImageAlt || s.h1} className="w-full h-full rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
+          <div className="card p-3 md:p-4 flex flex-col">
+            <img src={s.heroImage} alt={s.heroImageAlt || s.h1} className="w-full h-auto lg:h-0 lg:flex-1 lg:min-h-[320px] rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
           </div>
         </div>
       </div>
@@ -76,8 +77,8 @@ function ServicePage({ slug }: { slug: string }) {
         )}
       </div></section>
 
-      {related.length > 0 && (
-        <section className="py-6"><div className="container-site"><h2 className="mb-2">Похожие объекты с ценой</h2><p className="text-muted mb-6 max-w-[70ch]">Реальные дома и бани с тем, что вошло в стоимость.</p><div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{related.map((o) => <ObjectCard key={o.slug} o={o} />)}</div></div></section>
+      {(
+        <section className="py-6"><div className="container-site"><h2 className="mb-2">Похожие объекты с ценой</h2><p className="text-muted mb-6 max-w-[70ch]">Реальные дома и бани с тем, что вошло в стоимость.</p><ObjectGrid items={pickObjects(related, "vodosnabzhenie")} section="vodosnabzhenie" /></div></section>
       )}
 
       {(s.cluster === "voda" || s.cluster === "oborud") && <WaterBrands />}
@@ -128,7 +129,7 @@ function GeoPage({ slug }: { slug: string }) {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Водоснабжение", href: VP.hub }, { name: g.name, href: VP.geo(g.slug) }]} />
         <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-stretch">
-        <div className="card p-6 md:p-10 shadow-card">
+        <div className="card p-4 md:p-7 shadow-card">
           <h1>Водоснабжение и канализация дома {g.prep}</h1>
           <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[62ch]">Заводим воду в дом {g.prep}, разводим холодную и горячую по санузлам и кухне, собираем канализацию с фановым стояком и выводим трубу к септику или в сеть. Бойлер, гидроаккумулятор, сантехника — одной бригадой. Цена за точку известна до начала работ.</p>
           <div className="mt-5 flex flex-wrap gap-2">{VODA.hub.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
@@ -144,8 +145,8 @@ function GeoPage({ slug }: { slug: string }) {
           <p className="text-[13px] text-muted mt-3">{VODA.geoNote.text}</p>
         </div>
         {/* v32: фото на гео-страницах — реальные фото объектов раздела, по типу источника воды */}
-        <div className="card p-3 md:p-4 flex">
-          <img src={geoPhoto(g).src} alt={geoPhoto(g).alt} className="w-full h-full rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
+        <div className="card p-3 md:p-4 flex flex-col">
+          <img src={geoPhoto(g).src} alt={geoPhoto(g).alt} className="w-full h-auto lg:h-0 lg:flex-1 lg:min-h-[320px] rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
         </div>
         </div>
       </div>
@@ -157,7 +158,7 @@ function GeoPage({ slug }: { slug: string }) {
         <p>Ввод воды от источника до дома с проходом фундамента и греющим кабелем. Узел ввода: кран, фильтр, редуктор, при сети — счётчик. Коллекторная разводка ХВС и ГВС сшитым полиэтиленом до каждой точки с водорозетками. Внутренняя канализация Ø50/110 с уклонами, ревизиями и фановым стояком, вывод из дома, труба до септика или сети. Опрессовка на 6 бар, проливка канализации, схема и акты. По желанию — бойлер, гидроаккумулятор, сантехника, водоочистка по анализу (анализ в подарок), скважина и септик одним договором. Гарантия на работы 2 года.</p>
       </div></section>
 
-      {objs.length > 0 && <section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><div className="grid gap-5 md:grid-cols-2">{objs.map((o) => <ObjectCard key={o.slug} o={o} />)}</div></div></section>}
+      {<section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><ObjectGrid items={pickObjects(objs, "vodosnabzhenie")} section="vodosnabzhenie" /></div></section>}
 
       <Steps items={VODA.steps} title="Как проходит монтаж" />
       <FAQ items={faq} title={`Вопросы про воду и канализацию ${g.prep}`} />

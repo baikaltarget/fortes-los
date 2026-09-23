@@ -17,7 +17,7 @@ export const metadata = meta({ title: H.title, description: H.description, path:
 const GEO_LINKS: Record<string, string> = { burenie: "Скважина", vodosnabzhenie: "Вода", kanalizaciya: "Септик", otoplenie: "Отопление", ventilyaciya: "Вентиляция", elektrika: "Электрика" };
 
 /**
- * Главная бренда (v28). Все пять направлений живые; посадочная «септик под ключ»
+ * Главная бренда (v28). Все шесть направлений живые; посадочная «септик под ключ»
  * переехала на /kanalizaciya/septik-pod-klyuch/. Контент — content/brand.json.
  */
 export default function Home() {
@@ -31,7 +31,7 @@ export default function Home() {
           <img src={H.heroImageMobile} alt={H.heroImageAlt} className="lg:hidden w-full h-auto" width="1000" height="729" fetchPriority="high" />
           <div className="hidden lg:block absolute inset-0 bg-cover bg-right" style={{ backgroundImage: `url(${H.heroImage})` }} role="img" aria-label={H.heroImageAlt} />
           <div className="hidden lg:block absolute inset-0" style={{ background: "linear-gradient(90deg, #F2F2F2 0%, #F2F2F2 28%, rgba(242,242,242,.93) 48%, rgba(242,242,242,.6) 66%, rgba(242,242,242,0) 80%)" }} aria-hidden />
-          <div className="relative p-6 md:p-10 lg:p-14 lg:min-h-[620px] flex flex-col justify-center lg:max-w-[680px]">
+          <div className="relative p-4 md:p-7 lg:p-10 lg:min-h-[620px] flex flex-col justify-center lg:max-w-[680px]">
             <h1>{H.h1}</h1>
             <p className="mt-4 text-[17px] leading-relaxed text-ink/85 max-w-[52ch]">{H.lead}</p>
             <div className="mt-5 flex flex-wrap gap-2">{H.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>

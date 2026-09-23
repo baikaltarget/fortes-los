@@ -1,14 +1,14 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { meta, ldProduct } from "@/lib/seo";
-import { products, getProduct, getBrand, rub, turnkeyFrom, objects, P } from "@/lib/content";
+import { products, getProduct, getBrand, rub, turnkeyFrom, objects, P, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import StationScheme from "@/components/StationScheme";
 import FAQ from "@/components/FAQ";
 import LeadSection from "@/components/LeadSection";
 import ProductGrid from "@/components/ProductGrid";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 import Draft from "@/components/Draft";
 
 export const dynamicParams = false;
@@ -36,7 +36,7 @@ export default function Page({ params }: { params: { slug: string } }) {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Канализация", href: P.hub }, { name: "Станции", href: P.stancii }, { name: p.name, href: P.product(p.slug) }]} />
         <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
-          <div className="card p-6 md:p-8 shadow-card">
+          <div className="card p-4 md:p-6 shadow-card">
             {p.hit && <span className="inline-block rounded-btn bg-brand text-white text-[13px] font-bold px-3 py-1 mb-4">{p.hitLabel}</span>}
             <h1>{p.name} в Иркутске</h1>
             <p className="mt-4 text-[18px] text-ink/85">{p.summary}</p>
@@ -90,8 +90,8 @@ export default function Page({ params }: { params: { slug: string } }) {
         </aside>
       </div></section>
 
-      {objs.length > 0 && (
-        <section className="py-6"><div className="container-site"><h2 className="mb-6">Объекты с {p.shortName}</h2><div className="grid gap-5 md:grid-cols-2">{objs.map((o) => <ObjectCard key={o.slug} o={o} />)}</div></div></section>
+      {(
+        <section className="py-6"><div className="container-site"><h2 className="mb-6">Объекты со сметой</h2><ObjectGrid items={pickObjects(objs, "kanalizaciya")} section="kanalizaciya" /></div></section>
       )}
       <FAQ items={p.faq} title={`Вопросы про ${p.name}`} />
       <LeadSection source={`станция ${p.name}`} title={`Посчитать ${p.name} под ключ на вашем участке`} />

@@ -58,7 +58,7 @@ export default function DrillingCalculator() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr] items-start">
-      <div className="card p-6 md:p-8 shadow-card">
+      <div className="card p-4 md:p-6 shadow-card">
         <div className="flex items-center justify-between text-[13px] text-muted">
           <span>{done ? "Готово" : `Вопрос ${step + 1} из ${steps.length}`}</span>
           {step > 0 && !done && <button type="button" className="underline" onClick={() => setStep(step - 1)}>Назад</button>}
@@ -108,7 +108,7 @@ export default function DrillingCalculator() {
         {done ? (
           <LeadForm source="калькулятор бурения" presetMessage={summary} />
         ) : (
-          <div className="card p-6 md:p-8">
+          <div className="card p-4 md:p-6">
             <h3 className="text-xl">Как считаем</h3>
             <ul className="mt-3 text-[15px] text-ink/80 space-y-2 leading-relaxed">
               <li>Бурение — по метрам: цена метра зависит от конструкции обсадной колонны, в неё входят труба, фильтр, прокачка и паспорт.</li>

@@ -1,5 +1,5 @@
 {
-  "_readme": "Направления бренда для шапки и подвала. Все пять разделов живые (site.json, otoplenie.json, burenie.json, vodosnabzhenie.json, elektrika.json). Добавить направление = блок здесь + content/<slug>.json + app/<slug>/ + фото. companyLinks — общие ссылки (подвал «Компания», мобильное меню).",
+  "_readme": "Направления бренда для шапки и подвала. Все шесть разделов живые (site.json, otoplenie.json, ventilyaciya.json, burenie.json, vodosnabzhenie.json, elektrika.json). Добавить направление = блок здесь + content/<slug>.json + app/<slug>/ + фото. companyLinks — общие ссылки (подвал «Компания», мобильное меню).",
   "sections": [
     {
       "slug": "kanalizaciya",
@@ -69,7 +69,7 @@
             ],
             [
               "Калькулятор подбора",
-              "/kalkulyator/"
+              "/kanalizaciya/kalkulyator/"
             ]
           ]
         }
@@ -105,11 +105,11 @@
         ],
         [
           "Цены",
-          "/ceny/"
+          "/kanalizaciya/ceny/"
         ],
         [
           "Калькулятор",
-          "/kalkulyator/"
+          "/kanalizaciya/kalkulyator/"
         ],
         [
           "Обслуживание",

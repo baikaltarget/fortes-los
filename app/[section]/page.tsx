@@ -21,7 +21,7 @@ export default function Page({ params }: { params: { section: string } }) {
       <div className="container-site">
         <Breadcrumbs items={[{ name: s.name, href: `/${s.slug}/` }]} />
         <Draft note="визитка направления — заменить полноценным разделом">
-          <div className="card p-6 md:p-10 shadow-card max-w-[860px]">
+          <div className="card p-4 md:p-7 shadow-card max-w-[860px]">
             <h1>{s.h1}</h1>
             <p className="mt-5 text-[18px] leading-relaxed text-ink/85">{s.lead}</p>
             <div className="mt-6 flex flex-wrap gap-2">

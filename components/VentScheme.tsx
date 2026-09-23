@@ -23,55 +23,58 @@ export default function VentScheme({ highlight = "all", title, className = "", r
       <line x1="260" y1="210" x2="260" y2="520" stroke={LINE} strokeWidth="2" strokeDasharray="6 6" />
       <line x1="150" y1="365" x2="150" y2="520" stroke={LINE} strokeWidth="2" strokeDasharray="6 6" />
       <line x1="370" y1="210" x2="370" y2="365" stroke={LINE} strokeWidth="2" strokeDasharray="6 6" />
-      {/* подписи помещений */}
-      <text x="150" y="240" fontSize="12" fill={MUTED} textAnchor="middle">спальня</text>
-      <text x="315" y="240" fontSize="12" fill={MUTED} textAnchor="middle">спальня</text>
-      <text x="425" y="240" fontSize="12" fill={on("bath") ? BRAND : MUTED} textAnchor="middle" fontWeight={on("bath") ? 700 : 400}>санузел</text>
-      <text x="82" y="395" fontSize="12" fill={on("boiler") ? BRAND : MUTED} textAnchor="middle" fontWeight={on("boiler") ? 700 : 400}>котельная</text>
-      <text x="205" y="395" fontSize="12" fill={on("kitchen") ? BRAND : MUTED} textAnchor="middle" fontWeight={on("kitchen") ? 700 : 400}>кухня</text>
-      <text x="370" y="395" fontSize="12" fill={MUTED} textAnchor="middle">гостиная</text>
+      {/* v35: подписи помещений — у пола комнаты, воздуховоды — под потолком и в шахтах у перегородки,
+          поэтому ни одна трасса не проходит по тексту */}
+      <text x="150" y="352" fontSize="12" fill={MUTED} textAnchor="middle">спальня</text>
+      <text x="315" y="352" fontSize="12" fill={MUTED} textAnchor="middle">спальня</text>
+      <text x="425" y="352" fontSize="12" fill={on("bath") ? BRAND : MUTED} textAnchor="middle" fontWeight={on("bath") ? 700 : 400}>санузел</text>
+      <text x="95" y="507" fontSize="12" fill={on("boiler") ? BRAND : MUTED} textAnchor="middle" fontWeight={on("boiler") ? 700 : 400}>котельная</text>
+      <text x="205" y="507" fontSize="12" fill={on("kitchen") ? BRAND : MUTED} textAnchor="middle" fontWeight={on("kitchen") ? 700 : 400}>кухня</text>
+      <text x="370" y="507" fontSize="12" fill={MUTED} textAnchor="middle">гостиная</text>
       {/* чердак: установка */}
       <rect x="196" y="124" width="128" height="64" rx="8" fill={on("unit") ? "#FDECEC" : "#FFFFFF"} stroke={on("unit") ? BRAND : INK} strokeWidth="2" />
       <text x="260" y="148" fontSize="11" fill={on("unit") ? BRAND : INK} textAnchor="middle" fontWeight="700">{recuperator ? "приточно-вытяжная" : "вытяжная"}</text>
       <text x="260" y="163" fontSize="11" fill={on("unit") ? BRAND : INK} textAnchor="middle" fontWeight="700">{recuperator ? "установка Turkov" : "установка"}</text>
       <text x="260" y="178" fontSize="10" fill={MUTED} textAnchor="middle">{recuperator ? "рекуперация до 80%" : "канальные вентиляторы"}</text>
       <text x="260" y="112" fontSize="11" fill={on("attic") ? BRAND : MUTED} textAnchor="middle">чердак</text>
-      {/* забор и выброс на кровле */}
-      <g stroke={sup("unit")} strokeWidth="3" fill="none"><path d="M 196 150 L 150 150 L 120 160" /></g>
-      <circle cx="118" cy="161" r="6" fill="none" stroke={sup("unit")} strokeWidth="2.5" />
-      <text x="112" y="180" fontSize="10" fill={MUTED} textAnchor="end">забор, фильтр F7</text>
-      <g stroke={exh("unit")} strokeWidth="3" fill="none"><path d="M 324 150 L 372 150 L 400 160" /></g>
-      <circle cx="402" cy="161" r="6" fill="none" stroke={exh("unit")} strokeWidth="2.5" />
-      <text x="410" y="180" fontSize="10" fill={MUTED}>выброс</text>
-      {/* приток: в спальни и гостиную */}
-      <g stroke={sup("supply")} strokeWidth="3" fill="none" strokeLinecap="round">
-        <path d="M 230 188 L 230 200 L 150 200 L 150 255" />
-        <path d="M 230 200 L 315 200 L 315 255" />
-        <path d="M 150 200 L 60 200 L 60 350 L 60 372 L 300 372 L 370 372 L 370 410" />
+      {/* забор и выброс на кровле — подписи снаружи, над скатом */}
+      <g stroke={sup("unit")} strokeWidth="3" fill="none"><path d="M 196 146 L 150 146 L 124 158" /></g>
+      <circle cx="118" cy="161" r="6" fill="#fff" stroke={sup("unit")} strokeWidth="2.5" />
+      <text x="108" y="136" fontSize="10" fill={MUTED} textAnchor="end">забор воздуха,</text>
+      <text x="108" y="149" fontSize="10" fill={MUTED} textAnchor="end">фильтр F7</text>
+      <g stroke={exh("unit")} strokeWidth="3" fill="none"><path d="M 324 146 L 370 146 L 396 158" /></g>
+      <circle cx="402" cy="161" r="6" fill="#fff" stroke={exh("unit")} strokeWidth="2.5" />
+      <text x="412" y="142" fontSize="10" fill={MUTED}>выброс</text>
+      {/* приток: спальня слева — с бока установки; вторая спальня и гостиная — через шахту справа от перегородки */}
+      <g stroke={sup("supply")} strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M 196 176 L 150 176 L 150 224" />
+        <path d="M 274 188 L 274 384 L 370 384 L 370 406" />
+        <path d="M 274 196 L 300 196 L 300 224" />
       </g>
-      {[[150, 262], [315, 262], [370, 417]].map(([x, y]) => (
+      {/* вытяжка: санузел — с правого края установки; кухня и котельная — через шахту слева от перегородки */}
+      <g stroke={exh("exhaust")} strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M 318 188 L 318 202 L 425 202 L 425 224" />
+        <path d="M 246 188 L 246 392 L 95 392 L 95 406" />
+        <path d="M 205 392 L 205 406" />
+      </g>
+      {[[150, 224], [300, 224], [370, 406]].map(([x, y]) => (
         <g key={x + "-" + y}>
-          <rect x={x - 16} y={y - 6} width="32" height="10" rx="3" fill={sup("supply")} />
-          {arrow(x, y + 14, 1, sup("supply"))}
-          <text x={x} y={y + 42} fontSize="10" fill={sup("supply")} textAnchor="middle">приток</text>
+          <rect x={x - 16} y={y} width="32" height="9" rx="3" fill={sup("supply")} />
+          {arrow(x, y + 15, 1, sup("supply"))}
+          <text x={x} y={y + 38} fontSize="10" fill={sup("supply")} textAnchor="middle">приток</text>
         </g>
       ))}
-      {/* вытяжка: санузел, кухня, котельная */}
-      <g stroke={exh("exhaust")} strokeWidth="3" fill="none" strokeLinecap="round">
-        <path d="M 290 188 L 290 196 L 425 196 L 425 255" />
-        <path d="M 425 196 L 460 196 L 460 380 L 205 380 L 205 410" />
-        <path d="M 205 380 L 128 380 L 128 410" />
-      </g>
-      {[[425, 262, "bath"], [205, 417, "kitchen"], [128, 417, "boiler"]].map(([x, y, k]) => (
+      {[[425, 224, "bath"], [205, 406, "kitchen"], [95, 406, "boiler"]].map(([x, y, k]) => (
         <g key={String(k)}>
-          <rect x={Number(x) - 16} y={Number(y) - 6} width="32" height="10" rx="3" fill={exh(k as VentHighlight)} />
-          {arrow(Number(x), Number(y) - 14, -1, exh(k as VentHighlight))}
-          <text x={Number(x)} y={Number(y) + 22} fontSize="10" fill={exh(k as VentHighlight)} textAnchor="middle">вытяжка</text>
+          <rect x={Number(x) - 16} y={Number(y)} width="32" height="9" rx="3" fill={exh(k as VentHighlight)} />
+          {arrow(Number(x), Number(y) + 22, -1, exh(k as VentHighlight))}
+          <text x={Number(x)} y={Number(y) + 38} fontSize="10" fill={exh(k as VentHighlight)} textAnchor="middle">вытяжка</text>
         </g>
       ))}
       {/* приточный клапан в стене спальни */}
-      <rect x="36" y="290" width="10" height="26" rx="2" fill={on("valve") ? "#FDECEC" : "#fff"} stroke={on("valve") ? BRAND : INK} strokeWidth="2" />
-      <text x="52" y="310" fontSize="10" fill={on("valve") ? BRAND : MUTED}>клапан / бризер</text>
+      <rect x="36" y="280" width="10" height="26" rx="2" fill={on("valve") ? "#FDECEC" : "#fff"} stroke={on("valve") ? BRAND : INK} strokeWidth="2" />
+      <text x="54" y="292" fontSize="10" fill={on("valve") ? BRAND : MUTED}>клапан /</text>
+      <text x="54" y="305" fontSize="10" fill={on("valve") ? BRAND : MUTED}>бризер</text>
       {/* легенда */}
       <g fontSize="11" fill={INK}>
         <rect x="40" y="540" width="18" height="6" rx="2" fill={SUP} /><text x="64" y="546">приток — свежий, подогретый</text>

@@ -1,12 +1,13 @@
+import HeroTitle from "@/components/HeroTitle";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { VENT, ventGeo, ventObjects, ventServicesByCluster, NP, HP } from "@/lib/content";
+import { VENT, ventGeo, ventObjects, ventServicesByCluster, NP, HP, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import Reasons from "@/components/Reasons";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 import Draft from "@/components/Draft";
 import VentBrands from "@/components/VentBrands";
 import VentLead from "@/components/VentLead";
@@ -29,8 +30,8 @@ export default function Page() {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Вентиляция", href: NP.hub }]} />
         <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">
-          <div className="card p-6 md:p-10 shadow-card flex flex-col">
-            <h1>{H.h1}</h1>
+          <div className="card p-4 md:p-7 shadow-card flex flex-col">
+            <HeroTitle text={H.h1} />
             <p className="mt-4 text-[17px] leading-relaxed text-ink/85 max-w-[58ch]">{H.lead}</p>
             <div className="mt-5 flex flex-wrap gap-2">{H.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
             <div className="mt-auto pt-6 flex flex-wrap gap-3 items-center">
@@ -76,7 +77,7 @@ export default function Page() {
 
       {/* РЕКУПЕРАЦИЯ — почему для Иркутска */}
       <section className="py-6"><div className="container-site">
-        <div className="card p-6 md:p-10 grid gap-6 lg:grid-cols-[1.2fr_1fr] items-center">
+        <div className="card p-4 md:p-7 grid gap-6 lg:grid-cols-[1.2fr_1fr] items-center">
           <div>
             <h2>Рекуперация: зачем она в −35 °C</h2>
             <p className="mt-4 text-ink/85 max-w-[60ch]">Дом 150 м² с нормальным воздухообменом выбрасывает на улицу 300 м³ тёплого воздуха в час. Греть столько же свежего с −35 °C — 3–4 кВт постоянно, а лимит ввода в посёлке 15 кВт и котёл уже занят. Приточно-вытяжная установка с рекуперацией отдаёт тепло вытяжного воздуха приточному: возвращается до 80%, догрев — меньше киловатта, окна и стены сухие, в спальне тихо и свежо. Ставим Turkov — российские установки с защитой от обмерзания, как официальный дилер.</p>
@@ -91,7 +92,7 @@ export default function Page() {
         <section className="py-6"><div className="container-site">
           <h2 className="mb-2">Дома и помещения, где делали инженерку целиком</h2>
           <Draft note="свои объекты по вентиляции с фото и сметой — ждём от клиента"><p className="text-muted max-w-[70ch] mb-8">{VENT.objectsNote}</p></Draft>
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{ventObjects.map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
+          <ObjectGrid items={pickObjects(ventObjects, "ventilyaciya")} section="ventilyaciya" />
         </div></section>
       )}
 

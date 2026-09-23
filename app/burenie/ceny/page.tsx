@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { meta } from "@/lib/seo";
-import { BUR, burObjects, rub, BP } from "@/lib/content";
+import { BUR, burObjects, rub, BP, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import FAQ from "@/components/FAQ";
 import Draft from "@/components/Draft";
 import DrillLead from "@/components/DrillLead";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 
 export const metadata = meta({
   title: "Цены на бурение скважин в Иркутске 2026 — за метр, кессон, насос | Фортес",
@@ -59,7 +59,7 @@ export default function Page() {
         </div>
 
         <h2 className="mt-12 mb-6">Подробнее — со сметами</h2>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{burObjects.map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
+        <ObjectGrid items={pickObjects(burObjects, "burenie")} section="burenie" />
       </div>
       <FAQ items={faq} title="Вопросы про цены" />
       <DrillLead source="цены бурение" />

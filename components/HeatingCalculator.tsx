@@ -72,7 +72,7 @@ export default function HeatingCalculator() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr] items-start">
-      <div className="card p-6 md:p-8 shadow-card">
+      <div className="card p-4 md:p-6 shadow-card">
         <div className="flex items-center justify-between text-[13px] text-muted">
           <span>{done ? "Готово" : `Вопрос ${step + 1} из ${steps.length}`}</span>
           {step > 0 && !done && <button type="button" className="underline" onClick={() => setStep(step - 1)}>Назад</button>}
@@ -121,7 +121,7 @@ export default function HeatingCalculator() {
         {done ? (
           <LeadForm source="калькулятор отопления" presetMessage={summary} />
         ) : (
-          <div className="card p-6 md:p-8">
+          <div className="card p-4 md:p-6">
             <h3 className="text-xl">Как считаем</h3>
             <ul className="mt-3 text-[15px] text-ink/80 space-y-2 leading-relaxed">
               <li>Теплопотери — по площади и материалу стен для расчётной температуры Иркутска −36 °C.</li>

@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { meta } from "@/lib/seo";
-import { VENT, ventObjects, rub, NP } from "@/lib/content";
+import { VENT, ventObjects, rub, NP, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import FAQ from "@/components/FAQ";
 import Draft from "@/components/Draft";
 import VentLead from "@/components/VentLead";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 
 export const metadata = meta({
   title: "Цены на вентиляцию в Иркутске 2026 — дом от 50 000 ₽, бизнес по запросу",
@@ -61,7 +61,7 @@ export default function Page() {
               ))}
             </div>
             <h2 className="mt-12 mb-6">Подробнее — со сметами</h2>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{ventObjects.map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
+            <ObjectGrid items={pickObjects(ventObjects, "ventilyaciya")} section="ventilyaciya" />
           </>
         )}
       </div>

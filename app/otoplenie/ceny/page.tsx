@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { meta } from "@/lib/seo";
-import { HEAT, heatObjects, rub, HP } from "@/lib/content";
+import { HEAT, heatObjects, rub, HP, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import FAQ from "@/components/FAQ";
 import Draft from "@/components/Draft";
 import HeatLead from "@/components/HeatLead";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 
 export const metadata = meta({
   title: "Цены на монтаж отопления в Иркутске 2026 — тёплый пол, котельная, радиаторы",
@@ -59,7 +59,7 @@ export default function Page() {
         </div>
 
         <h2 className="mt-12 mb-6">Подробнее — со сметами и фото</h2>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{heatObjects.slice(0, 3).map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
+        <ObjectGrid items={pickObjects(heatObjects, "otoplenie")} section="otoplenie" />
       </div>
       <FAQ items={faq} title="Вопросы про цены" />
       <HeatLead source="цены отопление" />

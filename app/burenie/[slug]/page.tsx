@@ -1,14 +1,15 @@
+import HeroTitle from "@/components/HeroTitle";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { BUR, burServices, burGeo, burObjects, getBurService, getBurGeo, getAnyObject, burServicesByCluster, BP } from "@/lib/content";
+import { BUR, burServices, burGeo, burObjects, getBurService, getBurGeo, getAnyObject, burServicesByCluster, BP, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import ServiceLinks from "@/components/ServiceLinks";
 import GeoLinks from "@/components/GeoLinks";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 import Draft from "@/components/Draft";
 import MdTable from "@/components/MdTable";
 import DrillLead from "@/components/DrillLead";
@@ -58,8 +59,8 @@ function ServicePage({ slug }: { slug: string }) {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Бурение", href: BP.hub }, { name: s.name, href: BP.page(s.slug) }]} />
         <div className={`grid gap-5 lg:grid-cols-[1.2fr_1fr] ${s.heroImage || scheme ? "items-stretch" : "items-start"}`}>
-          <div className="card p-6 md:p-10 shadow-card flex flex-col">
-            <h1>{s.h1}</h1>
+          <div className="card p-4 md:p-7 shadow-card flex flex-col">
+            <HeroTitle text={s.h1} />
             <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[58ch]">{s.lead}</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {(s.chips || BUR.hub.chips).map((c) => <span key={c} className="chip">{c}</span>)}
@@ -71,8 +72,8 @@ function ServicePage({ slug }: { slug: string }) {
             </div>
           </div>
           {s.heroImage ? (
-            <div className="card p-3 md:p-4 flex">
-              <img src={s.heroImage} alt={s.heroImageAlt || s.h1} className="w-full h-full rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
+            <div className="card p-3 md:p-4 flex flex-col">
+              <img src={s.heroImage} alt={s.heroImageAlt || s.h1} className="w-full h-auto lg:h-0 lg:flex-1 lg:min-h-[320px] rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
             </div>
           ) : scheme ? (
             <div className="card p-4 md:p-6 flex items-center"><WellScheme {...scheme} /></div>
@@ -95,8 +96,8 @@ function ServicePage({ slug }: { slug: string }) {
         </div></section>
       </Draft>
 
-      {related.length > 0 && (
-        <section className="py-6"><div className="container-site"><h2 className="mb-2">Похожие объекты с ценой</h2><p className="text-muted mb-6 max-w-[70ch]">Реальные скважины и обустройство с тем, что вошло в стоимость.</p><div className="grid gap-5 md:grid-cols-2">{related.map((o) => <ObjectCard key={o.slug} o={o} />)}</div></div></section>
+      {(
+        <section className="py-6"><div className="container-site"><h2 className="mb-2">Похожие объекты с ценой</h2><p className="text-muted mb-6 max-w-[70ch]">Реальные скважины и обустройство с тем, что вошло в стоимость.</p><ObjectGrid items={pickObjects(related, "burenie")} section="burenie" /></div></section>
       )}
 
       {(s.cluster === "obustrojstvo" || s.slug === "konstrukciya-skvazhiny") && <DrillBrands />}
@@ -129,7 +130,7 @@ function GeoPage({ slug }: { slug: string }) {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Бурение", href: BP.hub }, { name: g.name, href: BP.geo(g.slug) }]} />
         <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-stretch">
-          <div className="card p-6 md:p-10 shadow-card">
+          <div className="card p-4 md:p-7 shadow-card">
             <h1>Бурение скважин на воду {g.prep}</h1>
             <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[58ch]">Бурим под ключ {g.prep}: вода на {g.depth}, конструкция — {g.construction}. Кессон или адаптер, насос, ввод в дом с греющим кабелем. Цену метра называем до выезда буровой и фиксируем в договоре.</p>
             <div className="mt-5 flex flex-wrap gap-2">{BUR.hub.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
@@ -158,7 +159,7 @@ function GeoPage({ slug }: { slug: string }) {
         <p>Бурение с обсадкой и фильтром, прокачка до чистой воды, замер дебита и уровней, паспорт и акт. Обустройство: кессон или скважинный адаптер, насос по паспорту, гидроаккумулятор и автоматика с защитой от сухого хода, ввод в дом в гильзе с утеплением и греющим кабелем, проход фундамента. Анализ воды после прокачки. Одна бригада, один договор с ценой метра, гарантия на скважину 5 лет.</p>
       </div></section>
 
-      {objs.length > 0 && <section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><div className="grid gap-5 md:grid-cols-2">{objs.map((o) => <ObjectCard key={o.slug} o={o} />)}</div></div></section>}
+      {<section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><ObjectGrid items={pickObjects(objs, "burenie")} section="burenie" /></div></section>}
 
       <Steps items={BUR.steps} title="Как проходит бурение" />
       <FAQ items={faq} title={`Вопросы про скважины ${g.prep}`} />

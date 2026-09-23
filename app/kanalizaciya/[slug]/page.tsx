@@ -1,7 +1,8 @@
+import HeroTitle from "@/components/HeroTitle";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { SITE, brands, services, geo, getBrand, getService, getGeo, productsByBrand, getProduct, rub, objects, turnkeyFrom, topPicks, P } from "@/lib/content";
+import { SITE, brands, services, geo, getBrand, getService, getGeo, productsByBrand, getProduct, rub, objects, turnkeyFrom, topPicks, P, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProductCard from "@/components/ProductCard";
 import ProductGrid from "@/components/ProductGrid";
@@ -12,7 +13,7 @@ import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import ServiceLinks from "@/components/ServiceLinks";
 import GeoLinks from "@/components/GeoLinks";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 import Draft from "@/components/Draft";
 import Calculator from "@/components/Calculator";
 import MdTable from "@/components/MdTable";
@@ -44,7 +45,7 @@ function BrandPage({ slug }: { slug: string }) {
       <JsonLd data={ldService({ name: `${b.name} в Иркутске`, description: b.description, path: P.page(b.slug), priceFrom: list[0] ? turnkeyFrom(list[0]) : undefined })} />
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Канализация", href: P.hub }, { name: "Станции", href: P.stancii }, { name: b.name, href: P.page(b.slug) }]} />
-        <h1>{b.h1}</h1>
+        <HeroTitle text={b.h1} />
         <p className="mt-4 text-[18px] text-ink/85 max-w-[64ch]">{b.intro}</p>
         <ul className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 max-w-[1000px]">
           {b.points.map((t) => <li key={t} className="card px-4 py-3 text-[15px] flex gap-3"><span className="w-2 h-2 mt-2 rounded-sm bg-brand shrink-0" />{t}</li>)}
@@ -66,17 +67,17 @@ function ServicePage({ slug }: { slug: string }) {
   const s = getService(slug)!;
   const svc = s;
   const first = s.products?.[0] ? getProduct(s.products[0]) : undefined;
-  const priceFrom = svc.koloIlma ? undefined : svc.kessons?.[0]?.price ?? (first ? turnkeyFrom(first) : undefined);
+  const priceFrom = svc.heroPrice ?? (svc.koloIlma ? undefined : svc.kessons?.[0]?.price ?? (first ? turnkeyFrom(first) : undefined));
   const refObjects = (s.objectRefs || []).map((slug) => objects.find((o) => o.slug === slug)).filter(Boolean) as typeof objects;
-  const relatedObjects = [...refObjects, ...objects.filter((o) => !!o.product && s.products?.includes(o.product) && !refObjects.some((r) => r.slug === o.slug))].slice(0, 2);
+  const relatedObjects = [...refObjects, ...objects.filter((o) => !!o.product && s.products?.includes(o.product) && !refObjects.some((r) => r.slug === o.slug))]; // v35: добор до 4 — в pickObjects
   return (
     <>
       <JsonLd data={ldService({ name: s.name, description: s.description, path: P.page(s.slug), priceFrom })} />
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Канализация", href: P.hub }, { name: s.name, href: P.page(s.slug) }]} />
         <div className={`grid gap-5 lg:grid-cols-[1.2fr_1fr] ${svc.heroImage ? "items-stretch" : "items-start"}`}>
-          <div className="card p-6 md:p-10 shadow-card flex flex-col">
-            <h1>{s.h1}</h1>
+          <div className="card p-4 md:p-7 shadow-card flex flex-col">
+            <HeroTitle text={s.h1} />
             <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[58ch]">{s.lead}</p>
             {svc.heroImage && (
               <div className="mt-5 flex flex-wrap gap-2">
@@ -85,13 +86,13 @@ function ServicePage({ slug }: { slug: string }) {
             )}
             <div className="mt-auto pt-8 flex flex-wrap gap-3 items-center">
               <a href="#lead" className="btn-primary">Записаться на замер</a>
-              <Link href="/kalkulyator/" className="btn-outline">Подобрать станцию</Link>
+              <Link href={P.calc} className="btn-outline">Подобрать станцию</Link>
               {priceFrom && <span className="text-[15px] text-muted">{svc.kessons || svc.koloIlma ? "от" : "под ключ от"} {rub(priceFrom)}</span>}
             </div>
           </div>
           {svc.heroImage ? (
-            <div className="card p-3 md:p-4 flex">
-              <img src={svc.heroImage} alt={svc.heroImageAlt || s.h1} className={`w-full h-full rounded-card ${svc.heroImageFit === "contain" ? "object-contain bg-page" : "object-cover"}`} width="1254" height="1254" fetchPriority="high" />
+            <div className="card p-3 md:p-4 flex flex-col">
+              <img src={svc.heroImage} alt={svc.heroImageAlt || s.h1} className={`w-full h-auto lg:h-0 lg:flex-1 lg:min-h-[320px] rounded-card ${svc.heroImageFit === "contain" ? "object-contain bg-page" : "object-cover"}`} width="1254" height="1254" fetchPriority="high" />
             </div>
           ) : (
             <div className="grid gap-3">
@@ -126,7 +127,7 @@ function ServicePage({ slug }: { slug: string }) {
       )}
 
       {svc.koloIlma && (
-        <section className="py-12 md:py-16"><div className="container-site card p-6 md:p-8">
+        <section className="py-12 md:py-16"><div className="container-site card p-4 md:p-6">
           <h2>Kolo Ilma 75–500</h2>
           <dl className="mt-4 grid gap-4 sm:grid-cols-4 text-[15px]">
             <div><dt className="text-muted">Цена</dt><dd className="text-xl font-extrabold">по запросу</dd></div>
@@ -158,8 +159,8 @@ function ServicePage({ slug }: { slug: string }) {
         <section className="py-12 md:py-16"><div className="container-site"><h2 className="mb-6">Подберите станцию за минуту</h2><Calculator /></div></section>
       )}
 
-      {relatedObjects.length > 0 && (
-        <section className="py-6"><div className="container-site"><h2 className="mb-6">Похожие объекты со сметой</h2><div className="grid gap-5 md:grid-cols-2">{relatedObjects.map((o) => <ObjectCard key={o.slug} o={o} />)}</div></div></section>
+      {(
+        <section className="py-6"><div className="container-site"><h2 className="mb-6">Похожие объекты со сметой</h2><ObjectGrid items={pickObjects(relatedObjects, "kanalizaciya")} section="kanalizaciya" /></div></section>
       )}
 
       <Steps />
@@ -191,11 +192,11 @@ function GeoPage({ slug }: { slug: string }) {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Канализация", href: P.hub }, { name: g.name, href: P.geo(g.slug) }]} />
         <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-start">
-          <div className="card p-6 md:p-10 shadow-card">
+          <div className="card p-4 md:p-7 shadow-card">
             <h1>Септик под ключ {g.prep}</h1>
             <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[58ch]">Станции биологической очистки Novo Eko, Zörde и Kolo Vesi с монтажом за 1–2 дня. {g.note}</p>
             <div className="mt-5 flex flex-wrap gap-2">{SITE.home.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
-            <div className="mt-8 flex flex-wrap gap-3"><a href="#lead" className="btn-primary">Вызвать инженера {g.prep}</a><Link href="/kalkulyator/" className="btn-outline">Подобрать станцию</Link></div>
+            <div className="mt-8 flex flex-wrap gap-3"><a href="#lead" className="btn-primary">Вызвать инженера {g.prep}</a><Link href={P.calc} className="btn-outline">Подобрать станцию</Link></div>
           </div>
           <div className="card p-6">
             <h2 className="text-xl">Участки {g.prep}</h2>
@@ -218,7 +219,7 @@ function GeoPage({ slug }: { slug: string }) {
         <p>Станции Novo Eko и Kolo Vesi требуют ассенизатора раз в год, Zörde — раз в два года. Для сравнения, выгребная яма {g.prep} — это машина 2–4 раза в месяц и 100–140 тысяч рублей в год. Станция окупается за 3–4 года.</p>
       </div></section>
 
-      {objs.length > 0 && <section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты {g.prep}</h2><div className="grid gap-5 md:grid-cols-2">{objs.map((o) => <ObjectCard key={o.slug} o={o} />)}</div></div></section>}
+      {<section className="py-6"><div className="container-site"><h2 className="mb-6">{objs.length ? `Наши объекты ${g.prep} и рядом` : "Наши объекты в Иркутском районе"}</h2><ObjectGrid items={pickObjects(objs, "kanalizaciya")} section="kanalizaciya" /></div></section>}
 
       <Steps />
       <FAQ items={faq} title={`Вопросы про септики ${g.prep}`} />

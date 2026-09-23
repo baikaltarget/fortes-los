@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { meta } from "@/lib/seo";
-import { VODA, vodaObjects, rub, VP } from "@/lib/content";
+import { VODA, vodaObjects, rub, VP, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import FAQ from "@/components/FAQ";
 import Draft from "@/components/Draft";
 import WaterLead from "@/components/WaterLead";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 
 export const metadata = meta({
   title: "Цены на водоснабжение и канализацию в доме, Иркутск 2026 — за точку и метр",
@@ -60,7 +60,7 @@ export default function Page() {
         </div>
 
         <h2 className="mt-12 mb-6">Подробнее — со сметами</h2>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{vodaObjects.map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
+        <ObjectGrid items={pickObjects(vodaObjects, "vodosnabzhenie")} section="vodosnabzhenie" />
       </div>
       <FAQ items={faq} title="Вопросы про цены" />
       <WaterLead source="цены водоснабжение" />

@@ -7,6 +7,20 @@ export type SchemeHighlight = "panel" | "entry" | "meter" | "ground" | "spd" | "
 
 const DEFAULT_GROUPS = ["Электрокотёл 9 кВт", "Тёплый пол", "Бойлер", "Кухня", "Розетки 1 эт.", "Розетки 2 эт.", "Свет", "Улица, баня"];
 
+/** Перенос подписи группы на 2 строки по словам вместо обрезки «Электрокотёл 9…» */
+function wrap(text: string, max: number): string[] {
+  if (text.length <= max) return [text];
+  const words = text.split(" ");
+  let a = "";
+  let i = 0;
+  while (i < words.length && (a + (a ? " " : "") + words[i]).length <= max) { a += (a ? " " : "") + words[i]; i++; }
+  if (!a) return [text.slice(0, max), text.slice(max)];
+  const rest = words.slice(i).join(" ");
+  // короткий хвост («эт.», «кВт») не переносим отдельно, если строка влезает
+  if (rest.length <= 4 && text.length <= max + 3) return [text];
+  return [a, rest];
+}
+
 export default function ElectroScheme({
   highlight = "panel", groups = DEFAULT_GROUPS, avr = false, phases = 3, title, className = "",
 }: { highlight?: SchemeHighlight; groups?: string[]; avr?: boolean; phases?: 1 | 3; title?: string; className?: string }) {
@@ -18,6 +32,8 @@ export default function ElectroScheme({
   const cols = 4, rows = Math.ceil(g.length / cols);
   const gx0 = 40, gy0 = 380, gw = 88, gh = 64, ggap = 8;
   const busY = 350;
+  const kind = (name: string): SchemeHighlight => (/свет|lamp|подсвет/i.test(name) ? "light" : /котёл|котел|пол|бойлер|обогрев|печь/i.test(name) ? "heating" : "groups");
+  const isOn = (name: string) => highlight === kind(name) || highlight === "groups";
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className={`w-full h-auto ${className}`} role="img" aria-label={title || "Однолинейная схема электрики частного дома"} xmlns="http://www.w3.org/2000/svg" fontFamily="Inter Tight, Arial, sans-serif">
       <rect x="0" y="0" width={W} height={H} rx="16" fill={BG} />
@@ -75,8 +91,8 @@ export default function ElectroScheme({
       ) : (
         <>
           <rect x="268" y="240" width="72" height="44" rx="8" fill="#fff" stroke={INK} strokeWidth="1.8" />
-          <text x="304" y="258" fontSize="11" fill={INK} textAnchor="middle" fontWeight="700">УЗО 30 мА</text>
-          <text x="304" y="273" fontSize="9.5" fill={MUTED} textAnchor="middle">противопожарное</text>
+          <text x="304" y="258" fontSize="11" fill={INK} textAnchor="middle" fontWeight="700">УЗО 300 мА</text>
+          <text x="304" y="273" fontSize="10" fill={MUTED} textAnchor="middle">пожарное</text>
           <rect x="350" y="240" width="74" height="44" rx="8" fill={hotFill("heating")} stroke={hot("heating")} strokeWidth="1.8" />
           <text x="387" y="258" fontSize="11" fill={hot("heating")} textAnchor="middle" fontWeight="700">контактор</text>
           <text x="387" y="273" fontSize="10" fill={MUTED} textAnchor="middle">котёл · Zont</text>
@@ -100,23 +116,31 @@ export default function ElectroScheme({
       })}
       <line x1="98" y1="284" x2="98" y2={busY - 22} stroke={INK} strokeWidth="2" />
 
-      {/* группы */}
+      {/* группы: сначала все отводы от шины (под карточками), потом карточки —
+          иначе отвод во второй ряд перечёркивал подпись карточки первого ряда */}
+      {g.map((name, i) => {
+        const c = i % cols, r = Math.floor(i / cols);
+        const x = gx0 + 16 + c * (gw + ggap), y = gy0 + r * (gh + ggap);
+        const on = isOn(name);
+        return <line key={"f" + i} x1={x + gw / 2} y1={busY - 22 + (phases === 3 ? 18 : 0)} x2={x + gw / 2} y2={y} stroke={on ? BRAND : LINE} strokeWidth="1.5" />;
+      })}
       {g.map((name, i) => {
         const c = i % cols, r = Math.floor(i / cols);
         const x = gx0 + 16 + c * (gw + ggap), y = gy0 + r * (gh + ggap);
         const isLight = /свет|lamp|подсвет/i.test(name);
         const isHeat = /котёл|котел|пол|бойлер|обогрев|печь/i.test(name);
-        const k: SchemeHighlight = isLight ? "light" : isHeat ? "heating" : "groups";
-        const on = highlight === k || highlight === "groups";
+        const on = isOn(name);
+        const lines = wrap(name, 12);
         return (
           <g key={name + i}>
-            <line x1={x + gw / 2} y1={busY - 22 + (phases === 3 ? 18 : 0)} x2={x + gw / 2} y2={y} stroke={on ? BRAND : LINE} strokeWidth="1.5" />
             <rect x={x} y={y} width={gw} height={gh} rx="8" fill={on ? "#FDECEC" : "#fff"} stroke={on ? BRAND : INK} strokeWidth="1.5" />
-            <rect x={x + 8} y={y + 10} width="18" height="16" rx="3" fill="#fff" stroke={on ? BRAND : INK} strokeWidth="1.2" />
-            <text x={x + 17} y={y + 22} fontSize="8" fill={on ? BRAND : INK} textAnchor="middle" fontWeight="700">{isHeat ? "C20" : isLight ? "B10" : "C16"}</text>
-            <rect x={x + 30} y={y + 10} width="24" height="16" rx="3" fill="#fff" stroke={on ? BRAND : INK} strokeWidth="1.2" />
-            <text x={x + 42} y={y + 22} fontSize="8" fill={on ? BRAND : INK} textAnchor="middle" fontWeight="700">УЗО</text>
-            <text x={x + 8} y={y + 48} fontSize="9.5" fill={on ? BRAND : INK} fontWeight="600">{name.length > 15 ? name.slice(0, 14) + "…" : name}</text>
+            <rect x={x + 8} y={y + 8} width="18" height="16" rx="3" fill="#fff" stroke={on ? BRAND : INK} strokeWidth="1.2" />
+            <text x={x + 17} y={y + 20} fontSize="8" fill={on ? BRAND : INK} textAnchor="middle" fontWeight="700">{isHeat ? "C20" : isLight ? "B10" : "C16"}</text>
+            <rect x={x + 30} y={y + 8} width="24" height="16" rx="3" fill="#fff" stroke={on ? BRAND : INK} strokeWidth="1.2" />
+            <text x={x + 42} y={y + 20} fontSize="8" fill={on ? BRAND : INK} textAnchor="middle" fontWeight="700">УЗО</text>
+            {lines.map((t, j) => (
+              <text key={j} x={x + 8} y={y + (lines.length > 1 ? 40 : 46) + j * 12} fontSize="9.5" fill={on ? BRAND : INK} fontWeight="600">{t}</text>
+            ))}
           </g>
         );
       })}

@@ -1,12 +1,13 @@
+import HeroTitle from "@/components/HeroTitle";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { BUR, burGeo, burObjects, burServicesByCluster, BP } from "@/lib/content";
+import { BUR, burGeo, burObjects, burServicesByCluster, BP, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import Reasons from "@/components/Reasons";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 import DrillBrands from "@/components/DrillBrands";
 import DrillLead from "@/components/DrillLead";
 import WellScheme from "@/components/WellScheme";
@@ -22,8 +23,8 @@ export default function Page() {
         <Breadcrumbs items={[{ name: "Бурение", href: BP.hub }]} />
         {/* HERO — карточка слева, разрез реальной скважины из Патронов справа */}
         <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">
-          <div className="card p-6 md:p-10 shadow-card flex flex-col">
-            <h1>{H.h1}</h1>
+          <div className="card p-4 md:p-7 shadow-card flex flex-col">
+            <HeroTitle text={H.h1} />
             <p className="mt-4 text-[17px] leading-relaxed text-ink/85 max-w-[58ch]">{H.lead}</p>
             <div className="mt-5 flex flex-wrap gap-2">{H.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
             <div className="mt-auto pt-6 flex flex-wrap gap-3 items-center">
@@ -34,7 +35,7 @@ export default function Page() {
           </div>
           <div className="card p-4 md:p-6 flex flex-col">
             {H.heroImage ? (
-              <img src={H.heroImage} alt={H.heroImageAlt} className="w-full h-auto rounded-card" width="1254" height="1254" fetchPriority="high" />
+              <img src={H.heroImage} alt={H.heroImageAlt} className="w-full h-auto object-cover rounded-card lg:h-0 lg:flex-1 lg:min-h-[320px]" width="1254" height="1254" fetchPriority="high" />
             ) : (
               <WellScheme depth={52} steel={28} water={19} title="Скважина в Патронах: сталь Ø159 до 28 м, пластик Ø125 до 52 м" />
             )}
@@ -73,7 +74,7 @@ export default function Page() {
       <section className="py-6"><div className="container-site">
         <h2 className="mb-2">Объекты с ценами под ключ</h2>
         <p className="text-muted max-w-[70ch] mb-8">Скважина 52 м с кессоном и разводкой на четыре постройки, обустройство скважины 80 м, бюджетный кессон из колец — что сделали и сколько это стоило.</p>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{burObjects.map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
+        <ObjectGrid items={pickObjects(burObjects, "burenie")} section="burenie" />
       </div></section>
 
       <Reasons items={BUR.reasons} title="Почему скважину заказывают у Фортес" />

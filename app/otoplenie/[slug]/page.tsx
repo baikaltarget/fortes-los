@@ -1,14 +1,15 @@
+import HeroTitle from "@/components/HeroTitle";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { HEAT, heatServices, heatGeo, heatObjects, getHeatService, getHeatGeo, getAnyObject, heatServicesByCluster, HP } from "@/lib/content";
+import { HEAT, heatServices, heatGeo, heatObjects, getHeatService, getHeatGeo, getAnyObject, heatServicesByCluster, HP, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
 import ServiceLinks from "@/components/ServiceLinks";
 import GeoLinks from "@/components/GeoLinks";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 import Draft from "@/components/Draft";
 import MdTable from "@/components/MdTable";
 import HeatLead from "@/components/HeatLead";
@@ -44,7 +45,7 @@ const PROJECT_SHEETS: [string, string][] = [
 function ProjectDownload() {
   return (
     <section className="py-6"><div className="container-site">
-      <div className="card p-6 md:p-10 shadow-card">
+      <div className="card p-4 md:p-7 shadow-card">
         <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:items-center">
           <div>
             <h2>Скачать реальный проект (PDF, 2,3 МБ)</h2>
@@ -82,8 +83,8 @@ function ServicePage({ slug }: { slug: string }) {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Отопление", href: HP.hub }, { name: s.name, href: HP.page(s.slug) }]} />
         <div className={`grid gap-5 lg:grid-cols-[1.2fr_1fr] ${s.heroImage ? "items-stretch" : "items-start"}`}>
-          <div className="card p-6 md:p-10 shadow-card flex flex-col">
-            <h1>{s.h1}</h1>
+          <div className="card p-4 md:p-7 shadow-card flex flex-col">
+            <HeroTitle text={s.h1} />
             <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[58ch]">{s.lead}</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {(s.chips || HEAT.hub.chips).map((c) => <span key={c} className="chip">{c}</span>)}
@@ -95,8 +96,8 @@ function ServicePage({ slug }: { slug: string }) {
             </div>
           </div>
           {s.heroImage ? (
-            <div className="card p-3 md:p-4 flex">
-              <img src={s.heroImage} alt={s.heroImageAlt || s.h1} className="w-full h-full rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
+            <div className="card p-3 md:p-4 flex flex-col">
+              <img src={s.heroImage} alt={s.heroImageAlt || s.h1} className="w-full h-auto lg:h-0 lg:flex-1 lg:min-h-[320px] rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
             </div>
           ) : (
             <div className="grid gap-3">
@@ -114,8 +115,8 @@ function ServicePage({ slug }: { slug: string }) {
 
       {s.slug === "proektirovanie-otopleniya" && <ProjectDownload />}
 
-      {related.length > 0 && (
-        <section className="py-6"><div className="container-site"><h2 className="mb-2">Похожие объекты с ценой</h2><p className="text-muted mb-6 max-w-[70ch]">Реальные дома с фото монтажа и тем, что вошло в стоимость.</p><div className="grid gap-5 md:grid-cols-2">{related.map((o) => <ObjectCard key={o.slug} o={o} />)}</div></div></section>
+      {(
+        <section className="py-6"><div className="container-site"><h2 className="mb-2">Похожие объекты с ценой</h2><p className="text-muted mb-6 max-w-[70ch]">Реальные дома с фото монтажа и тем, что вошло в стоимость.</p><ObjectGrid items={pickObjects(related, "otoplenie")} section="otoplenie" /></div></section>
       )}
 
       {s.cluster === "kotel" && <HeatBrands />}
@@ -145,7 +146,7 @@ function GeoPage({ slug }: { slug: string }) {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Отопление", href: HP.hub }, { name: g.name, href: HP.geo(g.slug) }]} />
         <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr] items-stretch">
-          <div className="card p-6 md:p-10 shadow-card">
+          <div className="card p-4 md:p-7 shadow-card">
             <h1>Монтаж отопления {g.prep}</h1>
             <p className="mt-5 text-[18px] leading-relaxed text-ink/85 max-w-[58ch]">Котельная, водяной тёплый пол, радиаторы под ключ для домов {g.prep}. Подбираем котёл под сети посёлка, проект и смету показываем до договора.</p>
             <div className="mt-5 flex flex-wrap gap-2">{HEAT.hub.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
@@ -170,7 +171,7 @@ function GeoPage({ slug }: { slug: string }) {
         <p>Расчёт теплопотерь по каждой комнате для −36 °C, схема котельной и раскладка тёплого пола — до договора. Котёл с группой безопасности, расширительным баком и насосами, разводка по дому, тёплый пол или радиаторы, опрессовка, заполнение, настройка автоматики. Одна бригада, один договор, смета не растёт в процессе.</p>
       </div></section>
 
-      {objs.length > 0 && <section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><div className="grid gap-5 md:grid-cols-2">{objs.map((o) => <ObjectCard key={o.slug} o={o} />)}</div></div></section>}
+      {<section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><ObjectGrid items={pickObjects(objs, "otoplenie")} section="otoplenie" /></div></section>}
 
       <Steps items={HEAT.steps} title="Как проходит монтаж" />
       <FAQ items={faq} title={`Вопросы про отопление ${g.prep}`} />

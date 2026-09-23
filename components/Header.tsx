@@ -28,7 +28,7 @@ export default function Header({ current }: { current?: string }) {
         <nav className="hidden xl:flex items-center gap-0.5" aria-label="Направления">
           {sections.map((s) => (
             <div key={s.slug} className="group relative">
-              <Link href={`/${s.slug}/`} className={`inline-flex items-center gap-1.5 px-2.5 py-2 rounded-btn text-[14px] font-medium whitespace-nowrap hover:bg-white ${current === s.slug ? "bg-white shadow-sm" : ""}`}>
+              <Link href={`/${s.slug}/`} className={`inline-flex items-center gap-1.5 px-2 2xl:px-2.5 py-2 rounded-btn text-[14px] font-medium whitespace-nowrap hover:bg-white ${current === s.slug ? "bg-white shadow-sm" : ""}`}>
                 {s.name}
                 <span className="w-1.5 h-1.5 border-r border-b border-ink/60 rotate-45 -translate-y-px" aria-hidden />
               </Link>
@@ -56,12 +56,12 @@ export default function Header({ current }: { current?: string }) {
             </div>
           ))}
           <span className="w-px h-6 bg-line mx-1.5" aria-hidden />
-          <Link href="/inzhenernye-seti-pod-klyuch/" className="px-2.5 py-2 rounded-btn text-[14px] font-medium hover:bg-white whitespace-nowrap">Дом целиком</Link>
-          <Link href="/obekty/" className="hidden 2xl:inline-flex px-2.5 py-2 rounded-btn text-[14px] font-medium hover:bg-white">Объекты</Link>
-          <Link href="/kontakty/" className="hidden 2xl:inline-flex px-2.5 py-2 rounded-btn text-[14px] font-medium hover:bg-white">Контакты</Link>
+          <Link href="/inzhenernye-seti-pod-klyuch/" className="px-2 2xl:px-2.5 py-2 rounded-btn text-[14px] font-medium hover:bg-white whitespace-nowrap">Дом целиком</Link>
+          <Link href="/obekty/" className="hidden min-[1440px]:inline-flex px-2 2xl:px-2.5 py-2 rounded-btn text-[14px] font-medium hover:bg-white whitespace-nowrap">Объекты</Link>
+          <Link href="/kontakty/" className="hidden min-[1440px]:inline-flex px-2 2xl:px-2.5 py-2 rounded-btn text-[14px] font-medium hover:bg-white whitespace-nowrap">Контакты</Link>
         </nav>
 
-        <div className="ml-auto flex items-center gap-3">
+        <div className="ml-auto pl-2 flex items-center gap-3 shrink-0">
           <div className="text-right hidden md:block">
             <a href={`tel:${company.phoneRaw}`} className="block text-[17px] font-extrabold tracking-tight leading-tight whitespace-nowrap">{company.phone}</a>
             <span className="block text-[12px] text-muted whitespace-nowrap">{company.hours}</span>

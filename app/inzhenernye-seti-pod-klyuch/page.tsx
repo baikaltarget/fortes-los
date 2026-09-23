@@ -1,11 +1,12 @@
+import HeroTitle from "@/components/HeroTitle";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
-import { BRAND, brandObjects, brandGeo, COMPLEX_PATH } from "@/lib/content";
+import { BRAND, brandObjects, brandGeo, COMPLEX_PATH, pickObjects } from "@/lib/content";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import Draft from "@/components/Draft";
 import RichP from "@/components/RichP";
-import ObjectCard from "@/components/ObjectCard";
+import ObjectGrid from "@/components/ObjectGrid";
 import Reasons from "@/components/Reasons";
 import Steps from "@/components/Steps";
 import FAQ from "@/components/FAQ";
@@ -24,8 +25,8 @@ export default function Page() {
       <div className="container-site">
         <Breadcrumbs items={[{ name: "Инженерные сети под ключ", href: COMPLEX_PATH }]} />
         <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">
-          <div className="card p-6 md:p-10 shadow-card flex flex-col">
-            <h1>{C.h1}</h1>
+          <div className="card p-4 md:p-7 shadow-card flex flex-col">
+            <HeroTitle text={C.h1} />
             <p className="mt-4 text-[17px] leading-relaxed text-ink/85 max-w-[58ch]">{C.lead}</p>
             <div className="mt-5 flex flex-wrap gap-2">{C.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
             <div className="mt-auto pt-6 flex flex-wrap gap-3 items-center">
@@ -48,9 +49,9 @@ export default function Page() {
 
       {/* ЭТАПЫ В ПОРЯДКЕ СТРОЙКИ — это последовательность, поэтому нумерация уместна */}
       <section className="py-12 md:py-16"><div className="container-site">
-        <h2 className="mb-2">Пять систем в порядке стройки</h2>
+        <h2 className="mb-2">{["Ноль", "Одна", "Две", "Три", "Четыре", "Пять", "Шесть", "Семь"][C.stages.length] || C.stages.length} систем в порядке стройки</h2>
         <p className="text-muted max-w-[70ch] mb-8">Каждый этап — отдельная страница с ценами и подробностями. Сроки — для дома 120–150 м² при готовых стенах и кровле.</p>
-        <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+        <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {C.stages.map((s) => (
             <li key={s.n} className="card p-5 flex flex-col">
               <div className="flex items-center justify-between"><span className="w-10 h-10 rounded-btn bg-ink text-white font-extrabold flex items-center justify-center">{s.n}</span><span className="text-[13px] text-muted">{s.time}</span></div>
@@ -65,7 +66,7 @@ export default function Page() {
       {/* ТЕКСТ */}
       <section className="py-6"><div className="container-site grid gap-6">
         {C.sections.map((sec) => (
-          <div key={sec.h2} className="card p-6 md:p-10 prose-site">
+          <div key={sec.h2} className="card p-4 md:p-7 prose-site">
             <h2 className="!mt-0">{sec.h2}</h2>
             {sec.p.map((t, i) => <RichP key={i} text={t} />)}
           </div>
@@ -76,7 +77,7 @@ export default function Page() {
       <section className="py-12 md:py-16"><div className="container-site">
         <h2 className="mb-2">Объекты, где делали несколько систем сразу</h2>
         <p className="text-muted max-w-[70ch] mb-8">Реальные сметы: отопление с водой и канализацией, скважина с разводкой на четыре постройки, баня со всеми сетями.</p>
-        <div className="grid gap-5 md:grid-cols-2">{objects.map((o) => <ObjectCard key={o.slug} o={o} />)}</div>
+        <ObjectGrid items={pickObjects(objects, "kompleks")} section="kompleks" />
       </div></section>
 
       <Reasons items={BRAND.reasons} title="Почему дом целиком заказывают у Фортес" />

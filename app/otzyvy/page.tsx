@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Draft from "@/components/Draft";
 import LeadSection from "@/components/LeadSection";
 
-export const metadata = meta({ title: "Отзывы о Фортес — септики и канализация в Иркутске", description: "Отзывы клиентов Фортес об установке септиков Novo Eko, Zörde, Kolo Vesi в Иркутске и районе. Реальные объекты со сметами.", path: "/otzyvy/" });
+export const metadata = meta({ title: "Отзывы о Фортес — инженерные системы частного дома в Иркутске", description: "Отзывы клиентов Фортес о скважинах, водоснабжении, септиках, отоплении, вентиляции и электрике в Иркутске и районе. Яндекс.Карты, 2ГИС и объекты со сметами.", path: "/otzyvy/" });
 
 export default function Page() {
   return (

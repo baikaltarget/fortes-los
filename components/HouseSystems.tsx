@@ -43,20 +43,23 @@ const ICONS: Record<string, JSX.Element> = {
 
 function Station({ d, i }: { d: BrandDirection; i: number }) {
   return (
-    <li className="relative flex lg:flex-col gap-4 lg:gap-0">
+    <li className="relative flex gap-4 lg:grid lg:grid-rows-subgrid lg:row-span-5 lg:gap-0">
       {/* узел на трубе */}
       <div className="relative z-10 shrink-0 w-14 h-14 rounded-btn bg-white border-2 border-ink text-ink flex items-center justify-center p-3 lg:mx-0">
         {ICONS[d.slug]}
         <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-brand text-white text-[12px] font-extrabold flex items-center justify-center">{i + 1}</span>
       </div>
-      <div className="lg:mt-4 min-w-0 flex-1">
-        <Link href={`/${d.slug}/`} className="block text-[19px] font-bold leading-tight hover:text-brand">{d.name}</Link>
-        <p className="mt-1 text-[14px] text-ink/75 leading-snug lg:min-h-[3.9rem]">{d.what}</p>
-        <Draft on={!!d.priceDraft} note="цена — ориентир" className="mt-3 inline-block">
+      {/* на десктопе обёртка «растворяется» (contents): заголовок, описание, цена и ссылки
+          становятся строками subgrid — у всех шести колонок они стоят на одной линии,
+          сколько бы строк ни занимал текст у соседа */}
+      <div className="min-w-0 flex-1 lg:contents">
+        <Link href={`/${d.slug}/`} className="block text-[19px] font-bold leading-tight hover:text-brand lg:mt-4">{d.name}</Link>
+        <p className="mt-1 text-[14px] text-ink/75 leading-snug">{d.what}</p>
+        <Draft on={!!d.priceDraft} note="цена — ориентир" className="mt-3 self-start">
           <div className="text-[21px] font-extrabold tracking-tight leading-none">{d.priceFrom}</div>
-          <div className="text-[12px] text-muted mt-1 leading-snug lg:min-h-[2.3rem]">{d.priceNote}</div>
+          <div className="text-[12px] text-muted mt-1 leading-snug">{d.priceNote}</div>
         </Draft>
-        <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[14px]">
+        <ul className="mt-3 flex flex-wrap content-start gap-x-3 gap-y-1 text-[14px]">
           {d.links.map(([t, h]) => (
             <li key={h}><Link href={h} className="underline underline-offset-2 decoration-line hover:decoration-brand hover:text-brand">{t}</Link></li>
           ))}
@@ -70,7 +73,7 @@ export default function HouseSystems({ title, text, cta, href }: { title: string
   return (
     <section className="py-12 md:py-16">
       <div className="container-site">
-        <div className="card p-6 md:p-10 shadow-card">
+        <div className="card p-4 md:p-7 shadow-card">
           <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr] lg:items-end mb-10">
             <div>
               <h2>{title}</h2>
@@ -82,7 +85,7 @@ export default function HouseSystems({ title, text, cta, href }: { title: string
             {/* труба: вертикальная на мобильном, горизонтальная на десктопе */}
             <div className="absolute left-[27px] top-2 bottom-8 w-1 bg-brand rounded lg:hidden" aria-hidden />
             <div className="absolute left-7 right-7 top-[26px] h-1 bg-brand rounded hidden lg:block" aria-hidden />
-            <ol className="grid gap-8 lg:grid-cols-6 lg:gap-5">
+            <ol className="grid gap-8 lg:grid-cols-6 lg:gap-x-5 lg:gap-y-0">
               {brandDirections.map((d, i) => <Station key={d.slug} d={d} i={i} />)}
             </ol>
           </div>
