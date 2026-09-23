@@ -1,3 +1,4 @@
+import RelatedPosts, { SECTION_POSTS } from "@/components/RelatedPosts";
 import HeroTitle from "@/components/HeroTitle";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
@@ -93,6 +94,7 @@ export default function Page() {
       </div></section>
 
       <Steps items={HEAT.steps} title="Как проходит монтаж отопления" />
+      <RelatedPosts slugs={SECTION_POSTS("otoplenie")} />
       <FAQ items={HEAT.faq} />
       <HeatLead source="хаб отопление" />
     </>

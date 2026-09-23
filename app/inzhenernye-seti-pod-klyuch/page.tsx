@@ -1,3 +1,4 @@
+import RelatedPosts, { SECTION_POSTS } from "@/components/RelatedPosts";
 import HeroTitle from "@/components/HeroTitle";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
@@ -82,6 +83,7 @@ export default function Page() {
 
       <Reasons items={BRAND.reasons} title="Почему дом целиком заказывают у Фортес" />
       <Steps items={BRAND.steps} title="Как проходит заказ комплекса" />
+      <RelatedPosts slugs={SECTION_POSTS("dom")} />
       <FAQ items={C.faq} />
       <LeadSection source="инженерные сети под ключ" title="Инженер приедет бесплатно и посчитает дом по разделам" text="Один выезд закрывает все направления: смотрим дом, участок, сети посёлка и лимит мощности. Смета — по системам, цену фиксируем в договоре." />
 

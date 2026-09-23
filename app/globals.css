@@ -40,6 +40,12 @@ h3 { @apply font-bold; font-size: 1.25rem; line-height: 1.25; }
 .prose-site table { @apply w-full text-[15px] my-6 border-collapse; }
 .prose-site th, .prose-site td { @apply text-left py-2 pr-4 border-b border-line align-top; }
 .prose-site blockquote { @apply border-l-4 border-brand pl-4 my-6 text-ink/80; }
+/* v37: блог — якоря под липкой шапкой, таблицы со скроллом на телефоне */
+.prose-site h2[id], #faq { scroll-margin-top: 130px; }
+.prose-site .table-wrap { @apply overflow-x-auto my-6 -mx-1 px-1; }
+.prose-site .table-wrap table { @apply my-0 min-w-[520px]; }
+.prose-site th { @apply font-bold text-ink; }
+.prose-site td a { @apply whitespace-nowrap; }
 
 /* компоненты */
 @layer components {

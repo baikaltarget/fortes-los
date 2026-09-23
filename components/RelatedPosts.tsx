@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { getPosts } from "@/lib/blog";
-import { P } from "@/lib/content";
+import { getPosts, postsByCategory, type CategoryKey } from "@/lib/blog";
+import PostCard from "@/components/blog/PostCard";
 
 /** Какие статьи блога показывать на страницах канализации. Ключ — slug услуги/станции/бренда или "home"/"hub". */
 export const RELATED_POSTS: Record<string, string[]> = {
@@ -12,7 +12,7 @@ export const RELATED_POSTS: Record<string, string[]> = {
   "stanciya-biologicheskoj-ochistki": ["kak-rabotaet-stanciya-biologicheskoj-ochistki", "septik-ili-stanciya-biologicheskoj-ochistki", "kak-stanciya-zimuet-v-sibiri"],
   "septik-dlya-dachi": ["nuzhno-li-konservirovat-septik-na-zimu", "kakoj-septik-vybrat-dlya-doma-v-irkutske", "kuda-slivat-vodu-iz-septika"],
   "septik-dlya-bani": ["kuda-slivat-vodu-iz-septika", "nuzhno-li-konservirovat-septik-na-zimu"],
-  "septik-pri-vysokih-gruntovyh-vodah": ["septik-i-gruntovye-vody", "kuda-slivat-vodu-iz-septika", "septik-s-prinuditelnym-sbrosom" ],
+  "septik-pri-vysokih-gruntovyh-vodah": ["septik-i-gruntovye-vody", "kuda-slivat-vodu-iz-septika", "skolko-stoit-septik-pod-klyuch"],
   "septik-dlya-zimy": ["kak-stanciya-zimuet-v-sibiri", "nuzhno-li-konservirovat-septik-na-zimu"],
   "plastikovye-septiki": ["septik-i-gruntovye-vody", "kakoj-septik-vybrat-dlya-doma-v-irkutske"],
   "montazh-septika": ["rasstoyanie-ot-septika-do-doma-i-skvazhiny", "septik-i-gruntovye-vody", "skolko-stoit-septik-pod-klyuch"],
@@ -38,23 +38,21 @@ export const RELATED_POSTS: Record<string, string[]> = {
   stancii: ["novo-eko-ili-evrolos", "novo-eko-ili-topas", "kak-rabotaet-stanciya-biologicheskoj-ochistki"],
 };
 
+/** v37: блоки статей на хабах других разделов — берутся по теме статьи + общая статья «Дом целиком». */
+export const SECTION_POSTS = (cat: CategoryKey, n = 3) =>
+  [...postsByCategory(cat), ...postsByCategory("dom")].slice(0, n).map((p) => p.slug);
+
 export default function RelatedPosts({ slugs, title = "Статьи по теме" }: { slugs?: string[]; title?: string }) {
   if (!slugs || slugs.length === 0) return null;
   const all = getPosts();
   const posts = slugs.map((s) => all.find((p) => p.slug === s)).filter(Boolean) as ReturnType<typeof getPosts>;
   if (posts.length === 0) return null;
   return (
-    <section className="py-8">
+    <section className="py-10 md:py-12">
       <div className="container-site">
-        <h2 className="mb-6">{title}</h2>
-        <div className="grid gap-4 md:grid-cols-3">
-          {posts.map((p) => (
-            <Link key={p.slug} href={P.post(p.slug)} className="card p-5 hover:shadow-card border border-transparent hover:border-line">
-              <div className="font-bold leading-snug">{p.h1}</div>
-              <p className="text-[14px] text-muted mt-2">{p.excerpt}</p>
-              <span className="text-brand text-[14px] font-medium mt-3 inline-block">Читать ›</span>
-            </Link>
-          ))}
+        <div className="flex flex-wrap items-baseline justify-between gap-3 mb-6"><h2>{title}</h2><Link href="/blog/" className="text-brand underline underline-offset-2 text-[15px]">Все статьи</Link></div>
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((p) => <PostCard key={p.slug} p={p} headingLevel={3} />)}
         </div>
       </div>
     </section>

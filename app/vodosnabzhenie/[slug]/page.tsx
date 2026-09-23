@@ -1,3 +1,4 @@
+import RelatedPosts, { SECTION_POSTS } from "@/components/RelatedPosts";
 import HeroTitle from "@/components/HeroTitle";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -83,6 +84,7 @@ function ServicePage({ slug }: { slug: string }) {
 
       {(s.cluster === "voda" || s.cluster === "oborud") && <WaterBrands />}
       <Steps items={VODA.steps} title="Как проходит работа" />
+      <RelatedPosts slugs={SECTION_POSTS("vodosnabzhenie")} />
       <FAQ items={s.faq} />
       <WaterLead source={`водоснабжение: ${s.name}`} />
       <ServiceLinks items={links} href={VP.page} title={cluster ? `${cluster.title}: смежные задачи` : "Смежные задачи"} />
@@ -161,6 +163,7 @@ function GeoPage({ slug }: { slug: string }) {
       {<section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><ObjectGrid items={pickObjects(objs, "vodosnabzhenie")} section="vodosnabzhenie" /></div></section>}
 
       <Steps items={VODA.steps} title="Как проходит монтаж" />
+      <RelatedPosts slugs={SECTION_POSTS("vodosnabzhenie")} />
       <FAQ items={faq} title={`Вопросы про воду и канализацию ${g.prep}`} />
       <WaterLead source={`водоснабжение гео ${g.name}`} title={`Инженер приедет ${g.prep} бесплатно`} />
       <ServiceLinks items={vodaServices.filter((x) => MAIN_CLUSTERS.includes(x.cluster)).slice(0, 9)} href={VP.page} title="Решения под задачу" />

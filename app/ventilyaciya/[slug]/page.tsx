@@ -1,3 +1,4 @@
+import RelatedPosts, { SECTION_POSTS } from "@/components/RelatedPosts";
 import HeroTitle from "@/components/HeroTitle";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -90,6 +91,7 @@ function ServicePage({ slug }: { slug: string }) {
 
       {s.cluster !== "proekt" && <VentBrands />}
       <Steps items={VENT.steps} title="Как проходит работа" />
+      <RelatedPosts slugs={SECTION_POSTS("ventilyaciya")} />
       <FAQ items={s.faq} />
       <VentLead source={`вентиляция: ${s.name}`} />
       <ServiceLinks items={links} href={NP.page} title={cluster ? `${cluster.title}: смежные задачи` : "Смежные задачи"} />
@@ -148,6 +150,7 @@ function GeoPage({ slug }: { slug: string }) {
       {<section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><ObjectGrid items={pickObjects(objs, "ventilyaciya")} section="ventilyaciya" /></div></section>}
 
       <Steps items={VENT.steps} title="Как проходит монтаж вентиляции" />
+      <RelatedPosts slugs={SECTION_POSTS("ventilyaciya")} />
       <FAQ items={faq} title={`Вопросы про вентиляцию ${g.prep}`} />
       <VentLead source={`вентиляция гео ${g.name}`} title={`Инженер приедет ${g.prep} бесплатно`} />
       <ServiceLinks items={ventServices.filter((x) => x.cluster === "dom").slice(0, 9)} href={NP.page} title="Решения под задачу" />

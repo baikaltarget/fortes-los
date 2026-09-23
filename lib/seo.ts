@@ -1,7 +1,23 @@
 import type { Metadata } from "next";
 import { SITE_URL, company, type Faq } from "./content";
 
-export function meta(o: { title: string; description: string; path: string; type?: "website" | "article"; image?: string }): Metadata {
+/** v37: title ≤75 — длинным снимаем хвост «| Фортес» (бренд и так в сниппете). */
+export function clampTitle(s: string) {
+  const t = s.replace(/\s+/g, " ").trim();
+  return t.length > 75 ? t.replace(/\s*\|\s*Фортес$/, "") : t;
+}
+/** v37: description ≤175 — режем по границе предложения, иначе по слову с многоточием. */
+export function clampDescription(s: string, max = 175) {
+  const d = s.replace(/\s+/g, " ").trim();
+  if (d.length <= max) return d;
+  const cut = d.slice(0, max + 1);
+  const end = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf("! "), cut.lastIndexOf("? "));
+  if (end >= 110) return cut.slice(0, end + 1);
+  return cut.slice(0, max - 1).replace(/[\s,;:—–-]+\S*$/, "") + "…";
+}
+
+export function meta(o0: { title: string; description: string; path: string; type?: "website" | "article"; image?: string }): Metadata {
+  const o = { ...o0, title: clampTitle(o0.title), description: clampDescription(o0.description) };
   const url = `${SITE_URL}${o.path}`;
   const img = o.image || "/img/og.jpg";
   return {
@@ -84,15 +100,42 @@ export const ldProduct = (o: { name: string; description: string; path: string; 
   offers: { "@type": "Offer", priceCurrency: "RUB", price: o.price, availability: "https://schema.org/InStock", url: `${SITE_URL}${o.path}`, seller: { "@id": `${SITE_URL}/#business` } },
 });
 
-export const ldArticle = (o: { title: string; description: string; path: string; date: string }) => ({
+export const ldPerson = (o: { name: string; role: string; path: string; bio?: string }) => ({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${SITE_URL}${o.path}#person`,
+  name: o.name,
+  jobTitle: o.role.replace(/ Фортес$/, ""),
+  description: o.bio,
+  url: `${SITE_URL}${o.path}`,
+  worksFor: { "@type": "Organization", name: company.name, url: SITE_URL },
+});
+
+export const ldArticle = (o: { title: string; description: string; path: string; date: string; updated?: string; image?: string; section?: string; words?: number; author?: { name: string; role: string; path: string } }) => ({
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline: o.title,
   description: o.description,
   url: `${SITE_URL}${o.path}`,
+  inLanguage: "ru-RU",
   datePublished: o.date,
-  dateModified: o.date,
-  author: { "@type": "Organization", name: company.name },
+  dateModified: o.updated || o.date,
+  ...(o.image ? { image: { "@type": "ImageObject", url: `${SITE_URL}${o.image}`, width: 1200, height: 630 } } : {}),
+  ...(o.section ? { articleSection: o.section } : {}),
+  ...(o.words ? { wordCount: o.words } : {}),
+  author: o.author
+    ? { "@type": "Person", "@id": `${SITE_URL}${o.author.path}#person`, name: o.author.name, jobTitle: o.author.role.replace(/ Фортес$/, ""), url: `${SITE_URL}${o.author.path}`, worksFor: { "@type": "Organization", name: company.name } }
+    : { "@type": "Organization", name: company.name },
   publisher: { "@type": "Organization", name: company.name, logo: { "@type": "ImageObject", url: `${SITE_URL}/img/logo.webp` } },
   mainEntityOfPage: `${SITE_URL}${o.path}`,
+  about: { "@type": "Place", name: "Иркутск и Иркутский район" },
+});
+
+export const ldBlogList = (o: { name: string; path: string; items: { name: string; path: string }[] }) => ({
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: o.name,
+  url: `${SITE_URL}${o.path}`,
+  inLanguage: "ru-RU",
+  mainEntity: { "@type": "ItemList", itemListElement: o.items.map((it, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE_URL}${it.path}`, name: it.name })) },
 });

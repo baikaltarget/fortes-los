@@ -1,3 +1,4 @@
+import RelatedPosts, { SECTION_POSTS } from "@/components/RelatedPosts";
 import HeroTitle from "@/components/HeroTitle";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
@@ -121,6 +122,7 @@ export default function Page() {
       </div></section>
 
       <Steps items={VENT.steps} title="Как проходит монтаж вентиляции" />
+      <RelatedPosts slugs={SECTION_POSTS("ventilyaciya")} />
       <FAQ items={VENT.faq} />
       <VentLead source="хаб вентиляция" />
     </>

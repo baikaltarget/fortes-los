@@ -1,3 +1,4 @@
+import RelatedPosts, { SECTION_POSTS } from "@/components/RelatedPosts";
 import HeroTitle from "@/components/HeroTitle";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
@@ -95,6 +96,7 @@ export default function Page() {
       </div></section>
 
       <Steps items={BUR.steps} title="Как проходит бурение" />
+      <RelatedPosts slugs={SECTION_POSTS("burenie")} />
       <FAQ items={BUR.faq} />
       <DrillLead source="хаб бурение" />
     </>

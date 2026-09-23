@@ -1,3 +1,4 @@
+import RelatedPosts, { SECTION_POSTS } from "@/components/RelatedPosts";
 import HeroTitle from "@/components/HeroTitle";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -121,6 +122,7 @@ function ServicePage({ slug }: { slug: string }) {
 
       {s.cluster === "kotel" && <HeatBrands />}
       <Steps items={HEAT.steps} title="Как проходит монтаж" />
+      <RelatedPosts slugs={SECTION_POSTS("otoplenie")} />
       <FAQ items={s.faq} />
       <HeatLead source={`отопление: ${s.name}`} />
       <ServiceLinks items={links} href={HP.page} title={cluster ? `${cluster.title}: смежные задачи` : "Смежные задачи"} />
@@ -174,6 +176,7 @@ function GeoPage({ slug }: { slug: string }) {
       {<section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><ObjectGrid items={pickObjects(objs, "otoplenie")} section="otoplenie" /></div></section>}
 
       <Steps items={HEAT.steps} title="Как проходит монтаж" />
+      <RelatedPosts slugs={SECTION_POSTS("otoplenie")} />
       <FAQ items={faq} title={`Вопросы про отопление ${g.prep}`} />
       <HeatLead source={`отопление гео ${g.name}`} title={`Инженер приедет ${g.prep} бесплатно`} />
       <ServiceLinks items={heatServices.filter((x) => ["dom", "pol", "kotel"].includes(x.cluster)).slice(0, 9)} href={HP.page} title="Решения под задачу" />

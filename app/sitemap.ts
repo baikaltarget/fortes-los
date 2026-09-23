@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL, SEPTIK_PATH, COMPLEX_PATH, products, brands, services, geo, objects, sections, P, heatServices, heatGeo, heatObjects, HP, burServices, burGeo, burObjects, BP, elekOwnObjects, vodaOwnObjects, kompleksObjects, vodaServices, vodaGeo, VP, elekServices, elekGeo, EP, ventServices, ventGeo, NP } from "@/lib/content";
-import { getPosts } from "@/lib/blog";
+import { getPosts, pageCount, pagePath, usedCategories, categoryPath, AUTHORS, authorPath } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -19,7 +19,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...services.map((s) => u(P.page(s.slug), 0.8)),
     ...geo.map((g) => u(P.geo(g.slug), 0.7)),
     ...objects.map((o) => u(P.object(o.slug), 0.6)),
-    ...getPosts().map((p) => u(P.post(p.slug), 0.5)),
+    ...getPosts().map((p) => ({ ...u(P.post(p.slug), 0.6), lastModified: new Date(p.updated) })),
+    ...Array.from({ length: Math.max(0, pageCount() - 1) }, (_, i) => u(pagePath(i + 2), 0.3, "weekly")),
+    ...usedCategories().map((c) => u(categoryPath(c), 0.5, "weekly")),
+    ...Object.keys(AUTHORS).map((k) => u(authorPath(k), 0.4)),
     // отопление
     u(HP.hub, 0.9, "weekly"), u(HP.ceny, 0.9, "weekly"), u(HP.calc, 0.8),
     ...heatServices.map((s) => u(HP.page(s.slug), 0.8)),

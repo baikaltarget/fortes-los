@@ -1,3 +1,4 @@
+import RelatedPosts, { SECTION_POSTS } from "@/components/RelatedPosts";
 import HeroTitle from "@/components/HeroTitle";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
@@ -89,6 +90,7 @@ export default function Page() {
       </div></section>
 
       <Steps items={VODA.steps} title="Как проходит монтаж" />
+      <RelatedPosts slugs={SECTION_POSTS("vodosnabzhenie")} />
       <FAQ items={VODA.faq} />
       <WaterLead source="хаб водоснабжение" />
     </>

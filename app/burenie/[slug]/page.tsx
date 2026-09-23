@@ -1,3 +1,4 @@
+import RelatedPosts, { SECTION_POSTS } from "@/components/RelatedPosts";
 import HeroTitle from "@/components/HeroTitle";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -102,6 +103,7 @@ function ServicePage({ slug }: { slug: string }) {
 
       {(s.cluster === "obustrojstvo" || s.slug === "konstrukciya-skvazhiny") && <DrillBrands />}
       <Steps items={BUR.steps} title="Как проходит работа" />
+      <RelatedPosts slugs={SECTION_POSTS("burenie")} />
       <FAQ items={s.faq} />
       <DrillLead source={`бурение: ${s.name}`} />
       <ServiceLinks items={links} href={BP.page} title={cluster ? `${cluster.title}: смежные задачи` : "Смежные задачи"} />
@@ -162,6 +164,7 @@ function GeoPage({ slug }: { slug: string }) {
       {<section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><ObjectGrid items={pickObjects(objs, "burenie")} section="burenie" /></div></section>}
 
       <Steps items={BUR.steps} title="Как проходит бурение" />
+      <RelatedPosts slugs={SECTION_POSTS("burenie")} />
       <FAQ items={faq} title={`Вопросы про скважины ${g.prep}`} />
       <DrillLead source={`бурение гео ${g.name}`} title={`Инженер приедет ${g.prep} бесплатно`} />
       <ServiceLinks items={burServices.filter((x) => ["burenie", "obustrojstvo"].includes(x.cluster)).slice(0, 9)} href={BP.page} title="Решения под задачу" />

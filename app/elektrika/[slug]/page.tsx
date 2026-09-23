@@ -1,3 +1,4 @@
+import RelatedPosts, { SECTION_POSTS } from "@/components/RelatedPosts";
 import HeroTitle from "@/components/HeroTitle";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -92,6 +93,7 @@ function ServicePage({ slug }: { slug: string }) {
 
       {(s.cluster === "raboty" || s.cluster === "zashchita") && <ElectroBrands />}
       <Steps items={ELEK.steps} title="Как проходит работа" />
+      <RelatedPosts slugs={SECTION_POSTS("elektrika")} />
       <FAQ items={s.faq} />
       <ElectroLead source={`электрика: ${s.name}`} />
       <ServiceLinks items={links} href={EP.page} title={cluster ? `${cluster.title}: смежные задачи` : "Смежные задачи"} />
@@ -144,6 +146,7 @@ function GeoPage({ slug }: { slug: string }) {
       {<section className="py-6"><div className="container-site"><h2 className="mb-6">Наши объекты рядом</h2><ObjectGrid items={pickObjects(objs, "elektrika")} section="elektrika" /></div></section>}
 
       <Steps items={ELEK.steps} title="Как проходит электромонтаж" />
+      <RelatedPosts slugs={SECTION_POSTS("elektrika")} />
       <FAQ items={faq} title={`Вопросы про электрику ${g.prep}`} />
       <ElectroLead source={`электрика гео ${g.name}`} title={`Инженер приедет ${g.prep} бесплатно`} />
       <ServiceLinks items={elekServices.filter((x) => MAIN_CLUSTERS.includes(x.cluster)).slice(0, 9)} href={EP.page} title="Решения под задачу" />

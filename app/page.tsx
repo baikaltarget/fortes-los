@@ -2,6 +2,7 @@ import Link from "next/link";
 import { meta } from "@/lib/seo";
 import { BRAND, brandObjects, brandGeo, COMPLEX_PATH } from "@/lib/content";
 import { getPosts } from "@/lib/blog";
+import PostCard from "@/components/blog/PostCard";
 import HouseSystems from "@/components/HouseSystems";
 import ObjectCard from "@/components/ObjectCard";
 import Reasons from "@/components/Reasons";
@@ -95,13 +96,8 @@ export default function Home() {
         <section className="py-12 md:py-16">
           <div className="container-site">
             <div className="flex flex-wrap items-baseline justify-between gap-3 mb-8"><h2>Статьи</h2><Link href="/blog/" className="text-brand underline underline-offset-2 text-[15px]">Все статьи</Link></div>
-            <div className="grid gap-4 md:grid-cols-3">
-              {posts.map((p) => (
-                <Link key={p.slug} href={`/blog/${p.slug}/`} className="card p-5 md:p-6 hover:shadow-card block">
-                  <h3 className="text-[18px]">{p.h1}</h3>
-                  <p className="mt-2 text-[15px] text-ink/75 leading-relaxed">{p.excerpt}</p>
-                </Link>
-              ))}
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {posts.map((p) => <PostCard key={p.slug} p={p} headingLevel={3} />)}
             </div>
           </div>
         </section>

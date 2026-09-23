@@ -1,3 +1,4 @@
+import RelatedPosts, { SECTION_POSTS } from "@/components/RelatedPosts";
 import HeroTitle from "@/components/HeroTitle";
 import Link from "next/link";
 import { meta, ldService } from "@/lib/seo";
@@ -125,6 +126,7 @@ export default function Page() {
       </div></section>
 
       <Steps items={ELEK.steps} title="Как проходит электромонтаж" />
+      <RelatedPosts slugs={SECTION_POSTS("elektrika")} />
       <FAQ items={ELEK.faq} />
       <ElectroLead source="хаб электрика" />
     </>

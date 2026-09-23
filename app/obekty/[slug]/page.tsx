@@ -14,7 +14,8 @@ export function generateStaticParams() { return allObjects.map((o) => ({ slug: o
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const o = getAnyObject(params.slug); if (!o) return {};
   const did = o.system ? `Смонтировали: ${o.system}.` : `Поставили ${o.productName}.`;
-  const title = `${o.title} — ${rub(o.price)} под ключ`;
+  const full = `${o.title} — ${rub(o.price)} под ключ`;
+  const title = full.length > 75 ? `${o.title} — ${rub(o.price)}` : full;
   return meta({ title, description: `${o.type}, ${o.place}. ${did.length > 95 ? did.slice(0, 95).replace(/[\s,;]\S*$/, "") + "…" : did} Итого под ключ ${rub(o.price)}.`, path: `/obekty/${o.slug}/`, type: "article" });
 }
 
