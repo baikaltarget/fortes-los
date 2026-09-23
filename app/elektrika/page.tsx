@@ -43,7 +43,7 @@ export default function Page() {
           </div>
           <div className="card p-4 md:p-6 flex flex-col">
             {H.heroImage ? (
-              <img src={H.heroImage} alt={H.heroImageAlt || H.h1} className="w-full h-auto object-cover rounded-card lg:h-0 lg:flex-1 lg:min-h-[320px]" width="1254" height="1254" fetchPriority="high" />
+              <div className="relative w-full flex-1 lg:min-h-[320px]"><img src={H.heroImage} alt={H.heroImageAlt || H.h1} className="w-full h-auto object-cover rounded-card lg:absolute lg:inset-0 lg:h-full" width="1254" height="1254" fetchPriority="high" /></div>
             ) : (
               <Draft note={`фото щита/монтажа от клиента (${H.photoWanted}) — пока фирменная схема`}>
                 <ElectroScheme highlight="panel" title="Однолинейная схема щита дома 120 м² с электроотоплением" />

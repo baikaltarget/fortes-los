@@ -61,7 +61,7 @@ function ServicePage({ slug }: { slug: string }) {
             </div>
           </div>
           <div className="card p-3 md:p-4 flex flex-col">
-            <img src={s.heroImage} alt={s.heroImageAlt || s.h1} className="w-full h-auto lg:h-0 lg:flex-1 lg:min-h-[320px] rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
+            <div className="relative w-full flex-1 lg:min-h-[320px]"><img src={s.heroImage} alt={s.heroImageAlt || s.h1} className="w-full h-auto rounded-card object-cover lg:absolute lg:inset-0 lg:h-full" width="1254" height="1254" fetchPriority="high" /></div>
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@ function GeoPage({ slug }: { slug: string }) {
         </div>
         {/* v32: фото на гео-страницах — реальные фото объектов раздела, по типу источника воды */}
         <div className="card p-3 md:p-4 flex flex-col">
-          <img src={geoPhoto(g).src} alt={geoPhoto(g).alt} className="w-full h-auto lg:h-0 lg:flex-1 lg:min-h-[320px] rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
+          <div className="relative w-full flex-1 lg:min-h-[320px]"><img src={geoPhoto(g).src} alt={geoPhoto(g).alt} className="w-full h-auto rounded-card object-cover lg:absolute lg:inset-0 lg:h-full" width="1254" height="1254" fetchPriority="high" /></div>
         </div>
         </div>
       </div>

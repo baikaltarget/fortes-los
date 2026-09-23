@@ -92,7 +92,7 @@ function ServicePage({ slug }: { slug: string }) {
           </div>
           {svc.heroImage ? (
             <div className="card p-3 md:p-4 flex flex-col">
-              <img src={svc.heroImage} alt={svc.heroImageAlt || s.h1} className={`w-full h-auto lg:h-0 lg:flex-1 lg:min-h-[320px] rounded-card ${svc.heroImageFit === "contain" ? "object-contain bg-page" : "object-cover"}`} width="1254" height="1254" fetchPriority="high" />
+              <div className="relative w-full flex-1 lg:min-h-[320px]"><img src={svc.heroImage} alt={svc.heroImageAlt || s.h1} className={`w-full h-auto rounded-card lg:absolute lg:inset-0 lg:h-full ${svc.heroImageFit === "contain" ? "object-contain bg-page" : "object-cover"}`} width="1254" height="1254" fetchPriority="high" /></div>
             </div>
           ) : (
             <div className="grid gap-3">

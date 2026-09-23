@@ -37,7 +37,7 @@ export default function Page() {
             <p className="mt-4 text-[14px] text-muted">{H.priceNote}</p>
           </div>
           <div className="card p-4 md:p-6 flex flex-col">
-            <img src={H.heroImage} alt={H.heroImageAlt} className="w-full h-auto object-cover rounded-card lg:h-0 lg:flex-1 lg:min-h-[320px]" width="1254" height="1254" fetchPriority="high" />
+            <div className="relative w-full flex-1 lg:min-h-[320px]"><img src={H.heroImage} alt={H.heroImageAlt} className="w-full h-auto object-cover rounded-card lg:absolute lg:inset-0 lg:h-full" width="1254" height="1254" fetchPriority="high" /></div>
             <div className="grid grid-cols-3 gap-2 mt-2 text-center">
               {H.stats.map(([a, b]) => <div key={a} className="rounded-btn bg-page p-3"><div className="text-2xl font-extrabold tracking-tight">{a}</div><div className="text-[12px] text-muted">{b}</div></div>)}
             </div>

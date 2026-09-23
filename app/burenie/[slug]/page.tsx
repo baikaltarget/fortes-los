@@ -74,7 +74,7 @@ function ServicePage({ slug }: { slug: string }) {
           </div>
           {s.heroImage ? (
             <div className="card p-3 md:p-4 flex flex-col">
-              <img src={s.heroImage} alt={s.heroImageAlt || s.h1} className="w-full h-auto lg:h-0 lg:flex-1 lg:min-h-[320px] rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
+              <div className="relative w-full flex-1 lg:min-h-[320px]"><img src={s.heroImage} alt={s.heroImageAlt || s.h1} className="w-full h-auto rounded-card object-cover lg:absolute lg:inset-0 lg:h-full" width="1254" height="1254" fetchPriority="high" /></div>
             </div>
           ) : scheme ? (
             <div className="card p-4 md:p-6 flex items-center"><WellScheme {...scheme} /></div>
@@ -148,8 +148,8 @@ function GeoPage({ slug }: { slug: string }) {
               <p className="text-[13px] text-muted mt-3">{g.depthNote ? `${g.depthNote}. ` : ""}{g.depthSource === "estimate" ? "Глубина — расчётный ориентир по соседним посёлкам, уточним по карте глубин перед выездом." : "Диапазон — по реальным скважинам в посёлке, точную глубину по вашей улице называем после сверки с картой глубин."}</p>
             </Draft>
           </div>
-          <div className="card overflow-hidden min-h-[320px]">
-            <img src={GEO_HERO} alt={`Буровая установка на участке ${g.prep} — бурение скважины на воду`} className="w-full h-full rounded-card object-cover" width="1254" height="1254" fetchPriority="high" />
+          <div className="card overflow-hidden min-h-[320px] relative">
+            <img src={GEO_HERO} alt={`Буровая установка на участке ${g.prep} — бурение скважины на воду`} className="w-full h-full rounded-card object-cover lg:absolute lg:inset-0" width="1254" height="1254" fetchPriority="high" />
           </div>
         </div>
       </div>
