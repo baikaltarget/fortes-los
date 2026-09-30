@@ -1,47 +1,118 @@
-# Отложенная публикация статей блога.
-# Каждый день в 08:00 по Иркутску (00:00 UTC) проверяет, есть ли в content/blog статья с сегодняшней датой.
-# Если есть — вызывает Deploy Hook Vercel: сайт пересобирается, статья появляется, IndexNow отправляет её в Яндекс.
-# Нужен секрет репозитория VERCEL_DEPLOY_HOOK (Settings → Secrets and variables → Actions).
-name: Публикация статей по расписанию
+# v44: сборка и выкладка сайта на хостинг Бегет (вместо Vercel).
+#
+# Когда запускается:
+#  - после каждого коммита в main (правка текста, цены, новая статья) — сайт обновляется через 3–5 минут;
+#  - каждый день в 08:00 по Иркутску — только если в content/blog есть статья с сегодняшней датой (отложенная публикация);
+#  - вручную: вкладка Actions → «Сборка и выкладка на Бегет» → Run workflow.
+#
+# Нужны секреты репозитория (Settings → Secrets and variables → Actions → Secrets):
+#   FTP_SERVER, FTP_USERNAME, FTP_PASSWORD — доступ FTP из панели Бегета (раздел FTP, папка public_html сайта);
+#   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID — куда слать заявки; по желанию AMO_SUBDOMAIN, AMO_TOKEN, LEAD_EMAIL, TELEGRAM_API.
+# Переменные (там же, вкладка Variables), по желанию:
+#   FORCE_HTTPS = 1 — включить переадресацию на https (только после выпуска SSL в панели Бегета);
+#   INDEXNOW = off — не отправлять адреса в Яндекс.
+name: Сборка и выкладка на Бегет
 
 on:
+  push:
+    branches: [main]
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
-    inputs:
-      force:
-        description: "Пересобрать сайт, даже если сегодня статей нет"
-        type: boolean
-        default: false
+
+concurrency:
+  group: deploy-beget
+  cancel-in-progress: false
 
 jobs:
-  publish:
+  deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NEXT_PUBLIC_SITE_URL: https://fortes-group.ru
+      NEXT_TELEMETRY_DISABLED: "1"
     steps:
       - uses: actions/checkout@v4
 
-      - name: Есть ли статья на сегодня
+      - name: Нужна ли выкладка
         id: check
         run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "go=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
           TODAY=$(TZ=Asia/Irkutsk date +%F)
-          echo "Сегодня по Иркутску: $TODAY"
           FILES=$(grep -lE "^date: \"?$TODAY" content/blog/*.md || true)
           if [ -n "$FILES" ]; then
-            echo "Выходят сегодня:"; echo "$FILES"
-            echo "due=true" >> "$GITHUB_OUTPUT"
+            echo "Сегодня ($TODAY) выходят:"; echo "$FILES"
+            echo "go=true" >> "$GITHUB_OUTPUT"
           else
-            echo "Сегодня статей нет."
-            echo "due=false" >> "$GITHUB_OUTPUT"
+            echo "Сегодня ($TODAY) статей нет — сайт не пересобираю."
+            echo "go=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Пересобрать сайт на Vercel
-        if: steps.check.outputs.due == 'true' || inputs.force == true
+      - name: Проверка секретов
+        if: steps.check.outputs.go == 'true'
         env:
-          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+          S: ${{ secrets.FTP_SERVER }}
+          U: ${{ secrets.FTP_USERNAME }}
+          P: ${{ secrets.FTP_PASSWORD }}
         run: |
-          if [ -z "$HOOK" ]; then
-            echo "::error::Нет секрета VERCEL_DEPLOY_HOOK — добавьте его в Settings → Secrets and variables → Actions"
+          if [ -z "$S" ] || [ -z "$U" ] || [ -z "$P" ]; then
+            echo "::error::Нет секретов FTP_SERVER / FTP_USERNAME / FTP_PASSWORD — добавьте их в Settings → Secrets and variables → Actions"
             exit 1
           fi
-          curl -fsS -X POST "$HOOK"
-          echo "Сборка запущена. Статья появится на сайте через 2–3 минуты."
+          if [ -d app/api ]; then
+            echo "::error::Удалите папку app/api (старый обработчик заявок Vercel) — на Бегете заявки принимает public/api/lead.php"
+            exit 1
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.check.outputs.go == 'true'
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Установка
+        if: steps.check.outputs.go == 'true'
+        run: npm ci --no-audit --no-fund
+
+      - name: Сборка сайта
+        if: steps.check.outputs.go == 'true'
+        env:
+          FORCE_HTTPS: ${{ vars.FORCE_HTTPS }}
+        run: npm run build
+
+      - name: Ключи формы заявок
+        if: steps.check.outputs.go == 'true'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_API: ${{ secrets.TELEGRAM_API }}
+          AMO_SUBDOMAIN: ${{ secrets.AMO_SUBDOMAIN }}
+          AMO_TOKEN: ${{ secrets.AMO_TOKEN }}
+          LEAD_EMAIL: ${{ secrets.LEAD_EMAIL }}
+        run: node scripts/lead-config.mjs
+
+      - name: Загрузка на Бегет
+        if: steps.check.outputs.go == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./out/
+          server-dir: ./
+          timeout: 120000
+
+      - uses: actions/cache@v4
+        if: steps.check.outputs.go == 'true'
+        with:
+          path: .next/cache/indexnow.json
+          key: indexnow-${{ github.run_id }}
+          restore-keys: indexnow-
+
+      - name: IndexNow (отправка новых адресов в Яндекс)
+        if: steps.check.outputs.go == 'true' && vars.INDEXNOW != 'off'
+        env:
+          DEPLOY_ENV: production
+        run: node scripts/indexnow.mjs
