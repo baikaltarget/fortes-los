@@ -2,6 +2,21 @@
 
 Next.js 14 (App Router) + Tailwind, статическая генерация, формы → Telegram и amoCRM. 372 страницы. Домен: `fortes-group.ru`.
 
+## 0. Что изменилось в v44 — переезд с Vercel на хостинг Бегет
+
+**Зачем.** С лета 2026 часть российских провайдеров обрывает соединения с Vercel (`ERR_CONNECTION_RESET`), клиенты не могут открыть сайт. Сайт переезжает на обычный хостинг Бегет в России. Пошагово — **`INSTRUKCIYA-BEGET.md`**.
+
+**Как теперь работает.** Сайт собирается в готовые HTML-файлы (`output: "export"` в `next.config.mjs`, папка `out/`). GitHub Action `.github/workflows/publish-scheduled.yml` («Сборка и выкладка на Бегет») на каждый коммит в `main` собирает сайт и загружает его на Бегет по FTP. Каждый день в 08:00 по Иркутску он же пересобирает сайт, если есть статья с сегодняшней датой (отложенная публикация как в v42, Deploy Hook Vercel больше не нужен). После загрузки — IndexNow (состояние хранится в кэше Actions).
+
+- **Заявки:** `public/api/lead.php` вместо `app/api/lead/route.ts`. Та же логика (honeypot, 11 цифр, ответы `ok`/`fallback`), каналы Telegram, amoCRM и новый — почта (`LEAD_EMAIL`). Заявка считается доставленной, если ушла хотя бы в один канал. Каждая заявка пишется в `leads.log` вне `public_html`. Ключи — секреты GitHub, Action при выкладке кладёт их в `api/lead-config.php` на сервере (в репозитории его нет, из интернета закрыт). `TELEGRAM_API` — адрес ретранслятора на случай, если `api.telegram.org` недоступен с российского сервера.
+- **Редиректы:** список в `next.config.mjs` не менялся и по-прежнему правится там. `scripts/htaccess.mjs` после сборки превращает его в `out/.htaccess` (82 правила, 301), туда же — 404, кэш картинок и шрифтов, переадресация на https и без www (включается переменной `FORCE_HTTPS=1` после выпуска SSL).
+- **Переменные** теперь в GitHub (Settings → Secrets and variables → Actions), а не в Vercel: секреты `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `AMO_SUBDOMAIN`, `AMO_TOKEN`, `LEAD_EMAIL`, `TELEGRAM_API`; переменные `FORCE_HTTPS`, `INDEXNOW`. `NEXT_PUBLIC_SITE_URL` задан в самом workflow.
+- **Смотреть статьи до выхода локально:** `BLOG_SHOW_FUTURE=1 npm run build`, затем открыть папку `out/` любым статическим сервером (`npx serve out`). `npm start` со статической сборкой не работает.
+
+Новые: `INSTRUKCIYA-BEGET.md`, `public/api/lead.php`, `scripts/htaccess.mjs`, `scripts/lead-config.mjs`. Изменённые: `next.config.mjs`, `package.json`, `scripts/indexnow.mjs`, `.github/workflows/publish-scheduled.yml` (заменить содержимое вручную), `README.md`. **Удалить:** `app/api/lead/route.ts` (без этого сборка остановится с понятной ошибкой). `vercel.json` удалить вместе с проектом Vercel через неделю.
+
+Проверка: `lead.php` прогнан локально (доставка в два чата, honeypot, неверный телефон, без ключей → `fallback`, журнал); генератор `.htaccess` проверен на полном списке редиректов. **Полную сборку `next build` в моей среде запустить не удалось** (закрыт доступ к npm) — первая проверка сборки будет в GitHub Actions на шаге 8 инструкции.
+
 ## 0. Что изменилось в v43 — фото автора блога
 
 Фото Егора Зыбарева (от клиента) вместо красного кружка с инициалами: `public/img/blog/avtor/egor-zybarev.webp` (400×400, кроп по лицу), поле `photo` в `AUTHORS` (`lib/blog.ts`). `Avatar` в `components/blog/AuthorBadge.tsx` показывает фото, если оно есть, иначе инициалы — так же можно добавить второго автора. Фото попало в JSON-LD: Person на странице автора и author у каждой статьи (`lib/seo.ts`). Изменённые: `lib/blog.ts`, `lib/seo.ts`, `components/blog/AuthorBadge.tsx`, `app/blog/[slug]/page.tsx`, `app/blog/avtor/[author]/page.tsx`. Новый: `public/img/blog/avtor/egor-zybarev.webp`. Удалить: ничего.

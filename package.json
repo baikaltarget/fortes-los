@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "node scripts/indexnow.mjs",
+    "postbuild": "node scripts/htaccess.mjs",
     "start": "next start"
   },
   "dependencies": {

@@ -1,13 +1,15 @@
 /**
- * v41: IndexNow — после каждой продакшен-сборки на Vercel отправляет адреса из sitemap в Яндекс.
+ * v41: IndexNow — после каждой выкладки сайта отправляет адреса из sitemap в Яндекс.
+ * v44: сайт на Бегете — скрипт запускает GitHub Action после загрузки файлов (DEPLOY_ENV=production),
+ * sitemap берётся из out/sitemap.xml, состояние — .next/cache/indexnow.json (Action хранит его в кэше).
  * Яндекс сам проверяет ключ по файлу public/<KEY>.txt на сайте и ставит страницы в очередь на обход.
  *
  * Что отправляем: новые адреса (которых не было в прошлой отправке) — сразу; весь sitemap — не чаще раза в 7 дней.
  * Состояние хранится в .next/cache/indexnow.json — Vercel сохраняет этот кэш между сборками.
  * Так новые страницы попадают в Яндекс в день публикации, а частые коммиты не шлют одно и то же.
  *
- * Запускается как "postbuild" из package.json. Отправляет только если:
- *  - сборка на Vercel в Production (VERCEL_ENV=production) — превью и локальные сборки молчат;
+ * Отправляет только если:
+ *  - выкладка в продакшен (DEPLOY_ENV=production от GitHub Action или VERCEL_ENV=production) — локальные сборки молчат;
  *  - не выставлена переменная INDEXNOW=off (выключатель на случай, если понадобится).
  * Любая ошибка сети только пишется в лог — сборку не валит.
  */
@@ -19,10 +21,10 @@ const SITE = (process.env.NEXT_PUBLIC_SITE_URL || "https://fortes-group.ru").rep
 const log = (...a) => console.log("[indexnow]", ...a);
 
 async function main() {
-  if (process.env.VERCEL_ENV !== "production") return log("не продакшен — пропускаю");
+  if (process.env.DEPLOY_ENV !== "production" && process.env.VERCEL_ENV !== "production") return log("не продакшен — пропускаю");
   if (process.env.INDEXNOW === "off") return log("INDEXNOW=off — пропускаю");
 
-  const file = path.join(process.cwd(), ".next/server/app/sitemap.xml.body");
+  const file = [path.join(process.cwd(), "out/sitemap.xml"), path.join(process.cwd(), ".next/server/app/sitemap.xml.body")].find((f) => fs.existsSync(f)) || "out/sitemap.xml";
   if (!fs.existsSync(file)) return log("sitemap не найден в сборке:", file);
   const urls = [...fs.readFileSync(file, "utf8").matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]).filter((u) => u.startsWith(SITE));
   if (!urls.length) return log("в sitemap нет адресов", SITE);

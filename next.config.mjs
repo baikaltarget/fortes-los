@@ -84,12 +84,19 @@ const redirects = [
   ...legacy,
 ];
 
+/**
+ * v44: сайт собирается в готовые HTML-файлы (папка out/) и выкладывается на хостинг Бегет.
+ * Редиректы Next.js на обычном хостинге не работают — scripts/htaccess.mjs после сборки
+ * превращает этот же список в out/.htaccess. Новые редиректы добавляйте сюда, как раньше.
+ */
+export { redirects };
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
   reactStrictMode: true,
   trailingSlash: true,
   images: { unoptimized: true },
   poweredByHeader: false,
-  async redirects() { return redirects; },
 };
 export default nextConfig;
