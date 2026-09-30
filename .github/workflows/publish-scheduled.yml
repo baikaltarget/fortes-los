@@ -27,7 +27,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 120
     env:
       NEXT_PUBLIC_SITE_URL: https://fortes-group.ru
       NEXT_TELEMETRY_DISABLED: "1"
